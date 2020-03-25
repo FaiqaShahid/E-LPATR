@@ -1,0 +1,27 @@
+﻿@using E_LPATR.Models
+@model Category
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <div class="panel panel-default text-center" style="padding-top:40px">
+        <div class="panel-body">
+            <h2>Edit Categories</h2>
+            @using (Html.BeginForm("EditCategories", "Admin", "Html.PostForm"))
+            {
+                <h3>Id: @Model.Id</h3>
+                <div class="form-group">
+                    <div class="input-group form-inline">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-adjust"></span>
+                        </span>
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "Enter Category Name " })
+                    </div>
+                </div>
+                <div class="col-md-4"><button type="submit" class="btn btn-success">Edit</button></div>
+            }
+        </div>
+    </div>
+
+

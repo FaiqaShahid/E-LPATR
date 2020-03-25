@@ -1,0 +1,33 @@
+﻿@model E_LPATR.Models.Category
+
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>AddCategory</h2>
+
+@using (Html.BeginForm("AddCat", "Admin", "Html.PostForm"))
+{
+    <div class="form-group">
+        <div class="input-group form-inline">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-adjust"></span>
+            </span>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "Enter Category Name " })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group form-inline">
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-import"></span>
+            </span>
+            @Html.TextBoxFor(m => m.Image, new { @class = "form-control required", placeholder = "Enter Category Image " })
+        </div>
+    </div>
+    <div class="col-md-4"><button type="submit" class="btn btn-success">Add</button></div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

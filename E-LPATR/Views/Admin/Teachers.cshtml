@@ -1,0 +1,78 @@
+﻿@model IEnumerable<E_LPATR.Models.Teacher>
+@{
+    ViewBag.Title = "Teachers";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Teachers</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherRequests.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherRequests.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherRequests.Email)
+        </th>                                  
+        <th>                                   
+            @Html.DisplayNameFor(model => model.TeacherRequests.Country.Name)
+        </th>                                  
+        <th>                                   
+            @Html.DisplayNameFor(model => model.TeacherRequests.Role)
+        </th>                                  
+        <th>                                   
+            @Html.DisplayNameFor(model => model.TeacherRequests.Education)
+        </th>                                  
+        <th>                                   
+            @Html.DisplayNameFor(model => model.TeacherRequests.CV)
+        </th>                                  
+        <th>                                   
+            @Html.DisplayNameFor(model => model.TeacherRequests.JoinedOn)
+        </th> 
+        <th>
+            @Html.DisplayNameFor(model =>model.TeacherRequests.AccountStatus.Name)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherRequests.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherRequests.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherRequests.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeacherRequests.Country.Name)
+            </td>                                 
+            <td>                                  
+                @Html.DisplayFor(modelItem => item.TeacherRequests.Role.Name)
+            </td>                                 
+            <td>                                  
+                @Html.DisplayFor(modelItem => item.TeacherRequests.Education)
+            </td>                                 
+            <td>                                  
+                @Html.DisplayFor(modelItem => item.TeacherRequests.CV)
+            </td>                                 
+            <td>                                  
+                @Html.DisplayFor(modelItem => item.TeacherRequests.JoinedOn)
+            </td>                                 
+            <td>                                  
+                @Html.DisplayFor(modelItem => item.TeacherRequests.AccountStatus.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "DetailedTeacher", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteTeacher", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

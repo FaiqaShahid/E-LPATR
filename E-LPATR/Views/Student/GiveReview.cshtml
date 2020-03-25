@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "GiveReview";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div class="container" style="margin-top:80px">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <ol class="breadcrumb">
+                <li><a href="~/Student/Home">Home</a></li>
+                <li><a href="~/Student/OrderPage">Delievered Notes</a></li>
+                <li class="active">Give Review</li>
+            </ol>
+            <h3 class="text-center"><b>Give Reviews</b></h3>
+            <h4>Teacher Communication and Would Recommend</h4>
+            <fieldset class="rating" style="padding-left:100px">
+                <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
+                <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
+                <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3" title="Meh - 3 stars"></label>
+                <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+                <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half" title="Meh - 1.5 stars"></label>
+                <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
+            </fieldset>
+
+            <br />
+            <br />
+            <form role="form">
+                <div class="form-group">
+                    <label class="control-label" for="Describtion">Tell us about teacher</label>
+                    <br />
+                    <br />
+                    <textarea class="form-control" rows="5" id="Describtion" required placeholder="Describtion" style="max-width:1200px"></textarea>
+                </div>
+                <a href="~/Student/Home" class="btn btn-success">Submit</a>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,90 @@
+﻿@model E_LPATR.Models.Teacher
+
+@{
+    ViewBag.Title = "DetailedUser";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>DetailedUser</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.FirstName)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.LastName)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.Email)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.JoinedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.JoinedOn)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.Country.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.Country.Name)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.Role)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.AccountStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.AccountStatus)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.CV)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.CV)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.TeacherRequests.Education)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TeacherRequests.Education)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,98 @@
+﻿@using E_LPATR.Models
+@model List<Category>
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<img src="~/Images/Cover2.jpg" alt="Alternate Text" style="width:100%;height:400px;" />
+<div class="container-fluid" style="margin:0px">
+    <h1 class="text-center heading" style="margin-top:50px"><b>Subjects</b></h1>
+    <div class="container" style="margin-top:50px">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src=@item.Image alt="Music" class="img-responsive" style="width:300px;height:200px" />@item.Name</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @*<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/music.jpg" alt="Music" class="img-responsive" style="width:300px;height:200px" />Music</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/programming.jpg" alt="Programming" class="img-responsive" style="width:300px;height:200px">Programming</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/Education.jpg" alt="Education" class="img-responsive" style="width:300px;height:200px">Education</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/Graphic Designing.jpg" alt="Graphic Designing" class="img-responsive" style="width:300px;height:200px">Graphic Designing</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/Sales and marketing.jpg" alt="Sales and Marketing" class="img-responsive" style="width:300px;height:200px">Sales and Marketing</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/Writing.jpg" alt="Writing" class="img-responsive" style="width:300px;height:200px" />Writing</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/Data Science and analysis.jpg" alt="Data Science and analysis" class="img-responsive" style="width:300px;height:200px" />Data Science and Analysis</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center" style="font-size:18px">
+                        <a href="~/Student/SearchedGigs"><img src="~/Images/Architecture.jpg" alt="Architecture" class="img-responsive" style="width:300px;height:200px">Architecture</a>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+    <h1 class="text-center heading" style="margin-top:50px"><b>How it Works?</b></h1>
+    <div class="container" style="margin-top:50px">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <img src="~/Images/collaborate Easily.svg" alt="Calloborate Easily" class="img-rounded img-responsive" style="height:100px;width:150px;margin-left:55px" />
+            <h4 class="text-center">Calloborate Easily</h4>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <img src="~/Images/trusted.png" alt="Trusted Teachers" class="img-rounded img-responsive" style="height:100px;width:150px;margin-left:55px" />
+            <h4 class="text-center">Trusted Teachers</h4>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <img src="~/Images/Payment simplified.png" alt="Payment Simplified" class="imgrounded imgresponsive" style="height:100px;width:150px;margin-left:55px" />
+            <h4 class="text-center">Payment Simplified</h4>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <img src="~/Images/here t to help.png" alt="Here to Help" class="img-rounded imgresponsive" style="height:100px;width:150px;margin-left:55px" />
+            <h4 class="text-center">Here to help</h4>
+        </div>
+    </div>
+</div>

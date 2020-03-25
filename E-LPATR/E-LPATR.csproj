@@ -1,0 +1,357 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F48BC4A6-E549-4A9E-8BE8-B7106E0C5401}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>E_LPATR</RootNamespace>
+    <AssemblyName>E-LPATR</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44312</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\1.png" />
+    <Content Include="Images\2.png" />
+    <Content Include="Images\3.jpg" />
+    <Content Include="Images\Architecture.jpg" />
+    <Content Include="Images\chemistry.jpg" />
+    <Content Include="Images\collaborate Easily.svg" />
+    <Content Include="Images\Cover1.jpg" />
+    <Content Include="Images\cover1.png" />
+    <Content Include="Images\Cover2.jpg" />
+    <Content Include="Images\Cover2.png" />
+    <Content Include="Images\Cover3.jpg" />
+    <Content Include="Images\Cover3.png" />
+    <Content Include="Images\Cover4.jpg" />
+    <Content Include="Images\Data Science and analysis.jpg" />
+    <Content Include="Images\Education.jpg" />
+    <Content Include="Images\essay.jpg" />
+    <Content Include="Images\f.png" />
+    <Content Include="Images\g.jpg" />
+    <Content Include="Images\Graphic Designing.jpg" />
+    <Content Include="Images\graphic.png" />
+    <Content Include="Images\Guitar.jpg" />
+    <Content Include="Images\here t to help.png" />
+    <Content Include="Images\i.jpg" />
+    <Content Include="Images\l.png" />
+    <Content Include="Images\math.jpg" />
+    <Content Include="Images\music.jpg" />
+    <Content Include="Images\Payment simplified.png" />
+    <Content Include="Images\poster.png" />
+    <Content Include="Images\programming.jpg" />
+    <Content Include="Images\Sales and marketing.jpg" />
+    <Content Include="Images\t.png" />
+    <Content Include="Images\trusted.png" />
+    <Content Include="Images\User.png" />
+    <Content Include="Images\web.jpeg" />
+    <Content Include="Images\Writing.jpg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </Content>
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="StyleSheet1.css" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003181416143_init.cs" />
+    <Compile Include="Migrations\202003181416143_init.designer.cs">
+      <DependentUpon>202003181416143_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003191308150_init1.cs" />
+    <Compile Include="Migrations\202003191308150_init1.designer.cs">
+      <DependentUpon>202003191308150_init1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003210701132_extends.cs" />
+    <Compile Include="Migrations\202003210701132_extends.designer.cs">
+      <DependentUpon>202003210701132_extends.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003211109491_RemoveDOB.cs" />
+    <Compile Include="Migrations\202003211109491_RemoveDOB.designer.cs">
+      <DependentUpon>202003211109491_RemoveDOB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003220620328_name.cs" />
+    <Compile Include="Migrations\202003220620328_name.designer.cs">
+      <DependentUpon>202003220620328_name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003240448177_CreateViewRequest.cs" />
+    <Compile Include="Migrations\202003240448177_CreateViewRequest.designer.cs">
+      <DependentUpon>202003240448177_CreateViewRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003240656514_add.cs" />
+    <Compile Include="Migrations\202003240656514_add.designer.cs">
+      <DependentUpon>202003240656514_add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003241112381_new.cs" />
+    <Compile Include="Migrations\202003241112381_new.designer.cs">
+      <DependentUpon>202003241112381_new.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003250657119_AddTeacherRequests.cs" />
+    <Compile Include="Migrations\202003250657119_AddTeacherRequests.designer.cs">
+      <DependentUpon>202003250657119_AddTeacherRequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountStatus.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\DelieveredRequest.cs" />
+    <Compile Include="Models\Earning.cs" />
+    <Compile Include="Models\EarningStatus.cs" />
+    <Compile Include="Models\IListable.cs" />
+    <Compile Include="Models\Issues.cs" />
+    <Compile Include="Models\LeaningHelper.cs" />
+    <Compile Include="Models\LearnContext.cs" />
+    <Compile Include="Models\Messages.cs" />
+    <Compile Include="Models\ModelHandler.cs" />
+    <Compile Include="Models\PackagePlan.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\PaymentStatus.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Request.cs" />
+    <Compile Include="Models\RequestMessage.cs" />
+    <Compile Include="Models\RequestStatus.cs" />
+    <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Subcategory.cs" />
+    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\ViewRequest.cs" />
+    <Compile Include="Models\ViewSignUp.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Student\SearchedGigs.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Student\OrderPage.cshtml" />
+    <Content Include="Views\Student\RecentOrders.cshtml" />
+    <Content Include="Views\Student\SentRequestRequirements.cshtml" />
+    <Content Include="Views\Student\Settings.cshtml" />
+    <Content Include="Views\Student\GiveReview.cshtml" />
+    <Content Include="Views\Teacher\OrderPageTeacher.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\Account\Home.cshtml" />
+    <Content Include="Views\Student\Home.cshtml" />
+    <Content Include="Views\Teacher\Requests.cshtml" />
+    <Content Include="Views\Admin\Home.cshtml" />
+    <Content Include="Views\Teacher\Home.cshtml" />
+    <Content Include="Views\Teacher\Profile.cshtml" />
+    <Content Include="Views\Teacher\SignUp.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage1.cshtml" />
+    <Content Include="Views\Shared\_LayoutTeacher.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Teacher\CreateProfile.cshtml" />
+    <Content Include="Views\Admin\Categories.cshtml" />
+    <Content Include="Views\Admin\Issues.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\Requests.cshtml" />
+    <Content Include="Views\Admin\CategoriesEdit.cshtml" />
+    <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Admin\DetailedIssues.cshtml" />
+    <Content Include="Views\Admin\CategoriesDetails.cshtml" />
+    <Content Include="Views\Admin\DetailedRequest.cshtml" />
+    <Content Include="Views\Admin\DetailedUser.cshtml" />
+    <Content Include="Views\Admin\Teachers.cshtml" />
+    <Content Include="Views\Admin\DetailedTeacher.cshtml" />
+    <Content Include="Views\Admin\TeachersRequests.cshtml" />
+    <Content Include="Views\Admin\DetailedTeachersRequests.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003181416143_init.resx">
+      <DependentUpon>202003181416143_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003191308150_init1.resx">
+      <DependentUpon>202003191308150_init1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003210701132_extends.resx">
+      <DependentUpon>202003210701132_extends.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003211109491_RemoveDOB.resx">
+      <DependentUpon>202003211109491_RemoveDOB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003220620328_name.resx">
+      <DependentUpon>202003220620328_name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003240448177_CreateViewRequest.resx">
+      <DependentUpon>202003240448177_CreateViewRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003240656514_add.resx">
+      <DependentUpon>202003240656514_add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003241112381_new.resx">
+      <DependentUpon>202003241112381_new.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003250657119_AddTeacherRequests.resx">
+      <DependentUpon>202003250657119_AddTeacherRequests.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56339</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44312/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
