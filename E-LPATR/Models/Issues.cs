@@ -10,7 +10,7 @@ namespace E_LPATR.Models
         public int Id { get; set; }
         public virtual User User { get; set; }
         public string Issue { get; set; }
-        public string Attachment { get; set; }
+        public byte[] Attachment { get; set; }
         public DateTime DateTime { get; set; }
     }
 }

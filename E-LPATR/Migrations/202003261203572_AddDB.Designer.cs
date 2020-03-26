@@ -7,13 +7,13 @@ namespace E_LPATR.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class add : IMigrationMetadata
+    public sealed partial class AddDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003240656514_add"; }
+            get { return "202003261203572_AddDB"; }
         }
         
         string IMigrationMetadata.Source

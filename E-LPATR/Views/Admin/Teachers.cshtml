@@ -1,4 +1,4 @@
-﻿@model IEnumerable<E_LPATR.Models.Teacher>
+﻿@model IEnumerable<E_LPATR.Models.User>
 @{
     ViewBag.Title = "Teachers";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -9,64 +9,64 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherRequests.FirstName)
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherRequests.LastName)
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherRequests.Email)
+            @Html.DisplayNameFor(model => model.Email)
         </th>                                  
         <th>                                   
-            @Html.DisplayNameFor(model => model.TeacherRequests.Country.Name)
+            @Html.DisplayNameFor(model => model.Country.Name)
         </th>                                  
         <th>                                   
-            @Html.DisplayNameFor(model => model.TeacherRequests.Role)
+            @Html.DisplayNameFor(model => model.Role)
+        </th>                                  
+        @*<th>                                   
+            @Html.DisplayNameFor(model => model.Education)
         </th>                                  
         <th>                                   
-            @Html.DisplayNameFor(model => model.TeacherRequests.Education)
-        </th>                                  
+            @Html.DisplayNameFor(model => model.CV)
+        </th>*@                                  
         <th>                                   
-            @Html.DisplayNameFor(model => model.TeacherRequests.CV)
-        </th>                                  
-        <th>                                   
-            @Html.DisplayNameFor(model => model.TeacherRequests.JoinedOn)
+            @Html.DisplayNameFor(model => model.JoinedOn)
         </th> 
-        <th>
-            @Html.DisplayNameFor(model =>model.TeacherRequests.AccountStatus.Name)
-        </th>
+        @*<th>
+            @Html.DisplayNameFor(model =>model.AccountStatus.Name)
+        </th>*@
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TeacherRequests.FirstName)
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TeacherRequests.LastName)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TeacherRequests.Email)
+                @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TeacherRequests.Country.Name)
+                @Html.DisplayFor(modelItem => item.Country.Name)
             </td>                                 
             <td>                                  
-                @Html.DisplayFor(modelItem => item.TeacherRequests.Role.Name)
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>                                 
+            @*<td>                                  
+                @Html.DisplayFor(modelItem => item.Education)
             </td>                                 
             <td>                                  
-                @Html.DisplayFor(modelItem => item.TeacherRequests.Education)
-            </td>                                 
+                @Html.DisplayFor(modelItem => item.CV)
+            </td>*@                                 
             <td>                                  
-                @Html.DisplayFor(modelItem => item.TeacherRequests.CV)
+                @Html.DisplayFor(modelItem => item.JoinedOn)
             </td>                                 
-            <td>                                  
-                @Html.DisplayFor(modelItem => item.TeacherRequests.JoinedOn)
-            </td>                                 
-            <td>                                  
-                @Html.DisplayFor(modelItem => item.TeacherRequests.AccountStatus.Name)
-            </td>
+            @*<td>                                  
+                @Html.DisplayFor(modelItem => item.AccountStatus.Name)
+            </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "DetailedTeacher", new { id = item.Id }) |

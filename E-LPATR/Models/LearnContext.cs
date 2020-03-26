@@ -16,28 +16,27 @@ namespace E_LPATR.Models
         {
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<User> User { get; set; }
-        public DbSet<AccountStatus> AccountStatus { get; set; }
-        public DbSet<Category> Category { get; set; }
-        public DbSet<Country> country { get; set; }
-        public DbSet<DelieveredRequest> DelieveredRequest { get; set; }
-        public DbSet<Earning> Earning { get; set; }
-        public DbSet<EarningStatus> EarningStatus { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<AccountStatus> AccountStatuses { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<DelieveredRequest> DelieveredRequests { get; set; }
+        public DbSet<Earning> Earnings { get; set; }
+        public DbSet<EarningStatus> EarningStatuses { get; set; }
         public DbSet<Issues> Issues { get; set; }
         public DbSet<Messages> Messages { get; set; }
-        public DbSet<PackagePlan> PackagePlan { get; set; }
-        public DbSet<Payment> Payment { get; set; }
-        public DbSet<PaymentStatus> PaymentStatus { get; set; }
-        public DbSet<Profile> Profile { get; set; }
-        public DbSet<Request> Request { get; set; }
-        public DbSet<RequestMessage> RequestMessage { get; set; }
-        public DbSet<RequestStatus> RequestStatus { get; set; }
-        public DbSet<Review> Review { get; set; }
-        public DbSet<Role> Role { get; set; }
-        public DbSet<Subcategory> Subcategory { get; set; }
+        public DbSet<PackagePlan> PackagePlans { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentStatus> PaymentStatuses { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<RequestMessage> RequestMessages { get; set; }
+        public DbSet<RequestStatus> RequestStatuses { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Degree> Degrees { get; set; }
 
-        public System.Data.Entity.DbSet<E_LPATR.Models.Teacher> Teachers { get; set; }
-
-        public System.Data.Entity.DbSet<E_LPATR.Models.TeachersRequests> TeachersRequests { get; set; }
     }
 }

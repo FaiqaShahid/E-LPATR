@@ -7,70 +7,80 @@ using System.Data.Entity.Migrations;
 
 namespace E_LPATR.Models
 {
-    public class LeaningHelper 
+    public class LearningHandler 
     {
-        public void AddStudent(User user)
-        {
-            using(LearnContext lc = new LearnContext())
-            {
-                lc.Entry(user.Country).State = EntityState.Unchanged;
-                lc.Entry(user.Role).State = EntityState.Unchanged;
-                lc.User.Add(user);
-                lc.SaveChanges();
-            }
-        }
-        public void AddTeacher(TeachersRequests teacher)
+        #region User
+        public void AddUser(User user)
         {
             using (LearnContext lc = new LearnContext())
             {
-                lc.Entry(teacher.Role).State = EntityState.Unchanged;
-                
-                //    Teacher t = new Teacher();
-
-                //    t.TeacherRequests.Email = teacher.Email;
-                //    t.TeacherRequests.FirstName=teacher.FirstName;
-                //    t.TeacherRequests.LastName = teacher.LastName;
-                //    t.TeacherRequests.Password = teacher.Password;
-                //    t.TeacherRequests.Country.Id = teacher.Country.Id;
-                //    t.TeacherRequests.Role.Id = teacher.Role.Id;
-                //    t.TeacherRequests.AccountStatus.Id = teacher.AccountStatus.Id;
-                //    t.TeacherRequests.CV= teacher.CV;
-                //    t.TeacherRequests.Education = teacher.Education;
-                //    t.TeacherRequests.JoinedOn = teacher.JoinedOn;
-                lc.User.Add(teacher);
+                lc.Entry(user.Country).State = EntityState.Unchanged;
+                lc.Entry(user.Role).State = EntityState.Unchanged;
+                lc.Entry(user.AccountStatus).State = EntityState.Unchanged;
+                lc.Users.Add(user);
                 lc.SaveChanges();
             }
         }
-        public void AddTeachersRequest(TeachersRequests teacher)
+        public User GetUser(string Email, string Password)
         {
-            using(LearnContext lc = new LearnContext())
+            using (LearnContext lc = new LearnContext())
             {
-                lc.Entry(teacher.Country).State = EntityState.Unchanged;
-                lc.Entry(teacher.Role).State = EntityState.Unchanged;
-                lc.Entry(teacher.AccountStatus).State = EntityState.Unchanged;
-                lc.TeachersRequests.Add(teacher);
-                lc.SaveChanges();
+                return (from u in lc.Users
+                        .Include(m=>m.AccountStatus)
+                        .Include(m=>m.Country)
+                        .Include(m=>m.Role)
+                        where (u.Email == Email && u.Password == Password)
+                        select u).FirstOrDefault();
             }
         }
-        public User CheckUser(string Email,string Password)
+        public User GetUserByEmail(string Email)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from u in lc.Users
+                        .Include(m=>m.AccountStatus)
+                        .Include(m=>m.Country)
+                        .Include(m=>m.Role)
+                        where (u.Email == Email)
+                        select u).FirstOrDefault();
+            }
+        }
+        public List<User> GetAllTeacher()
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from u in lc.Users
+                        .Include(m=>m.AccountStatus)
+                        .Include(m=>m.Country)
+                        .Include(m=>m.Role)
+                        where u.AccountStatus.Name=="Pending"
+                        select u).ToList();
+            }
+        }
+        #endregion
+        public void AddProfile(Profile profile)
         {
             using(LearnContext lc=new LearnContext())
             {
-                return (from u in lc.User
-                        .Include(m => m.Role)
-                        .Include(m => m.Country)
-                        where (u.Email == Email &&
-                        u.Password == Password)
-                        select u
-                        ).FirstOrDefault();
-                        
+                lc.Profiles.Add(profile);
+                lc.SaveChanges();
+            }
+        }
+        public Profile GetProfile(string Email)
+        {
+            using(LearnContext lc=new LearnContext())
+            {
+                return (from p in lc.Profiles
+                        .Include(m => m.PackagePlan)
+                        where p.Teacher.Email == Email
+                        select p).FirstOrDefault();
             }
         }
         public List<Country> GetCountries()
         {
             using (LearnContext lc = new LearnContext())
             {
-                return (from c in lc.country
+                return (from c in lc.Countries
                         select c
                         ).ToList();
             }
@@ -79,7 +89,7 @@ namespace E_LPATR.Models
         {
             using (LearnContext lc = new LearnContext())
             {
-                return (from c in lc.country
+                return (from c in lc.Countries
                         where c.Id == id
                         select c
                         ).FirstOrDefault();
@@ -89,7 +99,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
-                return (from r in lc.Role
+                return (from r in lc.Roles
                         where r.Id == id
                         select r).FirstOrDefault();
             }
@@ -98,7 +108,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
-                return (from s in lc.AccountStatus
+                return (from s in lc.AccountStatuses
                         where s.Id==Id
                         select s).FirstOrDefault();
             }
@@ -108,7 +118,7 @@ namespace E_LPATR.Models
             Category category = GetCategory(Id);
             using (LearnContext lc = new LearnContext())
             {
-                Category c = (from s in lc.Category
+                Category c = (from s in lc.Categories
                              where s.Id == category.Id
                              select s).FirstOrDefault();
                 c.Name = category.Name;
@@ -121,8 +131,8 @@ namespace E_LPATR.Models
         {
             using (LearnContext lc = new LearnContext())
             {
-                Category category = lc.Category.Find(Id);
-                lc.Category.Remove(category);
+                Category category = lc.Categories.Find(Id);
+                lc.Categories.Remove(category);
                 lc.SaveChanges();
             }
         }
@@ -130,7 +140,7 @@ namespace E_LPATR.Models
         {
             using (LearnContext lc=new LearnContext())
             {
-                return (from c in lc.Category
+                return (from c in lc.Categories
                         where c.Id == Id
                         select c).FirstOrDefault();
             }
@@ -144,15 +154,6 @@ namespace E_LPATR.Models
                 lc.SaveChanges();
             }
         }
-        public TeachersRequests GetTeacherRequestById(int id)
-        {
-            using (LearnContext lc = new LearnContext())
-            {
-                return (from c in lc.TeachersRequests
-                        where c.Id == id
-                        select c
-                        ).FirstOrDefault();
-            }
-        }
+        
     }
 }

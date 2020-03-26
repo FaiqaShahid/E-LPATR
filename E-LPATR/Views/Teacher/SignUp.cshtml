@@ -14,14 +14,14 @@
                         <li class="active">Sign Up for Teacher</li>
                     </ol>
                     <h1><b>Sign Up for Teacher</b></h1>
-                    @using (Html.BeginForm("AddTeachersRequests", "Account", "FormControl.Post"))
-                    {
+                    @using (Html.BeginForm("AddTeacher", "Account", FormMethod.Post))
+                                {
                         <div class="form-group">
                             <div class="input-group form-inline">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
-                                @Html.TextBoxFor(m =>m.TeachersRequests.FirstName, new { @class = "form-control required", placeholder = "Enter First Name" })
+                                @Html.TextBoxFor(m =>m.User.FirstName, new { @class = "form-control required", placeholder = "Enter First Name" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -29,7 +29,7 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
-                                @Html.TextBoxFor(m => m.TeachersRequests.LastName, new { @class = "form-control required", placeholder = "Enter Last Name" })
+                                @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control required", placeholder = "Enter Last Name" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -37,7 +37,7 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-envelope"></span>
                                 </span>
-                                @Html.TextBoxFor(m => m.TeachersRequests.Email, new { @class = "form-control required", placeholder = "Enter Email" })
+                                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control required", placeholder = "Enter Email" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -53,7 +53,7 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-lock"></span>
                                 </span>
-                                @Html.PasswordFor(m =>m.TeachersRequests.Password, new { @class = "form-control required", placeholder = "Enter Password" })
+                                @Html.PasswordFor(m =>m.User.Password, new { @class = "form-control required", placeholder = "Enter Password" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -72,14 +72,14 @@
                                 @Html.DropDownList("Country", Model.Countries, "-Select Country-", new { @class = "form-control", id = "Country", })
                             </div>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <div class="input-group form-inline">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-education"></span>
                                 </span>
-                                @Html.TextBoxFor(m => m.TeachersRequests.Education, new { @class = "form-control required", placeholder = "Enter Education" })
+                                @Html.TextBoxFor(m => m.User.Education, new { @class = "form-control required", placeholder = "Enter Education" })
                             </div>
-                        </div>
+                        </div>*@
                         @*<div class="form-group">
                             <div class="input-group form-inline">
                                 <span class="input-group-addon">

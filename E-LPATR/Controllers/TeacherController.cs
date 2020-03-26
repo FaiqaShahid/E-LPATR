@@ -17,18 +17,24 @@ namespace E_LPATR.Controllers
         public ActionResult SignUp()
         {
             ViewSignUp v = new ViewSignUp();
-            v.Countries = new LeaningHelper().GetCountries().ToSelectListItems();
+            v.Countries = new LearningHandler().GetCountries().ToSelectListItems();
             return View(v);
         }
-        public ActionResult Home()
+        public ActionResult Home(string Email)
         {
-            return View();
+            User user = new LearningHandler().GetUserByEmail(Email);
+            return View(user);
+        }
+        public ActionResult CreateProfile(int Id)
+        {
+            return View(new LearnContext().Users.Find(Id));
+        }
+        public ActionResult AddProfile(Profile profile)
+        {
+            new LearningHandler().AddProfile(profile);
+            return RedirectToAction("Home");
         }
         public ActionResult OrderPageTeacher()
-        {
-            return View();
-        }
-        public ActionResult CreateProfile()
         {
             return View();
         }

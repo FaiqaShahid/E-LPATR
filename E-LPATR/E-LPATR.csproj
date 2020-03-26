@@ -160,41 +160,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003181416143_init.cs" />
-    <Compile Include="Migrations\202003181416143_init.designer.cs">
-      <DependentUpon>202003181416143_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003191308150_init1.cs" />
-    <Compile Include="Migrations\202003191308150_init1.designer.cs">
-      <DependentUpon>202003191308150_init1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003210701132_extends.cs" />
-    <Compile Include="Migrations\202003210701132_extends.designer.cs">
-      <DependentUpon>202003210701132_extends.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003211109491_RemoveDOB.cs" />
-    <Compile Include="Migrations\202003211109491_RemoveDOB.designer.cs">
-      <DependentUpon>202003211109491_RemoveDOB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003220620328_name.cs" />
-    <Compile Include="Migrations\202003220620328_name.designer.cs">
-      <DependentUpon>202003220620328_name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003240448177_CreateViewRequest.cs" />
-    <Compile Include="Migrations\202003240448177_CreateViewRequest.designer.cs">
-      <DependentUpon>202003240448177_CreateViewRequest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003240656514_add.cs" />
-    <Compile Include="Migrations\202003240656514_add.designer.cs">
-      <DependentUpon>202003240656514_add.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003241112381_new.cs" />
-    <Compile Include="Migrations\202003241112381_new.designer.cs">
-      <DependentUpon>202003241112381_new.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003250657119_AddTeacherRequests.cs" />
-    <Compile Include="Migrations\202003250657119_AddTeacherRequests.designer.cs">
-      <DependentUpon>202003250657119_AddTeacherRequests.cs</DependentUpon>
+    <Compile Include="Migrations\202003261203572_AddDB.cs" />
+    <Compile Include="Migrations\202003261203572_AddDB.designer.cs">
+      <DependentUpon>202003261203572_AddDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountStatus.cs" />
@@ -205,10 +173,10 @@
     <Compile Include="Models\EarningStatus.cs" />
     <Compile Include="Models\IListable.cs" />
     <Compile Include="Models\Issues.cs" />
-    <Compile Include="Models\LeaningHelper.cs" />
+    <Compile Include="Models\LearningHandler.cs" />
     <Compile Include="Models\LearnContext.cs" />
     <Compile Include="Models\Messages.cs" />
-    <Compile Include="Models\ModelHandler.cs" />
+    <Compile Include="Models\ModelHelper.cs" />
     <Compile Include="Models\PackagePlan.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\PaymentStatus.cs" />
@@ -216,13 +184,15 @@
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\RequestMessage.cs" />
     <Compile Include="Models\RequestStatus.cs" />
+    <Compile Include="Models\Resume.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Subcategory.cs" />
-    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\Degree.cs" />
+    <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\ViewRequest.cs" />
-    <Compile Include="Models\ViewSignUp.cs" />
+    <Compile Include="Models\View Models\ViewRequest.cs" />
+    <Compile Include="Models\View Models\ViewSignUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +229,6 @@
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\Shared\_LayoutTeacher.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Teacher\CreateProfile.cshtml" />
     <Content Include="Views\Admin\Categories.cshtml" />
     <Content Include="Views\Admin\Issues.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
@@ -274,6 +243,7 @@
     <Content Include="Views\Admin\DetailedTeacher.cshtml" />
     <Content Include="Views\Admin\TeachersRequests.cshtml" />
     <Content Include="Views\Admin\DetailedTeachersRequests.cshtml" />
+    <Content Include="Views\Teacher\CreateProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -285,32 +255,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003181416143_init.resx">
-      <DependentUpon>202003181416143_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003191308150_init1.resx">
-      <DependentUpon>202003191308150_init1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003210701132_extends.resx">
-      <DependentUpon>202003210701132_extends.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003211109491_RemoveDOB.resx">
-      <DependentUpon>202003211109491_RemoveDOB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003220620328_name.resx">
-      <DependentUpon>202003220620328_name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003240448177_CreateViewRequest.resx">
-      <DependentUpon>202003240448177_CreateViewRequest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003240656514_add.resx">
-      <DependentUpon>202003240656514_add.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003241112381_new.resx">
-      <DependentUpon>202003241112381_new.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003250657119_AddTeacherRequests.resx">
-      <DependentUpon>202003250657119_AddTeacherRequests.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003261203572_AddDB.resx">
+      <DependentUpon>202003261203572_AddDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

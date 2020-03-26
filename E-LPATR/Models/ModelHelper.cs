@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace E_LPATR.Models
 {
-    public static class ModelHandler
+    public static class ModelHelper
     {
         public static List<SelectListItem> ToSelectListItems(this IEnumerable<IListable> entitiesList)
         {

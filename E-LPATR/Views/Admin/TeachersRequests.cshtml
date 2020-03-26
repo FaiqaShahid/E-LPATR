@@ -1,4 +1,4 @@
-﻿@model IEnumerable<E_LPATR.Models.TeachersRequests>
+﻿@model IEnumerable<E_LPATR.Models.User>
 
 @{
     ViewBag.Title = "TeachersRequests";
@@ -19,29 +19,26 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Country.Name)
+            Country
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Role)
+            Role
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Education)
+            @Html.DisplayNameFor(model => model.DateOfBirth)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CV)
-        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.JoinedOn)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AccountStatus.Name)
+            AccountStatus
         </th>
     </tr>
-
     @foreach (var item in Model)
     {
-        if (item.Role.Name == "Pending...")
-        {
             <tr>
                <td>
                    @Html.DisplayFor(modelItem => item.FirstName)
@@ -59,11 +56,11 @@
                    @Html.DisplayFor(modelItem => item.Role.Name)
                </td>
                <td>
-                   @Html.DisplayFor(modelItem => item.Education)
+                   @Html.DisplayFor(modelItem => item.DateOfBirth)
                </td>
-               <td>
+               @*<td>
                    @Html.DisplayFor(modelItem => item.CV)
-               </td>
+               </td>*@
                <td>
                    @Html.DisplayFor(modelItem => item.JoinedOn)
                </td>
@@ -75,7 +72,6 @@
                    @Html.ActionLink("Add", "AddTeacher", new { id = item.Id })
                </td>
             </tr>
-        }
-    }
+     }
 
 </table>

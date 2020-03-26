@@ -9,9 +9,9 @@ namespace E_LPATR.Models
     {
         public int Id { get; set; }
         public virtual User Student { get; set; }
-        public virtual Teacher Teacher { get; set; }
+        public virtual User Teacher { get; set; }
         public string Message { get; set; }
-        public string Attachment { get; set; }
+        public byte[] Attachment { get; set; }
         public DateTime DateTime { get; set; }
     }
 }

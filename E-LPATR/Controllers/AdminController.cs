@@ -10,7 +10,7 @@ namespace E_LPATR.Controllers
     public class AdminController : Controller
     {
         LearnContext learn=  new LearnContext();
-        LeaningHelper lh = new LeaningHelper();
+        LearningHandler lh = new LearningHandler();
         // GET: Admin
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace E_LPATR.Controllers
         //Categories
         public ActionResult Categories()
         {
-            return View(learn.Category.ToList());
+            return View(learn.Categories.ToList());
         }
         public ActionResult AddCategory()
         {
@@ -32,7 +32,7 @@ namespace E_LPATR.Controllers
         [HttpPost]
         public ActionResult AddCat(Category category, FormCollection collection)
         {
-            learn.Category.Add(category);
+            learn.Categories.Add(category);
             learn.SaveChanges();
             return RedirectToAction("Categories");
         }
@@ -49,7 +49,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult CategoriesDetails(int Id)
         {
-            Category category = learn.Category.Find(Id);
+            Category category = learn.Categories.Find(Id);
             return View(category);
         }
         public ActionResult DeleteCategories(int Id)
@@ -75,45 +75,45 @@ namespace E_LPATR.Controllers
         //Request
         public ActionResult Requests()
         {
-            return View(learn.Request.ToList());
+            return View(learn.Requests.ToList());
         }
         public ActionResult DetailedRequest(int Id)
         {
-            return View(learn.Request.Find(Id));
+            return View(learn.Requests.Find(Id));
         }
         public ActionResult DeleteRequest(int Id)
         {
-            learn.Request.Remove(learn.Request.Find(Id));
+            learn.Requests.Remove(learn.Requests.Find(Id));
             learn.SaveChanges();
             return RedirectToAction("Requests");
         }
         //Teacher
         public ActionResult Teachers()
         {
-            return View(learn.Teachers.ToList());
+            return View(learn.Users.ToList());
         }
         public ActionResult DetailedTeacher(int Id)
         {
-            return View(learn.Teachers.Find(Id));
+            return View(learn.Users.Find(Id));
         }
         public ActionResult DeleteTeacher(int Id)
         {
-            learn.Teachers.Remove(learn.Teachers.Find(Id));
+            learn.Users.Remove(learn.Users.Find(Id));
             learn.SaveChanges();
             return RedirectToAction("Teachers");
         }
         //Users
         public ActionResult Users()
         {
-            return View(learn.User.ToList());
+            return View(learn.Users.ToList());
         }
         public ActionResult DetailedUser(int Id)
         {
-            return View(learn.User.Find(Id));
+            return View(learn.Users.Find(Id));
         }
         public ActionResult DeleteUser(int Id)
         {
-            learn.User.Remove(learn.User.Find(Id));
+            learn.Users.Remove(learn.Users.Find(Id));
             learn.SaveChanges();
             return RedirectToAction("Users");
         }
@@ -121,17 +121,17 @@ namespace E_LPATR.Controllers
         //Request Messages
         public ActionResult TeachersRequests()
         {
-            return View(learn.TeachersRequests.ToList());
+            return View(lh.GetAllTeacher());
         }
         public ActionResult DetailedTeachersRequests(int Id)
         {
-            return View(learn.TeachersRequests.Find(Id));
+            return View(learn.Users.Find(Id));
         }
         public ActionResult AddTeacher(int Id)
         {
-            TeachersRequests teachers = lh.GetTeacherRequestById(Id);
-            teachers.Role = lh.GetRole(2);
-            lh.AddTeacher(teachers);
+            //TeachersRequests teachers = lh.GetTeacherRequestById(Id);
+            //teachers.Role = lh.GetRole(2);
+            //lh.AddTeacher(teachers);
             return RedirectToAction("TeachersRequests");
         }
     }

@@ -5,10 +5,9 @@ using System.Web;
 
 namespace E_LPATR.Models
 {
-    public class Category
+    public class Skill
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public byte[] Image { get; set; }
     }
 }

@@ -5,9 +5,9 @@ using System.Web;
 
 namespace E_LPATR.Models
 {
-    public class Teacher 
+    public class Degree
     {
         public int Id { get; set; }
-        public TeachersRequests TeacherRequests { get; set; }
+        public string Name { get; set; }
     }
 }
