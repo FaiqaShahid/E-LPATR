@@ -1,264 +1,77 @@
-﻿
+﻿@model IEnumerable<E_LPATR.Models.User>
+
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "TeachersRequests";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-    <div class="container">
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a data-toggle="tab" href="#Issues">Issues Request</a></li>
-            <li role="presentation"><a data-toggle="tab" href="#TeacherRequest">Teacher Request</a></li>
-            <li role="presentation"><a data-toggle="tab" href="#Teachers">Teachers</a></li>
-            <li role="presentation"><a data-toggle="tab" href="#Request">Requests</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade in active" id="Issues">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <table class="table table-hover table-bordered">
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Issue ID</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Email</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Name</b></td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><b>Description</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Action</b></td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolorsit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-primary">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolorsit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-primary">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolorsit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-primary">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolorsit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-primary">View</a>
-                               </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolorsit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-primary">View</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>                
-            </div>
-            <div class="tab-pane fade" id="TeacherRequest">
-                <div class="panel panel-default" style="padding-top:0px;">
-                    <div class="panel-body">
-                        <table class="table table-hover table-bordered">
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Teacher Request ID</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Email</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Name</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>CV</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Education</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Action</b></td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-success">Accept</a>
-                                    <a href="#" class="btn btn-danger">Reject</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-success">Accept</a>
-                                    <a href="#" class="btn btn-danger">Reject</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-success">Accept</a>
-                                    <a href="#" class="btn btn-danger">Reject</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-success">Accept</a>
-                                    <a href="#" class="btn btn-danger">Reject</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-success">Accept</a>
-                                    <a href="#" class="btn btn-danger">Reject</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="Teachers">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <table class="table table-hover table-bordered">
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Teacher ID</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Email</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Name</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>CV</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Education</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Action</b></td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">1</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">abc@gmail.com</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">ABC</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="#" class="btn btn-danger">Delete</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="tab-pane fade" id="Request">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <table class="table table-hover table-bordered">
-                            <tr>
-                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1"><b>Request ID</b></td>
-                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3"><b>Title</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Delivery Time</b></td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><b>Budget</b></td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4"><b>Description</b></td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">1</td>
-                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Lorem ipsum dolor sit amet</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">2</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">$100</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">1</td>
-                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Lorem ipsum dolor sit amet</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">2</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">$100</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">1</td>
-                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Lorem ipsum dolor sit amet</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">2</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">$100</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">1</td>
-                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Lorem ipsum dolor sit amet</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">2</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">$100</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                            </tr>
-                            <tr>
-                                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">1</td>
-                                <td class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Lorem ipsum dolor sit amet</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">2</td>
-                                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">$100</td>
-                                <td class="col-lg-4 col-md-4 col-sm-4 col-xs-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam.</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<h2>TeachersRequests</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            Country
+        </th>
+        <th>
+            Role
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.JoinedOn)
+        </th>
+        <th>
+            AccountStatus
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.CV)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.JoinedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountStatus.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "DetailedTeachersRequests", new { id = item.Id }) |
+                @Html.ActionLink("Add", "AddTeacher", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>

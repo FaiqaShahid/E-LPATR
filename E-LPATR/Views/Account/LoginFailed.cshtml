@@ -1,0 +1,58 @@
+﻿@using E_LPATR.Models
+@model User
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container-fluid text-center" style="margin-top:80px;margin-bottom:150px">
+    <ol class="breadcrumb">
+        <li><a href="~/Account/Home">Home</a></li>
+        <li class="active">Login</li>
+    </ol>
+    <div class="col-lg-4 col-lg-push-4 col-md-4 col-md-push-4 col-sm-4 col-sm-push-4 col-xs-4 col-xs-push-4">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3>
+                    <b>Login Failed.</b>
+                    Try Again
+                </h3>
+            </div>
+            <div class="panel-body">
+                <h1><b>E-LPATR</b></h1>
+                @using (Html.BeginForm("CheckUser", "Account", FormMethod.Post))
+                {
+                    <div class="form-group">
+                        <div class="input-group form-inline">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-envelope"></span>
+                            </span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control required", id = "Email", placeholder = "Enter Email" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group form-inline">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-lock"></span>
+                            </span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control required", id = "Password", placeholder = "Enter Password" })
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="col-md-8" style="text-align:left">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-success">Login</button>
+                        </div>
+                    </div>
+                    <br />
+                    <a href="#">Forget Password</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

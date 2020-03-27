@@ -13,7 +13,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h1><b>E-LPATR</b></h1>
-                    @using (Html.BeginForm("CheckUser","Account","FormControl.Post"))
+                    @using (Html.BeginForm("CheckUser","Account",FormMethod.Post))
                     {
                         <div class="form-group">
                             <div class="input-group form-inline">
@@ -39,7 +39,9 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-4"><button type="submit" class="btn btn-success">Login</button></div>
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-success">Login</button>
+                            </div>
                         </div>
                         <br />
                         <a href="#">Forget Password</a>

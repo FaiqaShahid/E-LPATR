@@ -15,7 +15,7 @@
                 <h1><b>Sign Up for Student</b></h1>
                 or <br />
                 <a href="~/Teacher/SignUp">Sign Up for Teacher</a>
-                @using (Html.BeginForm("AddStudent", "Account", "FormControl.Post"))
+                @using (Html.BeginForm("AddStudent", "Account", FormMethod.Post))
                 {
                     <div class="form-group">
                         <div class="input-group form-inline">

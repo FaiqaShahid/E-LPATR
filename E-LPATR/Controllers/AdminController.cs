@@ -18,16 +18,36 @@ namespace E_LPATR.Controllers
         }
         public ActionResult Home()
         {
-            return View();
+            if (Session["User"] != null) {
+                return View(lh.GetAllTeacher());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         //Categories
         public ActionResult Categories()
         {
-            return View(learn.Categories.ToList());
+            if (Session["user"] != null)
+            {
+                return View(learn.Categories.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult AddCategory()
         {
-            return View();
+            if (Session["Admin"] != null)
+            {
+                return View();
+            }
+             else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         [HttpPost]
         public ActionResult AddCat(Category category, FormCollection collection)
@@ -60,7 +80,14 @@ namespace E_LPATR.Controllers
         //Issues
         public ActionResult Issues()
         {
-            return View(learn.Issues.ToList());
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Issues.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DeleteIssues(int Id)
         {
@@ -69,17 +96,38 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DetailedIssues(int Id)
         {
-            Issues issue=learn.Issues.Find(Id);
+            if (Session["Admin"] != null)
+            {
+                Issues issue = learn.Issues.Find(Id);
             return View(issue);
+            }
+             else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         //Request
         public ActionResult Requests()
         {
-            return View(learn.Requests.ToList());
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Requests.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DetailedRequest(int Id)
         {
-            return View(learn.Requests.Find(Id));
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Requests.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DeleteRequest(int Id)
         {
@@ -90,11 +138,25 @@ namespace E_LPATR.Controllers
         //Teacher
         public ActionResult Teachers()
         {
-            return View(learn.Users.ToList());
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Users.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DetailedTeacher(int Id)
         {
-            return View(learn.Users.Find(Id));
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }   
         }
         public ActionResult DeleteTeacher(int Id)
         {
@@ -105,11 +167,25 @@ namespace E_LPATR.Controllers
         //Users
         public ActionResult Users()
         {
-            return View(learn.Users.ToList());
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Users.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DetailedUser(int Id)
         {
-            return View(learn.Users.Find(Id));
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DeleteUser(int Id)
         {
@@ -121,11 +197,25 @@ namespace E_LPATR.Controllers
         //Request Messages
         public ActionResult TeachersRequests()
         {
-            return View(lh.GetAllTeacher());
+            if (Session["Admin"] != null)
+            {
+                return View(lh.GetAllTeacher());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult DetailedTeachersRequests(int Id)
         {
-            return View(learn.Users.Find(Id));
+            if (Session["Admin"] != null)
+            {
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult AddTeacher(int Id)
         {

@@ -9,29 +9,19 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                @if (Model.Title == null)
-                {
-                    <h3>
-                        Add profile for teaching.
-                        @Html.ActionLink("Create Profile", "CreateProfile", new { id = Model.Id })
-                    </h3>
-                }
-                else {
                 <h3><b>@Model.Title</b></h3>
-                    <img class="img-responsive" src="~/Images/math.jpg" />
-                    <br />
-                    <h3><b>Prices: </b></h3>
-                    <div style="margin-left:100px">
-                        <b>Per hour :</b> @Model.PackagePlan.CostPerHour
-                        <b style="padding-left:40px">Per Day :</b> @Model.PackagePlan.CostPerDay
-                        <b style="padding-left:40px">Per 3 Days :</b> @Model.PackagePlan.CostPer3Days
-                    </div>
-                    <h3 style="margin-left:50px"><b>Desciption</b></h3>
-                    <p style="text-align:center">
-                        @Model.Description
-                        @*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec neque      blandit,     sodales eros sed, condimentum nisi. Praesent vehicula et neque     at   hendrerit. In nisl     ante, auctor a arcu in, posuere congue mauris.  Nam     convallis ut magna id   pellentesque. Sed eu nunc non libero pretium  ultricies  non et urna. Sed pretium   velit quis purus scelerisque  interdum. In hac     habitasse platea dictumst. Mauris   tempor lectus a     neque congue venenatis.     Etiam pretium urna ut sem faucibus, sed     malesuada quam ornare. Mauris     dignissim, nisl sit amet ullamcorper    tristique, lorem   libero varius nisl, nec     mollis nisi elit quis urna.     Proin sed tempor tortor.*@
-                    </p>
-                }
+                <img class="img-responsive" src="~/Images/math.jpg" />
+                <br />
+                <h3><b>Prices: </b></h3>
+                <div style="margin-left:100px">
+                    <b>Per hour :</b> @Model.PackagePlan.CostPerHour
+                    <b style="padding-left:40px">Per Day :</b>@Model.PackagePlan.CostPerDay
+                    <b style="padding-left:40px">Per 3 Days :</b>@Model.PackagePlan.CostPer3Days
+                </div>
+                <h3 style="margin-left:50px"><b>Desciption</b></h3>
+                <p style="text-align:center">
+                    @Model.Description
+                </p>
             </div>
         </div>
     </div>

@@ -164,6 +164,10 @@
     <Compile Include="Migrations\202003261203572_AddDB.designer.cs">
       <DependentUpon>202003261203572_AddDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003271526032_changeDataType.cs" />
+    <Compile Include="Migrations\202003271526032_changeDataType.designer.cs">
+      <DependentUpon>202003271526032_changeDataType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountStatus.cs" />
     <Compile Include="Models\Category.cs" />
@@ -244,6 +248,8 @@
     <Content Include="Views\Admin\TeachersRequests.cshtml" />
     <Content Include="Views\Admin\DetailedTeachersRequests.cshtml" />
     <Content Include="Views\Teacher\CreateProfile.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Account\LoginFailed.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -257,6 +263,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202003261203572_AddDB.resx">
       <DependentUpon>202003261203572_AddDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003271526032_changeDataType.resx">
+      <DependentUpon>202003271526032_changeDataType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

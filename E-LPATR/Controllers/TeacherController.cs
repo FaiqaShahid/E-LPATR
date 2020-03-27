@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,41 +11,89 @@ namespace E_LPATR.Controllers
     public class TeacherController : Controller
     {
         // GET: Teacher
-        public ActionResult Index()
+        [HttpPost]
+        public ActionResult Index(User user)
         {
-            return View();
+            if (Session["User"] != null) { 
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
+        [HttpGet]
         public ActionResult SignUp()
         {
             ViewSignUp v = new ViewSignUp();
             v.Countries = new LearningHandler().GetCountries().ToSelectListItems();
             return View(v);
         }
-        public ActionResult Home(string Email)
+        [HttpPost]
+        public ActionResult Home()
         {
-            User user = new LearningHandler().GetUserByEmail(Email);
-            return View(user);
+            if (Session["User"] != null)
+            {
+                User teacher = Session["User"] as User;
+                return View(new LearningHandler().GetProfile(teacher.Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
-        public ActionResult CreateProfile(int Id)
+        [HttpPost]
+        public ActionResult CreateProfile()
         {
-            return View(new LearnContext().Users.Find(Id));
+            if (Session["User"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
-        public ActionResult AddProfile(Profile profile)
+        [HttpGet]
+        public ActionResult AddProfile(Profile profile,FormCollection collection)
         {
+            User teacher = Session["User"] as User;
+            profile.Teacher = teacher;
             new LearningHandler().AddProfile(profile);
-            return RedirectToAction("Home");
+            return RedirectToAction("Home",profile);
         }
         public ActionResult OrderPageTeacher()
         {
-            return View();
+            if (Session["User"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult Requests()
         {
-            return View();
+            if (Session["User"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
         public ActionResult Profile()
         {
-            return View();
+            if (Session["User"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
     }
 }

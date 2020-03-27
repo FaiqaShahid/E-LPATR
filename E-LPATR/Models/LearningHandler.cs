@@ -4,11 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Web.Mvc;
 
 namespace E_LPATR.Models
 {
     public class LearningHandler 
     {
+
+        public Profile GetProfile(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Teacher.Id == id)
+                    .Include(m=>m.PackagePlan)
+                    .Include(m => m.Teacher)
+                    .Include(m => m.Teacher.Country)
+                    .Include(m=>m.Teacher.Role)
+                    .FirstOrDefault();
+
+            }
+        }
         #region User
         public void AddUser(User user)
         {
@@ -26,10 +41,10 @@ namespace E_LPATR.Models
             using (LearnContext lc = new LearnContext())
             {
                 return (from u in lc.Users
-                        .Include(m=>m.AccountStatus)
-                        .Include(m=>m.Country)
-                        .Include(m=>m.Role)
-                        where (u.Email == Email && u.Password == Password)
+                        .Include(a => a.AccountStatus)
+                        .Include(c => c.Country)
+                        .Include(r => r.Role)
+                        where u.Email == Email && u.Password == Password
                         select u).FirstOrDefault();
             }
         }
@@ -62,6 +77,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
+                lc.Entry(profile.Teacher).State = EntityState.Unchanged;
                 lc.Profiles.Add(profile);
                 lc.SaveChanges();
             }
