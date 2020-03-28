@@ -66,9 +66,17 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            @if (Session["Admin"] != null)
+                            @*@if (Session["Admin"] != null)
                             {
                                 <b>@Session["Admin"].ToString()</b>
+                            }*@
+                            @*@if (Request.Cookies["user"] != null)
+                            {
+                                Request.Cookies["FirstName"].Value.ToString();
+                            }
+                            else
+                            {*@
+                                <b>user</b>
                             }
                         </a>
                         <ul class="dropdown-menu">

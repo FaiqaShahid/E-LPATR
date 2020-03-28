@@ -9,8 +9,8 @@ namespace E_LPATR.Controllers
 {
     public class AdminController : Controller
     {
-        LearnContext learn=  new LearnContext();
-        LearningHandler lh = new LearningHandler();
+        private readonly LearnContext learn=  new LearnContext();
+        private readonly LearningHandler lh = new LearningHandler();
         // GET: Admin
         public ActionResult Index()
         {
@@ -18,7 +18,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult Home()
         {
-            if (Session["User"] != null) {
+            if (Request.Cookies["user"] != null) {
                 return View(lh.GetAllTeacher());
             }
             else
@@ -29,7 +29,7 @@ namespace E_LPATR.Controllers
         //Categories
         public ActionResult Categories()
         {
-            if (Session["user"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Categories.ToList());
             }
@@ -40,7 +40,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult AddCategory()
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View();
             }
@@ -80,7 +80,7 @@ namespace E_LPATR.Controllers
         //Issues
         public ActionResult Issues()
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Issues.ToList());
             }
@@ -96,7 +96,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DetailedIssues(int Id)
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 Issues issue = learn.Issues.Find(Id);
             return View(issue);
@@ -109,7 +109,7 @@ namespace E_LPATR.Controllers
         //Request
         public ActionResult Requests()
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Requests.ToList());
             }
@@ -120,7 +120,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DetailedRequest(int Id)
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Requests.Find(Id));
             }
@@ -138,7 +138,7 @@ namespace E_LPATR.Controllers
         //Teacher
         public ActionResult Teachers()
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Users.ToList());
             }
@@ -149,7 +149,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DetailedTeacher(int Id)
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Users.Find(Id));
             }
@@ -167,7 +167,7 @@ namespace E_LPATR.Controllers
         //Users
         public ActionResult Users()
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Users.ToList());
             }
@@ -178,7 +178,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DetailedUser(int Id)
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Users.Find(Id));
             }
@@ -197,7 +197,7 @@ namespace E_LPATR.Controllers
         //Request Messages
         public ActionResult TeachersRequests()
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(lh.GetAllTeacher());
             }
@@ -208,7 +208,7 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DetailedTeachersRequests(int Id)
         {
-            if (Session["Admin"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 return View(learn.Users.Find(Id));
             }
