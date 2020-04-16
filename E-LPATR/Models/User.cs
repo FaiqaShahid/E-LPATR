@@ -16,7 +16,14 @@ namespace E_LPATR.Models
         public DateTime DateOfBirth { get; set; }
         public DateTime JoinedOn { get; set; }
         public virtual Country Country { get; set; }
+        public virtual int RoleID { get; set; }
         public virtual Role Role { get; set; }
+        public virtual int AccountStatusID { get; set; }
         public virtual AccountStatus AccountStatus { get; set; }
+
+        public static implicit operator User(HttpCookie v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace E_LPATR.Models
         public byte[] Image { get; set; }
         public string Description { get; set; }
         public virtual User Teacher { get; set; }
+        public virtual Subcategory Subcategory { get; set; }
         public virtual PackagePlan PackagePlan { get; set; }
     }
 }

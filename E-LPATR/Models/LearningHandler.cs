@@ -5,12 +5,13 @@ using System.Web;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Web.Mvc;
+using System.Data.Entity.Migrations.Model;
+using System.Security.Cryptography;
 
 namespace E_LPATR.Models
 {
     public class LearningHandler 
     {
-
         public Profile GetProfile(int id)
         {
             using (LearnContext lc = new LearnContext())
@@ -61,6 +62,26 @@ namespace E_LPATR.Models
                         select u).FirstOrDefault();
             }
         }
+        public User GetUser(int Id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from u in lc.Users
+                        .Include(m=>m.AccountStatus)
+                        .Include(m=>m.Country)
+                        .Include(m=>m.Role)
+                        where (u.Id == Id)
+                        select u).FirstOrDefault();
+            }
+        }
+        public void BlockUser(User user)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                lc.Entry(user).State = EntityState.Modified;
+                lc.SaveChanges();
+            }
+        }
         public List<User> GetAllTeacher()
         {
             using (LearnContext lc = new LearnContext())
@@ -102,6 +123,7 @@ namespace E_LPATR.Models
                         ).ToList();
             }
         }
+        
         public Country GetCountry(int id)
         {
             using (LearnContext lc = new LearnContext())
@@ -109,6 +131,16 @@ namespace E_LPATR.Models
                 return (from c in lc.Countries
                         where c.Id == id
                         select c
+                        ).FirstOrDefault();
+            }
+        }
+        public Issues GetIssue(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from i in lc.Issues
+                        where i.Id == id
+                        select i
                         ).FirstOrDefault();
             }
         }
@@ -127,6 +159,24 @@ namespace E_LPATR.Models
             {
                 return (from s in lc.AccountStatuses
                         where s.Id==Id
+                        select s).FirstOrDefault();
+            }
+        }
+        public List<Subcategory> GetSubcategories()
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.Subcategories
+                        select c
+                        ).ToList();
+            }
+        }
+        public AccountStatus GetSubcategory(int Id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from s in lc.AccountStatuses
+                        where s.Id == Id
                         select s).FirstOrDefault();
             }
         }
@@ -153,15 +203,6 @@ namespace E_LPATR.Models
                 lc.SaveChanges();
             }
         }
-        public Category GetCategory(int Id)
-        {
-            using (LearnContext lc=new LearnContext())
-            {
-                return (from c in lc.Categories
-                        where c.Id == Id
-                        select c).FirstOrDefault();
-            }
-        }
         public void DeleteIssue(int Id)
         {
             using (LearnContext lc = new LearnContext())
@@ -171,6 +212,14 @@ namespace E_LPATR.Models
                 lc.SaveChanges();
             }
         }
-        
+        public Category GetCategory(int Id)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                return (from c in lc.Categories
+                        where c.Id == Id
+                        select c).FirstOrDefault();
+            }
+        }
     }
 }

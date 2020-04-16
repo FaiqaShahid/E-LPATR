@@ -1,27 +1,46 @@
-﻿@using E_LPATR.Models
-@model Category
+﻿@model E_LPATR.Models.Category
+
 @{
     ViewBag.Title = "Edit Category";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-    <div class="panel panel-default text-center" style="padding-top:40px">
-        <div class="panel-body">
-            <h2>Edit Categories</h2>
-            @using (Html.BeginForm("EditCategories", "Admin", "Html.PostForm"))
-            {
-                <h3>Id: @Model.Id</h3>
-                <div class="form-group">
-                    <div class="input-group form-inline">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-adjust"></span>
-                        </span>
-                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "Enter Category Name " })
-                    </div>
-                </div>
-                <div class="col-md-4"><button type="submit" class="btn btn-success">Edit</button></div>
-            }
+<h2>Edit</h2>
+
+@using (Html.BeginForm("EditCategory", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Category</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" value="Edit" class="btn btn-success" />
+            </div>
         </div>
     </div>
+}
 
-
+<div>
+    @Html.ActionLink("Back to List", "Categories")
+</div>

@@ -7,55 +7,71 @@
 
 <h2>Users</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            Country
-        </th>
-        <th>
-            Role
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JoinedOn)
-        </th>
-        <th></th>
-    </tr>
+<table class="display" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Role
+            </th>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Role.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JoinedOn)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "DetailedUser", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "DeleteUser", new { id=item.Id })
-        </td>
-    </tr>
-}
+            <th>
+                @Html.DisplayNameFor(model => model.JoinedOn)
+            </th>
+            <th>
+                Account Status
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
 
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Role.Name != "Admin")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JoinedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountStatus.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditUser", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "DetailedUser", new { id = item.Id }) |
+                        @Html.ActionLink("Block", "DeleteUser", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
 </table>

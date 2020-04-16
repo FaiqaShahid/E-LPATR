@@ -44,7 +44,7 @@
                     <li><a href="~/Student/RecentOrders">Recent Requests</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Notifications<span class="caret"><span>
+                            Notifications<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
@@ -65,7 +65,16 @@
                             <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
 </a>
                         <ul class="dropdown-menu">
-                            <li style="padding-left:20px">Student Name</li>
+                            <li style="padding-left:20px">
+                                @if (Request.Cookies["user"] != null)
+                                {
+                                    <b>@Request.Cookies["user"]["FirstName"]</b>
+                                }
+                                else
+                                {
+                                    <b>User</b>
+                                }
+                            </li>
                             <li role="separator" class="divider"></li>
                             <li><a href="~/Student/Settings">Settings</a></li>
                             <li role="separator" class="divider"></li>
@@ -76,7 +85,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div class="container-fluid body-content">
+    <div>
         @RenderBody()
         <hr />
         <footer style="color:antiquewhite;background-color:#1a1a1a">
@@ -86,43 +95,43 @@
                     <ul>
                         <li><a href="~/Student/SearchedGigs">Music</a></li>
                         @*<ul>
-                                <li><a href="~/Student/SearchedGigs">Guitar</a></li>
-                                <li><a href="~/Student/SearchedGigs">Piano</a></li>
-                                <li><a href="~/Student/SearchedGigs">Singing</a></li>
-                                <li><a href="~/Student/SearchedGigs">Drums</a></li>
-                                <li><a href="~/Student/SearchedGigs">Xylophone</a></li>
-                                <li><a href="~/Student/SearchedGigs">Singing</a></li>
-                            </ul>*@
+                            <li><a href="~/Student/SearchedGigs">Guitar</a></li>
+                            <li><a href="~/Student/SearchedGigs">Piano</a></li>
+                            <li><a href="~/Student/SearchedGigs">Singing</a></li>
+                            <li><a href="~/Student/SearchedGigs">Drums</a></li>
+                            <li><a href="~/Student/SearchedGigs">Xylophone</a></li>
+                            <li><a href="~/Student/SearchedGigs">Singing</a></li>
+                        </ul>*@
                         <li><a href="~/Student/SearchedGigs">Programming</a></li>
                         @*<ul>
-                                <li><a href="~/Student/SearchedGigs">Web Development</a></li>
-                                <li><a href="~/Student/SearchedGigs">Android Application Development</a></  li>
-                                <li><a href="~/Student/SearchedGigs">Artifical Intelligence</a></li>
-                                <li><a href="~/Student/SearchedGigs">Android Games</a></li>
-                                <li><a href="~/Student/SearchedGigs">WordPress</a></li>
-                                <li><a href="~/Student/SearchedGigs">Desktop Applications</a></li>
-                                <li><a href="~/Student/SearchedGigs">E-Commerce Development</a></li>
-                                <li><a href="~/Student/SearchedGigs">Databases</a></li>
-                            </ul>*@
+                            <li><a href="~/Student/SearchedGigs">Web Development</a></li>
+                            <li><a href="~/Student/SearchedGigs">Android Application Development</a></  li>
+                            <li><a href="~/Student/SearchedGigs">Artifical Intelligence</a></li>
+                            <li><a href="~/Student/SearchedGigs">Android Games</a></li>
+                            <li><a href="~/Student/SearchedGigs">WordPress</a></li>
+                            <li><a href="~/Student/SearchedGigs">Desktop Applications</a></li>
+                            <li><a href="~/Student/SearchedGigs">E-Commerce Development</a></li>
+                            <li><a href="~/Student/SearchedGigs">Databases</a></li>
+                        </ul>*@
                         <li><a href="~/Student/SearchedGigs">Education</a></li>
                         @*<ul>
-                                <li><a href="~/Student/SearchedGigs">Biology</a></li>
-                                <li><a href="~/Student/SearchedGigs">Chemistry</a></  li>
-                                <li><a href="~/Student/SearchedGigs">Physics</a></li>
-                                <li><a href="~/Student/SearchedGigs">Data And Logical Designs</a></li>
-                                <li><a href="~/Student/SearchedGigs">Electronics</a></li>
-                                <li><a href="~/Student/SearchedGigs">Mathematics</a></li>
-                            </ul>*@
+                            <li><a href="~/Student/SearchedGigs">Biology</a></li>
+                            <li><a href="~/Student/SearchedGigs">Chemistry</a></  li>
+                            <li><a href="~/Student/SearchedGigs">Physics</a></li>
+                            <li><a href="~/Student/SearchedGigs">Data And Logical Designs</a></li>
+                            <li><a href="~/Student/SearchedGigs">Electronics</a></li>
+                            <li><a href="~/Student/SearchedGigs">Mathematics</a></li>
+                        </ul>*@
                         <li><a href="~/Student/SearchedGigs">Graphic Desigining</a></li>
                         @*<ul>
-                                <li><a href="~/Student/SearchedGigs">Logo Design</a></li>
-                                <li><a href="~/Student/SearchedGigs">Photoshop Editing</a></  li>
-                                <li><a href="~/Student/SearchedGigs">Cartoons And Graphics</a></li>
-                                <li><a href="~/Student/SearchedGigs">UI/UX Designs </a></li>
-                                <li><a href="~/Student/SearchedGigs">Flyer Designs</a></li>
-                                <li><a href="~/Student/SearchedGigs">Poster Design</a></li>
-                                <li><a href="~/Student/SearchedGigs">Menu Design</a></li>
-                            </ul>*@
+                            <li><a href="~/Student/SearchedGigs">Logo Design</a></li>
+                            <li><a href="~/Student/SearchedGigs">Photoshop Editing</a></  li>
+                            <li><a href="~/Student/SearchedGigs">Cartoons And Graphics</a></li>
+                            <li><a href="~/Student/SearchedGigs">UI/UX Designs </a></li>
+                            <li><a href="~/Student/SearchedGigs">Flyer Designs</a></li>
+                            <li><a href="~/Student/SearchedGigs">Poster Design</a></li>
+                            <li><a href="~/Student/SearchedGigs">Menu Design</a></li>
+                        </ul>*@
                         <li><a href="~/Student/SearchedGigs">Sales And Marketing</a></li>
                         <li><a href="~/Student/SearchedGigs">Writing and Translation</a></li>
                         <li><a href="~/Student/SearchedGigs">Data Science And Analysis</a></li>
@@ -156,7 +165,6 @@
             </div>
         </footer>
     </div>
-
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>

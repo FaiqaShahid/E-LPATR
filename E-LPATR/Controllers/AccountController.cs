@@ -25,14 +25,15 @@ namespace E_LPATR.Controllers
         {
             if (Request.Cookies["user"] != null)
             {
-                if (Request.Cookies["Role"].Value.ToString() == "Admin")
+                if (Request.Cookies["user"]["Role"] == "Admin")
                 {
                     //Session["Admin"] = user.FirstName;
                     return RedirectToAction("Home", "Admin");
                 }
-                else if (Request.Cookies["Role"].Value == "Teacher")
+                else if (Request.Cookies["user"]["Role"] == "Teacher")
                 {
-                    Profile profile = new LearningHandler().GetProfile(Request.Cookies["Email"].Value);
+                    string Email = Request.Cookies["user"]["Email"];
+                    Profile profile = new LearningHandler().GetProfile(Email);
                     if (profile != null)
                     {
                         return RedirectToAction("Home", "Teacher");
@@ -42,7 +43,7 @@ namespace E_LPATR.Controllers
                         return RedirectToAction("Index", "Teacher");
                     }
                 }
-                else if (Request.Cookies["Role"].Value == "Student")
+                else if (Request.Cookies["user"]["Role"] == "Student")
                 {
                     return RedirectToAction("Home", "Student");
                 }
@@ -60,16 +61,17 @@ namespace E_LPATR.Controllers
             {
            // Session["User"] = user;
                 HttpCookie cookie = new HttpCookie("user");
-                cookie["Id"] = user.Id.ToString();
-                cookie["Email"] = user.Email;
-                cookie["FirstName"] = user.FirstName;
-                cookie["LastName"] = user.LastName;
-                cookie["Role"] = user.Role.Name;
+                string id = user.Id.ToString();
+                cookie.Values.Add("Id", id);
+                cookie.Values.Add("FirstName", user.FirstName);
+                cookie.Values.Add("LastName", user.LastName);
+                cookie.Values.Add("Email", user.Email);
+                cookie.Values.Add("Role", user.Role.Name);
+                cookie.Values.Add("Country", user.Country.Name);
                 Response.Cookies.Add(cookie);
                 cookie.Expires = DateTime.Now.AddYears(1);
                 if (user.Role.Name == "Admin")
                 {
-                    //Session["Admin"] = user.FirstName;
                     return RedirectToAction("Home", "Admin");
                 }
                 else if (user.Role.Name == "Teacher")
@@ -97,15 +99,10 @@ namespace E_LPATR.Controllers
         }
         public ActionResult Logout()
         {
-            //Session.Clear();
-            //Session.Abandon();
             if (Request.Cookies["user"] != null)
             {
                 Response.Cookies["user"].Expires = DateTime.Now;
             }
-            //HttpCookie cookie = new HttpCookie("Preferences");
-            //cookie.Expires = DateTime.Now.AddDays(-1);
-            //Response.Cookies.Add(cookie);
 
             return RedirectToAction("Home");
         }

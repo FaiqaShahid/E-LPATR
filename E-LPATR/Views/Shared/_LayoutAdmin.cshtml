@@ -10,12 +10,16 @@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <link href="~/StyleSheet1.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <style>
         body {
             font-family: 'Oxygen', serif;
             background-color: #F8F8F8;
              padding-bottom:0px
         }
+        /*div.dataTables_wrapper {
+            margin-bottom: 3em;
+        }*/
     </style>
 </head>
 <body>
@@ -29,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="~/Student/Home">E-LPATR</a>
+                <a class="navbar-brand" href="~/Admin/Home">E-LPATR</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -45,7 +49,7 @@
                     <li><a href="~/Admin/Issues">Issues</a></li>
                     <li><a href="~/Admin/Requests">Requests</a></li>
                     <li><a href="~/Admin/Users">Users</a></li>
-                    <li><a href="~/Admin/Teachers">Teachers</a></li>
+                   @* <li><a href="~/Admin/Teachers">Teachers</a></li>*@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             Notifications<span class="caret"></span>
@@ -66,17 +70,13 @@
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            @*@if (Session["Admin"] != null)
+                            @if (Request.Cookies["user"] != null)
                             {
-                                <b>@Session["Admin"].ToString()</b>
-                            }*@
-                            @*@if (Request.Cookies["user"] != null)
-                            {
-                                Request.Cookies["FirstName"].Value.ToString();
+                                <b>@Request.Cookies["user"]["FirstName"]</b>
                             }
                             else
-                            {*@
-                                <b>user</b>
+                            {
+                                <b>User</b>
                             }
                         </a>
                         <ul class="dropdown-menu">
@@ -93,7 +93,6 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-
     </div>
     <footer style="color:antiquewhite;background-color:#1a1a1a">
         <div class="container">
@@ -173,5 +172,13 @@
     </footer>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="https://code.jquery.com/jquery-3.3.1.js" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+        });
+    </script>
 </body>
 </html>

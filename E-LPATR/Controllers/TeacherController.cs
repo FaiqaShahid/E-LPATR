@@ -5,16 +5,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using E_LPATR.Models;
+using E_LPATR.Models.View_Models;
 
 namespace E_LPATR.Controllers
 {
     public class TeacherController : Controller
     {
         // GET: Teacher
-        [HttpPost]
         public ActionResult Index(User user)
         {
-            if (Session["User"] != null) { 
+            if (Request.Cookies["user"] != null) { 
                 return View(user);
             }
             else
@@ -29,13 +29,13 @@ namespace E_LPATR.Controllers
             v.Countries = new LearningHandler().GetCountries().ToSelectListItems();
             return View(v);
         }
-        [HttpPost]
         public ActionResult Home()
         {
-            if (Session["User"] != null)
+            if (Request.Cookies["user"]!=null)
             {
-                User teacher = Session["User"] as User;
-                return View(new LearningHandler().GetProfile(teacher.Id));
+                // User teacher = Session["User"] as User;
+                string id= Request.Cookies["user"]["Id"];
+                return View(new LearningHandler().GetProfile(int.Parse(id)));
             }
             else
             {
@@ -47,7 +47,9 @@ namespace E_LPATR.Controllers
         {
             if (Session["User"] != null)
             {
-                return View();
+                ViewProfile  V= new ViewProfile();
+                V.Subcategory = new LearningHandler().GetSubcategories().ToSelectListItems();
+                return View(V);
             }
             else
             {

@@ -5,8 +5,8 @@
 }
 
 <h2>Teachers</h2>
-
-<table class="table">
+<table class="display" id="table_id">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -16,63 +16,71 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
-        </th>                                  
-        <th>                                   
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Country.Name)
-        </th>                                  
-        <th>                                   
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Role)
-        </th>                                  
-        @*<th>                                   
-            @Html.DisplayNameFor(model => model.Education)
-        </th>                                  
-        <th>                                   
-            @Html.DisplayNameFor(model => model.CV)
-        </th>*@                                  
-        <th>                                   
-            @Html.DisplayNameFor(model => model.JoinedOn)
-        </th> 
+        </th>
         @*<th>
-            @Html.DisplayNameFor(model =>model.AccountStatus.Name)
-        </th>*@
+                @Html.DisplayNameFor(model => model.Education)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CV)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.JoinedOn)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model =>model.AccountStatus.Name)
+            </th>*@
+        <th>
+            Actions
+        </th>
     </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Role.Name == "Teacher")
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Education)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CV)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.JoinedOn)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.AccountStatus.Name)
+                    </td>*@
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "DetailedTeacher", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteTeacher", new { id = item.Id })
+                </td>
+            </tr>
+            }
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country.Name)
-            </td>                                 
-            <td>                                  
-                @Html.DisplayFor(modelItem => item.Role.Name)
-            </td>                                 
-            @*<td>                                  
-                @Html.DisplayFor(modelItem => item.Education)
-            </td>                                 
-            <td>                                  
-                @Html.DisplayFor(modelItem => item.CV)
-            </td>*@                                 
-            <td>                                  
-                @Html.DisplayFor(modelItem => item.JoinedOn)
-            </td>                                 
-            @*<td>                                  
-                @Html.DisplayFor(modelItem => item.AccountStatus.Name)
-            </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "DetailedTeacher", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "DeleteTeacher", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
+        }
+    </tbody>
 </table>

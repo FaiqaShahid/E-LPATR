@@ -1,7 +1,9 @@
 ﻿using E_LPATR.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,7 +11,7 @@ namespace E_LPATR.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly LearnContext learn=  new LearnContext();
+        private readonly LearnContext learn = new LearnContext();
         private readonly LearningHandler lh = new LearningHandler();
         // GET: Admin
         public ActionResult Index()
@@ -44,35 +46,56 @@ namespace E_LPATR.Controllers
             {
                 return View();
             }
-             else
+            else
             {
                 return RedirectToAction("Login", "Account");
             }
         }
         [HttpPost]
-        public ActionResult AddCat(Category category, FormCollection collection)
+        public ActionResult AddCat(Category category)
         {
             learn.Categories.Add(category);
             learn.SaveChanges();
             return RedirectToAction("Categories");
         }
         //View
+        [HttpGet]
         public ActionResult CategoriesEdit(int id)
         {
             return View(lh.GetCategory(id));
         }
         //Backend
-        public ActionResult EditCategories(int Id,string Name)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditCategory([Bind(Include = "Id,Name,Image")] Category category)
         {
-            lh.EditCategory(Id,Name);
-            return RedirectToAction("Categories");
+            if (ModelState.IsValid && Request.Cookies["user"] != null)
+            {
+                learn.Entry(category).State = EntityState.Modified;
+                learn.SaveChanges();
+                return RedirectToAction("Categories");
+            }
+            return View("Categories");
         }
-        public ActionResult CategoriesDetails(int Id)
+        public ActionResult DetailedCategory(int Id)
         {
-            Category category = learn.Categories.Find(Id);
-            return View(category);
+            if (Request.Cookies["user"] != null)
+            {
+                Category category = learn.Categories.Find(Id);
+                return View(category);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
+        [HttpGet]
         public ActionResult DeleteCategories(int Id)
+        {
+            return View(lh.GetCategory(Id));
+        }
+        [HttpGet]
+        public ActionResult CategoryDelete(int Id)
         {
             lh.DeleteCategory(Id);
             return RedirectToAction("Categories");
@@ -91,6 +114,11 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DeleteIssues(int Id)
         {
+            return View(lh.GetIssue(Id));
+        }
+        [HttpGet]
+        public ActionResult IssueDelete(int Id)
+        {
             lh.DeleteIssue(Id);
             return RedirectToAction("Issues");
         }
@@ -99,9 +127,9 @@ namespace E_LPATR.Controllers
             if (Request.Cookies["user"] != null)
             {
                 Issues issue = learn.Issues.Find(Id);
-            return View(issue);
+                return View(issue);
             }
-             else
+            else
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -131,9 +159,33 @@ namespace E_LPATR.Controllers
         }
         public ActionResult DeleteRequest(int Id)
         {
+            return View(learn.Requests.Find(Id));
+        }
+        [HttpGet]
+        public ActionResult RequestDelete(int Id)
+        {
             learn.Requests.Remove(learn.Requests.Find(Id));
             learn.SaveChanges();
             return RedirectToAction("Requests");
+        }
+        //View
+        [HttpGet]
+        public ActionResult RequestsEdit(int id)
+        {
+            return View(learn.Requests.Find(id));
+        }
+        //Backend
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditRequest([Bind(Include = "Id,Title,Description,Cost,DateTime,DeliveryTme")] Request request)
+        {
+            if (ModelState.IsValid && Request.Cookies["user"] != null)
+            {
+                learn.Entry(request).State = EntityState.Modified;
+                learn.SaveChanges();
+                return RedirectToAction("Requests");
+            }
+            return View("Requests");
         }
         //Teacher
         public ActionResult Teachers()
@@ -156,7 +208,7 @@ namespace E_LPATR.Controllers
             else
             {
                 return RedirectToAction("Login", "Account");
-            }   
+            }
         }
         public ActionResult DeleteTeacher(int Id)
         {
@@ -187,13 +239,61 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+        public ActionResult EditUser(int? Id)
+        {
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (Request.Cookies["user"] != null)
+            {
+                
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUser([Bind(Include = "Id,FirstName,LastName,Email,Image,Password,DateOfBirth,JoinedOn")] User user)
+        {
+            if (ModelState.IsValid && Request.Cookies["user"] != null)
+            {
+                learn.Entry(user).State = EntityState.Modified;
+                learn.SaveChanges();
+                return RedirectToAction("Users");
+            }
+            return View("Users");
+        }
         public ActionResult DeleteUser(int Id)
         {
-            learn.Users.Remove(learn.Users.Find(Id));
-            learn.SaveChanges();
+            return View(lh.GetUser(Id));
+        }
+        //[HttpGet]
+        //public ActionResult BlockUser(int Id)
+        //{
+        //    learn.Users.Remove(learn.Users.Find(Id));
+        //    learn.SaveChanges();
+        //    return RedirectToAction("Users");
+        //}
+        public ActionResult Block(int Id)
+        {
+            User user = lh.GetUser(Id);
+            user.AccountStatus =lh.GetAccountStatus(6);
+            return RedirectToAction("BlockUser");
+        }
+        [HttpGet]
+        public ActionResult BlockUser([Bind(Include = "Id,FirstName,LastName,Email,Image,Password,DateOfBirth,JoinedOn,AccountStatus_Id")] User user)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                lh.BlockUser(user);
+                return RedirectToAction("Users");
+            }
             return RedirectToAction("Users");
         }
-
         //Request Messages
         public ActionResult TeachersRequests()
         {

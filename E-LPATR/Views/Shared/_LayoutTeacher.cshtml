@@ -68,7 +68,16 @@
                             <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
                         </a>
                         <ul class="dropdown-menu">
-                            <li style="padding-left:20px">Teacher Name</li>
+                            <li style="padding-left:20px">
+                                @if (Request.Cookies["user"] != null)
+                                {
+                                    <b>@Request.Cookies["user"]["FirstName"]</b>
+                                }
+                                else
+                                {
+                                    <b>User</b>
+                                }
+                            </li>
                             <li><a href="~/Student/Settings">Settings</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="~/Account/Logout">Log out</a></li>
@@ -78,7 +87,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div >
+    <div>
         @RenderBody()
         <hr />
         <footer style="color:antiquewhite;background-color:#1a1a1a">

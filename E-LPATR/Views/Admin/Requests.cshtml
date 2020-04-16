@@ -7,54 +7,60 @@
 
 <h2>Requests</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeliveryTme)
-        </th>
-        <th>
-            Request Status
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Cost)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DateTime)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DeliveryTme)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.RequestStatus.Name)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "DetailedRequest", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "DeleteRequest", new { id = item.Id })
-    </td>
-</tr>
-}
-
+<table class="display" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryTme)
+            </th>
+            <th>
+                Request Status
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryTme)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestStatus.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "RequestsEdit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "DetailedRequest", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteRequest", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
