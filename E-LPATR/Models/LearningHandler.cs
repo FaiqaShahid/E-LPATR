@@ -7,6 +7,7 @@ using System.Data.Entity.Migrations;
 using System.Web.Mvc;
 using System.Data.Entity.Migrations.Model;
 using System.Security.Cryptography;
+using System.Data.Entity.Infrastructure;
 
 namespace E_LPATR.Models
 {
@@ -76,10 +77,50 @@ namespace E_LPATR.Models
         }
         public void BlockUser(User user)
         {
+            
             using (LearnContext lc = new LearnContext())
             {
-                lc.Entry(user).State = EntityState.Modified;
-                lc.SaveChanges();
+                try
+                {
+                    lc.Entry(user.AccountStatus).State = EntityState.Modified;
+                    lc.Entry(user).State = EntityState.Modified;
+                    lc.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex) {
+                    ex.Entries.Single().Reload();
+                }
+            }
+        }
+        public void AddTeacher(User user)
+        {
+            
+            using (LearnContext lc = new LearnContext())
+            {
+                try
+                {
+                    lc.Entry(user.AccountStatus).State = EntityState.Modified;
+                    lc.Entry(user).State = EntityState.Modified;
+                    lc.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex) {
+                    ex.Entries.Single().Reload();
+                }
+            }
+        }
+        public void DeleteTeacher(User user)
+        {
+            
+            using (LearnContext lc = new LearnContext())
+            {
+                try
+                {
+                    lc.Entry(user.AccountStatus).State = EntityState.Modified;
+                    lc.Entry(user).State = EntityState.Modified;
+                    lc.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex) {
+                    ex.Entries.Single().Reload();
+                }
             }
         }
         public List<User> GetAllTeacher()

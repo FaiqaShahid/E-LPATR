@@ -18,15 +18,74 @@ namespace E_LPATR.Controllers
         {
             return View();
         }
+        //Teachers Requests
         public ActionResult Home()
         {
-            if (Request.Cookies["user"] != null) {
+            if (Request.Cookies["user"] != null)
+            {
                 return View(lh.GetAllTeacher());
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
+        }
+        public ActionResult DetailedTeachersRequests(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public ActionResult AddTeacherConfirmation(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public ActionResult DeleteTeachersConfirmation(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public ActionResult AddTeacher(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                User user = lh.GetUser(Id);
+                user.AccountStatusID = 1;
+                user.AccountStatus = lh.GetAccountStatus(1);
+                lh.AddTeacher(user);
+                return RedirectToAction("Teachers");
+            }
+            return RedirectToAction("TeachersRequests");
+        }
+        public ActionResult DeleteTeachersRequests(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                User user = lh.GetUser(Id);
+                user.AccountStatusID = 5;
+                user.AccountStatus = lh.GetAccountStatus(5);
+                lh.DeleteTeacher(user);
+                return RedirectToAction("Teachers");
+            }
+            return RedirectToAction("TeachersRequests");
         }
         //Categories
         public ActionResult Categories()
@@ -210,25 +269,7 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        public ActionResult DeleteTeacher(int Id)
-        {
-            learn.Users.Remove(learn.Users.Find(Id));
-            learn.SaveChanges();
-            return RedirectToAction("Teachers");
-        }
-        //Users
-        public ActionResult Users()
-        {
-            if (Request.Cookies["user"] != null)
-            {
-                return View(learn.Users.ToList());
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
-        public ActionResult DetailedUser(int Id)
+        public ActionResult DeleteTeacherConfirmation(int Id)
         {
             if (Request.Cookies["user"] != null)
             {
@@ -239,7 +280,36 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        public ActionResult EditUser(int? Id)
+        public ActionResult DeleteTeacher(int Id)
+        {
+            learn.Users.Remove(learn.Users.Find(Id));
+            learn.SaveChanges();
+            return RedirectToAction("Teachers");
+        }
+        //Users
+        public ActionResult Students()
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                return View(learn.Users.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public ActionResult DetailedStudent(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                return View(learn.Users.Find(Id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public ActionResult EditStudent(int? Id)
         {
             if (Id == null)
             {
@@ -257,72 +327,33 @@ namespace E_LPATR.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditUser([Bind(Include = "Id,FirstName,LastName,Email,Image,Password,DateOfBirth,JoinedOn")] User user)
+        public ActionResult EditStudent([Bind(Include = "Id,FirstName,LastName,Email,Image,Password,DateOfBirth,JoinedOn,AccountStatusId,RoleID")] User user)
         {
             if (ModelState.IsValid && Request.Cookies["user"] != null)
             {
+                user.AccountStatusID = 1;
+                user.RoleID = 3;
                 learn.Entry(user).State = EntityState.Modified;
                 learn.SaveChanges();
-                return RedirectToAction("Users");
+                return RedirectToAction("Students");
             }
-            return View("Users");
+            return View("Students");
         }
-        public ActionResult DeleteUser(int Id)
+        public ActionResult BlockStudentConfirmation(int Id)
         {
             return View(lh.GetUser(Id));
         }
-        //[HttpGet]
-        //public ActionResult BlockUser(int Id)
-        //{
-        //    learn.Users.Remove(learn.Users.Find(Id));
-        //    learn.SaveChanges();
-        //    return RedirectToAction("Users");
-        //}
-        public ActionResult Block(int Id)
-        {
-            User user = lh.GetUser(Id);
-            user.AccountStatus =lh.GetAccountStatus(6);
-            return RedirectToAction("BlockUser");
-        }
-        [HttpGet]
-        public ActionResult BlockUser([Bind(Include = "Id,FirstName,LastName,Email,Image,Password,DateOfBirth,JoinedOn,AccountStatus_Id")] User user)
+        public ActionResult BlockStudent(int Id)
         {
             if (Request.Cookies["user"] != null)
             {
+                User user = lh.GetUser(Id);
+                user.AccountStatusID = 6;
+                user.AccountStatus = lh.GetAccountStatus(6);
                 lh.BlockUser(user);
-                return RedirectToAction("Users");
+                return RedirectToAction("Students");
             }
-            return RedirectToAction("Users");
-        }
-        //Request Messages
-        public ActionResult TeachersRequests()
-        {
-            if (Request.Cookies["user"] != null)
-            {
-                return View(lh.GetAllTeacher());
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
-        public ActionResult DetailedTeachersRequests(int Id)
-        {
-            if (Request.Cookies["user"] != null)
-            {
-                return View(learn.Users.Find(Id));
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
-        public ActionResult AddTeacher(int Id)
-        {
-            //TeachersRequests teachers = lh.GetTeacherRequestById(Id);
-            //teachers.Role = lh.GetRole(2);
-            //lh.AddTeacher(teachers);
-            return RedirectToAction("TeachersRequests");
+            return RedirectToAction("Students");
         }
     }
 }

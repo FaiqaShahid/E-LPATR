@@ -9,10 +9,16 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3>
-                    Add profile for teaching.
-                    @Html.ActionLink("Create Profile", "CreateProfile")
-                </h3>
+                @if (Request.Cookies["user"]["AccountStatus"] == "Open") { 
+                    <h3>
+                        Add profile for teaching.
+                        @Html.ActionLink("Create Profile", "CreateProfile")
+                    </h3>
+                }
+                else
+                {
+                    <h3>Your Account is pending</h3>
+                }
             </div>
         </div>
     </div>

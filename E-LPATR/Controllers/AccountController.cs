@@ -25,12 +25,15 @@ namespace E_LPATR.Controllers
         {
             if (Request.Cookies["user"] != null)
             {
-                if (Request.Cookies["user"]["Role"] == "Admin")
+                if (Request.Cookies["user"]["AccountStatus"] == "Block")
                 {
-                    //Session["Admin"] = user.FirstName;
+                    return RedirectToAction("LoginFailed", "Account");
+                }
+                else if (Request.Cookies["user"]["Role"] == "Admin" )
+                {
                     return RedirectToAction("Home", "Admin");
                 }
-                else if (Request.Cookies["user"]["Role"] == "Teacher")
+                else if (Request.Cookies["user"]["Role"] == "Teacher" )
                 {
                     string Email = Request.Cookies["user"]["Email"];
                     Profile profile = new LearningHandler().GetProfile(Email);
@@ -59,40 +62,47 @@ namespace E_LPATR.Controllers
             User user = lh.GetUser(Email, Password);
             if (user != null)
             {
-           // Session["User"] = user;
-                HttpCookie cookie = new HttpCookie("user");
-                string id = user.Id.ToString();
-                cookie.Values.Add("Id", id);
-                cookie.Values.Add("FirstName", user.FirstName);
-                cookie.Values.Add("LastName", user.LastName);
-                cookie.Values.Add("Email", user.Email);
-                cookie.Values.Add("Role", user.Role.Name);
-                cookie.Values.Add("Country", user.Country.Name);
-                Response.Cookies.Add(cookie);
-                cookie.Expires = DateTime.Now.AddYears(1);
-                if (user.Role.Name == "Admin")
+                if (user.AccountStatus.Name == "Block")
                 {
-                    return RedirectToAction("Home", "Admin");
-                }
-                else if (user.Role.Name == "Teacher")
-                {
-                    Profile profile = new LearningHandler().GetProfile(user.Email);
-                    if (profile != null)
-                    {
-                        return RedirectToAction("Home", "Teacher");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Teacher");
-                    }
-                }
-                else if (user.Role.Name == "Student")
-                {
-                    return RedirectToAction("Home", "Student");
-                }
-                else
-                {
+                    ViewBag.AccountStatus = "T";
                     return RedirectToAction("LoginFailed");
+                }
+                else { 
+                    HttpCookie cookie = new HttpCookie("user");
+                    string id = user.Id.ToString();
+                    cookie.Values.Add("Id", id);
+                    cookie.Values.Add("FirstName", user.FirstName);
+                    cookie.Values.Add("LastName", user.LastName);
+                    cookie.Values.Add("Email", user.Email);
+                    cookie.Values.Add("Role", user.Role.Name);
+                    cookie.Values.Add("AccountStatus", user.AccountStatus.Name);
+                    cookie.Values.Add("Country", user.Country.Name);
+                    Response.Cookies.Add(cookie);
+                    cookie.Expires = DateTime.Now.AddYears(1);
+                    if (user.Role.Name == "Admin" )
+                    {
+                        return RedirectToAction("Home", "Admin");
+                    }
+                    else if (user.Role.Name == "Teacher")
+                    {
+                        Profile profile = new LearningHandler().GetProfile(user.Email);
+                        if (profile != null)
+                        {
+                            return RedirectToAction("Home", "Teacher");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Teacher");
+                        }
+                    }
+                    else if (user.Role.Name == "Student")
+                    {
+                        return RedirectToAction("Home", "Student");
+                    }
+                    else 
+                    {
+                        return RedirectToAction("LoginFailed");
+                    }
                 }
             }
             return RedirectToAction("LoginFailed");
@@ -126,7 +136,17 @@ namespace E_LPATR.Controllers
             user.JoinedOn = DateTime.Now;
             user.Role = lh.GetRole(3);
             lh.AddUser(user);
-            Session["User"] = user;
+            HttpCookie cookie = new HttpCookie("user");
+            string id = user.Id.ToString();
+            cookie.Values.Add("Id", id);
+            cookie.Values.Add("FirstName", user.FirstName);
+            cookie.Values.Add("LastName", user.LastName);
+            cookie.Values.Add("Email", user.Email);
+            cookie.Values.Add("Role", user.Role.Name);
+            cookie.Values.Add("Country", user.Country.Name);
+            cookie.Values.Add("AccountStatus", user.AccountStatus.Name);
+            Response.Cookies.Add(cookie);
+            cookie.Expires = DateTime.Now.AddYears(1);
             return RedirectToAction("Home","Student");
         }
         [HttpPost]
@@ -139,8 +159,18 @@ namespace E_LPATR.Controllers
             teacher.Role = lh.GetRole(2);
             teacher.AccountStatus = lh.GetAccountStatus(3);
             lh.AddUser(teacher);
-            Session["User"] = teacher;
-            return RedirectToAction("Home", "Teacher", lh.GetProfile(teacher.Email));
+            HttpCookie cookie = new HttpCookie("user");
+            string id = teacher.Id.ToString();
+            cookie.Values.Add("Id", id);
+            cookie.Values.Add("FirstName", teacher.FirstName);
+            cookie.Values.Add("LastName", teacher.LastName);
+            cookie.Values.Add("Email", teacher.Email);
+            cookie.Values.Add("Role", teacher.Role.Name);
+            cookie.Values.Add("Country", teacher.Country.Name);
+            cookie.Values.Add("AccountStatus", teacher.AccountStatus.Name);
+            Response.Cookies.Add(cookie);
+            cookie.Expires = DateTime.Now.AddYears(1);
+            return RedirectToAction("Index", "Teacher");
         }
     }
 }

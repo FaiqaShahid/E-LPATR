@@ -7,7 +7,7 @@
 
 <h2>TeachersRequests</h2>
 
-<table class="display" id="table_id">
+<table class=" display" id="table_id">
     <thead>
         <tr>
             <th>
@@ -29,8 +29,8 @@
                 @Html.DisplayNameFor(model => model.DateOfBirth)
             </th>
             @*<th>
-            @Html.DisplayNameFor(model => model.)
-        </th>*@
+                    @Html.DisplayNameFor(model => model.)
+                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.JoinedOn)
             </th>
@@ -45,39 +45,43 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Country.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Role.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.CV)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.JoinedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AccountStatus.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "DetailedTeachersRequests", new { id = item.Id }) |
-                    @Html.ActionLink("Add", "AddTeacher", new { id = item.Id })
-                </td>
-            </tr>
+            if (item.AccountStatus.Name == "Pending")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Role.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOfBirth)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.CV)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JoinedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountStatus.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Add", "AddTeacherConfirmation", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "DetailedTeachersRequests", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "DeleteTeachersConfirmation", new { id = item.Id })
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>

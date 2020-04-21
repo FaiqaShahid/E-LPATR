@@ -1,72 +1,64 @@
-﻿@model E_LPATR.Models.Teacher
+﻿@model E_LPATR.Models.User
 
 @{
-    ViewBag.Title = "DetailedUser";
+    ViewBag.Title = "DetailedTeacher";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>DetailedUser</h2>
+<h2>Detailed Teacher</h2>
 
 <div>
-    <h4>User</h4>
+    <h4>Teacher</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TeacherRequests.FirstName)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TeacherRequests.FirstName)
+            @Html.DisplayFor(model => model.FirstName)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.TeacherRequests.LastName)
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TeacherRequests.LastName)
+            @Html.DisplayFor(model => model.LastName)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.TeacherRequests.Email)
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TeacherRequests.Email)
+            @Html.DisplayFor(model => model.Email)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.TeacherRequests.JoinedOn)
+            @Html.DisplayNameFor(model => model.JoinedOn)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TeacherRequests.JoinedOn)
+            @Html.DisplayFor(model => model.JoinedOn)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.TeacherRequests.Country.Name)
+            Country
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TeacherRequests.Country.Name)
+            @Html.DisplayFor(model => model.Country.Name)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.TeacherRequests.Role)
+            @Html.DisplayNameFor(model => model.AccountStatus)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TeacherRequests.Role)
+            @Html.DisplayFor(model => model.AccountStatus.Name)
         </dd>
-        <br />
-        <dt>
-            @Html.DisplayNameFor(model => model.TeacherRequests.AccountStatus)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TeacherRequests.AccountStatus)
-        </dd>
-        <br />
+        @*<br />
         <dt>
             @Html.DisplayNameFor(model => model.TeacherRequests.CV)
         </dt>
@@ -81,10 +73,9 @@
 
         <dd>
             @Html.DisplayFor(model => model.TeacherRequests.Education)
-        </dd>
+        </dd>*@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Teachers")
 </p>

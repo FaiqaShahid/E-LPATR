@@ -29,11 +29,11 @@ namespace E_LPATR.Controllers
             v.Countries = new LearningHandler().GetCountries().ToSelectListItems();
             return View(v);
         }
+        [HttpPost]
         public ActionResult Home()
         {
             if (Request.Cookies["user"]!=null)
             {
-                // User teacher = Session["User"] as User;
                 string id= Request.Cookies["user"]["Id"];
                 return View(new LearningHandler().GetProfile(int.Parse(id)));
             }
@@ -42,10 +42,10 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult CreateProfile()
         {
-            if (Session["User"] != null)
+            if (Request.Cookies["user"] != null)
             {
                 ViewProfile  V= new ViewProfile();
                 V.Subcategory = new LearningHandler().GetSubcategories().ToSelectListItems();
@@ -56,10 +56,11 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        [HttpGet]
+        [HttpPost]
         public ActionResult AddProfile(Profile profile,FormCollection collection)
         {
-            User teacher = Session["User"] as User;
+            int Id=Int32.Parse(Request.Cookies["user"]["Id"]);
+            User teacher =new LearningHandler().GetUser(Id);
             profile.Teacher = teacher;
             new LearningHandler().AddProfile(profile);
             return RedirectToAction("Home",profile);
