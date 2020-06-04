@@ -39,7 +39,7 @@ namespace E_LPATR.Controllers
                     Profile profile = new LearningHandler().GetProfile(Email);
                     if (profile != null)
                     {
-                        return RedirectToAction("Home", "Teacher");
+                        return RedirectToAction("Dashboard", "Teacher");
                     }
                     else
                     {
@@ -86,14 +86,19 @@ namespace E_LPATR.Controllers
                     else if (user.Role.Name == "Teacher")
                     {
                         Profile profile = new LearningHandler().GetProfile(user.Email);
+                        bool prof;
                         if (profile != null)
                         {
-                            return RedirectToAction("Home", "Teacher");
+                            prof = true;
+                          //  return RedirectToAction("Home", "Teacher");
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Teacher");
+                            prof = false;
+                           // return RedirectToAction("Index", "Teacher");
                         }
+                        ViewBag.profile = prof;
+                        return RedirectToAction("Dashboard", "Teacher");
                     }
                     else if (user.Role.Name == "Student")
                     {
@@ -170,7 +175,7 @@ namespace E_LPATR.Controllers
             cookie.Values.Add("AccountStatus", teacher.AccountStatus.Name);
             Response.Cookies.Add(cookie);
             cookie.Expires = DateTime.Now.AddYears(1);
-            return RedirectToAction("Index", "Teacher");
+            return RedirectToAction("Dashboard", "Teacher");
         }
     }
 }

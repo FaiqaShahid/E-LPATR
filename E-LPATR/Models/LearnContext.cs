@@ -29,6 +29,7 @@ namespace E_LPATR.Models
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentStatus> PaymentStatuses { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<ProfileStatus> ProfileStatus { get; set; }
         public DbSet<Request> Requests { get; set; }
         public DbSet<RequestMessage> RequestMessages { get; set; }
         public DbSet<RequestStatus> RequestStatuses { get; set; }

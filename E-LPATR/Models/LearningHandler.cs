@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Data.Entity.Migrations.Model;
 using System.Security.Cryptography;
 using System.Data.Entity.Infrastructure;
+using E_LPATR.Models.View_Models;
 
 namespace E_LPATR.Models
 {
@@ -17,13 +18,30 @@ namespace E_LPATR.Models
         {
             using (LearnContext lc = new LearnContext())
             {
-                return lc.Profiles.Where(m => m.Teacher.Id == id)
+                return lc.Profiles.Where(m => m.Id== id)
                     .Include(m=>m.PackagePlan)
                     .Include(m => m.Teacher)
                     .Include(m => m.Teacher.Country)
                     .Include(m=>m.Teacher.Role)
                     .Include(m=>m.Teacher.AccountStatus)
                     .FirstOrDefault();
+
+            }
+        }
+        public List<Profile> GetProfiles(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Teacher.Id == id)
+                    .Include(m=>m.PackagePlan)
+                    .Include(m=>m.ProfileStatus)
+                    .Include(m=>m.Subcategory)
+                    .Include(m=>m.Subcategory.Category)
+                    .Include(m => m.Teacher)
+                    .Include(m => m.Teacher.Country)
+                    .Include(m=>m.Teacher.Role)
+                    .Include(m=>m.Teacher.AccountStatus)
+                    .ToList();
 
             }
         }
@@ -91,6 +109,31 @@ namespace E_LPATR.Models
                 }
             }
         }
+        public void EditProfile(ViewCreateProfile profile)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                lc.Entry(profile.Profile.PackagePlan).State = EntityState.Modified;
+                lc.Entry(profile.Profile).State = EntityState.Modified;
+                bool saveFailed;
+                do
+                {
+                    saveFailed = false;
+
+                    try
+                    {
+                        
+                        lc.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException ex)
+                    {
+                        saveFailed = true;
+                        ex.Entries.Single().Reload();
+                    }
+
+                } while (saveFailed);
+            }
+        }
         public void AddTeacher(User user)
         {
             
@@ -141,6 +184,7 @@ namespace E_LPATR.Models
             using(LearnContext lc=new LearnContext())
             {
                 lc.Entry(profile.Teacher).State = EntityState.Unchanged;
+                lc.Entry(profile.ProfileStatus).State = EntityState.Unchanged;
                 lc.Profiles.Add(profile);
                 lc.SaveChanges();
             }
@@ -151,8 +195,22 @@ namespace E_LPATR.Models
             {
                 return (from p in lc.Profiles
                         .Include(m => m.PackagePlan)
+                        .Include(m => m.ProfileStatus)
                         where p.Teacher.Email == Email
                         select p).FirstOrDefault();
+            }
+        }
+        public int GetNumberOfProfiles(string Email)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                return (from p in lc.Profiles
+                        .Include(m => m.PackagePlan)
+                        .Include(m => m.ProfileStatus)
+                        where p.Teacher.Email == Email
+                        select p
+                        ).Count();
+
             }
         }
         public List<Country> GetCountries()
@@ -164,12 +222,31 @@ namespace E_LPATR.Models
                         ).ToList();
             }
         }
+        public List<ProfileStatus> GetProfileStatuses()
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from p in lc.ProfileStatus
+                        select p
+                        ).ToList();
+            }
+        }
         
         public Country GetCountry(int id)
         {
             using (LearnContext lc = new LearnContext())
             {
                 return (from c in lc.Countries
+                        where c.Id == id
+                        select c
+                        ).FirstOrDefault();
+            }
+        }
+        public ProfileStatus GetProfileStatus(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.ProfileStatus
                         where c.Id == id
                         select c
                         ).FirstOrDefault();

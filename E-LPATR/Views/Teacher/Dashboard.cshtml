@@ -1,0 +1,79 @@
+﻿@using E_LPATR.Models.View_Models;
+@model ViewProfile
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
+}
+
+<div class="container" style="margin-top:50px">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div style="padding-left:40px">
+                    <img class="img-responsive img-rounded" src="~/Images/User.png" />
+                    <h4 class="text-center"><b>@Model.User.FirstName</b></h4> 
+                </div>
+                <hr />
+                <p><b>Education: </b> Graduation</p> <br />
+                <p><b>Country: </b>@Model.User.Country.Name</p><br /> 
+                <p><b>Last Seen: </b> 2 hours ago</p><br />
+                <p><b>Current Time: </b>@DateTime.Now</p><br />
+                @*<hr/>
+                    <h4>   <b> Describtion: </b> </h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec neque blandit, sodales eros sed, condimentum nisi.
+                    </p>
+                    <button class="btn btn-success">Edit</button>*@
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Profiles</h3>
+            </div>
+            <div class="panel-body">
+                @if (Request.Cookies["user"]["AccountStatus"] == "Open")
+                {
+                    
+                    foreach (var item in (Model.Profiles))
+                    {
+                        <div class="col-lg-4 col-md-5">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <img class="img-responsive" src="~/Images/math.jpg" th="250" height="150" />
+                                    <h3><b>@item.Name</b></h3>
+                                    <div>
+                                        <b>Per hour :</b> @item.PackagePlan.CostPerHour
+                                        <b style="padding-left:40px">
+                                            Per Day :
+                                        </b>
+                                        @item.PackagePlan.CostPerDay
+                                        <b style="padding-left:40px">
+                                            Per 3 Days :
+                                        </b>@item.PackagePlan.CostPer3Days
+                                    </div>
+                                    <h4 class="alert-success">@item.ProfileStatus.Name</h4>
+                                    @Html.ActionLink("Show More", "Display", new { id = item.Id })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    if (ViewBag.TotalProfiles)
+                    {
+                        <div class="panel panel-default col-lg-4 col-md-5">
+                            <a href="~/Teacher/CreateProfile" class="panel-body">
+                                <img src="~/Images/Plus.png" width="200" height="200" />
+                                Add profile for teaching.
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                 <h3>Your Account is pending</h3>
+                 }
+            </div>
+        </div>
+    </div>
+</div>

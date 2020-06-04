@@ -1,7 +1,7 @@
 ﻿@using E_LPATR.Models
 @model Profile
 @{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
 }
 
@@ -9,18 +9,30 @@
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h3><b>@Model.Title</b></h3>
+                <h3><b>@Model.Name</b> [ @Html.ActionLink("Edit","Edit",new { id=Model.Id}) ]
+                @*<a href="~/Teacher/EditProfile" style="margin-left:550px" class="btn btn-primary"> Edit</a>*@</h3>
+                
+                <ol class="breadcrumb">
+                    <li><a href="~/Account/Home">Home</a></li>
+                    <li><a href="~/Student/SearchedGigs">Searched Category</a></li>
+                    <li class="active">Profile</li>
+                </ol>
                 <img class="img-responsive" src="~/Images/math.jpg" />
                 <br />
+                @if (Request.Cookies["user"]["role"] != "Teacher") {
+                <div class="col-lg-push-9 col-lg-1 col-md-1 col-md-push-9">
+                    <a href="~/Student/SentRequestRequirements" class="btn btn-success btn-lg">Send Request</a>
+                </div>
+                }
                 <h3><b>Prices: </b></h3>
                 <div style="margin-left:100px">
-                    <b>Per hour :</b> @Model.PackagePlan.CostPerHour
-                    <b style="padding-left:40px">Per Day :</b>@Model.PackagePlan.CostPerDay
-                    <b style="padding-left:40px">Per 3 Days :</b>@Model.PackagePlan.CostPer3Days
+                    <b>Per hour :</b> @Model.PackagePlan.CostPerHour 
+                    <b style="margin-left:100px">Per Day :</b> @Model.PackagePlan.CostPerDay
+                    <b style="margin-left:100px">Per 3 Days :</b> @Model.PackagePlan.CostPer3Days
                 </div>
-                <h3 style="margin-left:50px"><b>Desciption</b></h3>
+                <h3 style="margin-left:50px"><b>Descibtion</b></h3>
                 <p style="text-align:center">
-                    @Model.Description
+                   @Model.Description
                 </p>
             </div>
         </div>
@@ -32,17 +44,16 @@
                     <img class="img-responsive img-rounded" src="~/Images/User.png" />
                     <h4 class="text-center"><b>@Model.Teacher.FirstName</b></h4>
                 </div>
-                <hr/>
-                <p><b>Education: </b> Graduation</p> <br/>
+                <hr />
+                <p><b>Education: </b> Graduation</p> <br />
                 <p><b>Country: </b> @Model.Teacher.Country.Name</p><br />
                 <p><b>Last Seen: </b> 2 hours ago</p><br />
                 <p><b>Current Time: </b>@DateTime.Now</p><br />
-                <hr/>
+                @*<hr />
                 <h4>   <b> Describtion: </b> </h4>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nec neque blandit, sodales eros sed, condimentum nisi.
-                </p>
-                <button class="btn btn-success">Edit</button>
+                </p>*@
             </div>
         </div>
     </div>
