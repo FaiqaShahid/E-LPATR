@@ -14,10 +14,12 @@
                     <h4 class="text-center"><b>@Model.User.FirstName</b></h4> 
                 </div>
                 <hr />
-                <p><b>Education: </b> Graduation</p> <br />
-                <p><b>Country: </b>@Model.User.Country.Name</p><br /> 
-                <p><b>Last Seen: </b> 2 hours ago</p><br />
-                <p><b>Current Time: </b>@DateTime.Now</p><br />
+                <p><b style="margin-right:50px">Date Of Birth: </b> @Html.FormatValue("yyy-MM-dd", Model.User.DateOfBirth.ToString("dd-MM-yyyy"))
+                </p> <br />
+                <p><b style="margin-right:65px">Education: </b> Graduation</p> <br />
+                <p><b style="margin-right:80px">Country: </b>@Model.User.Country.Name</p><br /> 
+                <p><b style="margin-right:70px">Last Seen: </b> 2 hours ago</p><br />
+                <p><b style="margin-right:50px">Current Time: </b>@DateTime.Now</p><br />
                 @*<hr/>
                     <h4>   <b> Describtion: </b> </h4>
                     <p>

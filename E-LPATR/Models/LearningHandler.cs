@@ -339,5 +339,32 @@ namespace E_LPATR.Models
                         select c).FirstOrDefault();
             }
         }
+        public Category SearchCategory(string Data)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.Categories
+                        where Data == c.Name
+                        select c).FirstOrDefault();
+            }
+        }
+        public Subcategory SearchSubCategory(string Data)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from sc in lc.Subcategories
+                        where Data == sc.Name
+                        select sc).FirstOrDefault();
+            }
+        }
+        public List<User> SearchTeacher(string Data)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from t in lc.Users
+                        where Data == t.FirstName ||Data==t.LastName||Data==t.Email
+                        select t).ToList();
+            }
+        }
     }
 }

@@ -13,14 +13,18 @@
                         <li class="active">Sign Up for Teacher</li>
                     </ol>
                     <h1><b>Sign Up for Teacher</b></h1>
-                    @using (Html.BeginForm("AddTeacher", "Account", FormMethod.Post))
+                    @* @using (Html.BeginForm("AddTeacher", "Account", FormMethod.Post))*@
+                    @using (Html.BeginForm("Ad", "Account", FormMethod.Post))
                     {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="form-group">
                             <div class="input-group form-inline">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
+
                                 @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control required", placeholder = "Enter First Name" })
+                                @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -29,6 +33,7 @@
                                     <span class="glyphicon glyphicon-user"></span>
                                 </span>
                                 @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control required", placeholder = "Enter Last Name" })
+                                @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -36,7 +41,8 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-envelope"></span>
                                 </span>
-                                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control required", placeholder = "Enter Email" })
+                                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control required", placeholder = "Enter Email", id = "Email1" })
+                                @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger", id = "EmailValidate" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -44,7 +50,9 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-envelope"></span>
                                 </span>
-                                <input type="email" required class="form-control" id="ConfirmEmail" placeholder="Confirm Email">
+                                <input type="email" required class="form-control" id="Email2" placeholder="Confirm Email">
+                                @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger", id = "Email" })
+                                <p id="Email4" class="hidden alert-danger">Email Does Not Match</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -52,7 +60,8 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-lock"></span>
                                 </span>
-                                @Html.PasswordFor(m => m.User.Password, new { @class = "form-control required", placeholder = "Enter Password" })
+                                @Html.PasswordFor(m => m.User.Password, new { @class = "form-control required", placeholder = "Enter Password", id = "Password1" })
+                                @Html.ValidationMessageFor(model => model.User.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
@@ -60,39 +69,48 @@
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-lock"></span>
                                 </span>
-                                <input type="password" required class="form-control" id="ConfirmPassword" placeholder="Confirm Password">
+                                <input type="password" required class="form-control" id="Password2" placeholder="Confirm Password">
+                                @Html.ValidationMessageFor(model => model.User.Password, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="input-group form-inline">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-book"></span>
-                                </span>
-                                <input type="email" required class="form-control" id="ConfirmEmail" placeholder="Education">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group form-inline">
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-education"></span>
-                                </span>
-                                <input type="email" required class="form-control" id="ConfirmEmail" placeholder="Add Skills">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="input-group form-inline">
-                                <span class="input-group-addon">
-                                    CV
-                                </span>
-                                <input type="file" required class="form-control" id="ConfirmEmail" placeholder="Add CV">
-                            </div>
-                        </div>
+                        @*<div class="form-group">
+                <div class="input-group form-inline">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-book"></span>
+                    </span>
+                    <input type="email" required class="form-control" id="ConfirmEmail" placeholder="Education">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group form-inline">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-education"></span>
+                    </span>
+                    <input type="email" required class="form-control" id="ConfirmEmail" placeholder="Add Skills">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group form-inline">
+                    <span class="input-group-addon">
+                        CV
+                    </span>
+                    <input type="file" required class="form-control" id="ConfirmEmail" placeholder="Add CV">
+                </div>
+            </div>*@
                         <div class="form-group">
                             <div class="input-group form-inline">
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-flag"></span>
                                 </span>
                                 @Html.DropDownList("Country", Model.Countries, "-Select Country-", new { @class = "form-control", id = "Country", })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group form-inline">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                                @Html.EditorFor(model => model.User.DateOfBirth, new { htmlAttributes = new { @class = "form-control required" } })
                             </div>
                         </div>
                         @*<div class="form-group">
@@ -121,3 +139,15 @@
             </div>
         </div>
     </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('Email2').keyup(function () {
+            if ($(this).val() == $('Email1').val()) {
+                $('#Email4').addClass('hidden');
+            }
+            else {
+                $('#Email4').removeClass('hidden');
+            }
+        });
+    });
+</script>

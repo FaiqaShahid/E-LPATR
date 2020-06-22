@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +14,7 @@ namespace E_LPATR.Models
         public string Email { get; set; }
         public byte[] Image { get; set; }
         public string Password { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         public DateTime JoinedOn { get; set; }
         public virtual Country Country { get; set; }

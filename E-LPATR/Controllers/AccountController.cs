@@ -160,7 +160,6 @@ namespace E_LPATR.Controllers
             User teacher = model.User;
             teacher.Country = lh.GetCountry(Convert.ToInt32(collection["Country"]));
             teacher.JoinedOn = DateTime.Now;
-            teacher.DateOfBirth = DateTime.Now;
             teacher.Role = lh.GetRole(2);
             teacher.AccountStatus = lh.GetAccountStatus(3);
             lh.AddUser(teacher);
@@ -176,6 +175,44 @@ namespace E_LPATR.Controllers
             Response.Cookies.Add(cookie);
             cookie.Expires = DateTime.Now.AddYears(1);
             return RedirectToAction("Dashboard", "Teacher");
+        }
+        public ActionResult Search(string Data)
+        {
+            if (Data != null) { 
+                Category cat=new LearningHandler().SearchCategory(Data);
+                Subcategory subcat = new Subcategory();
+                List<User> users;
+                if (cat == null)
+                {
+                    subcat = new LearningHandler().SearchSubCategory(Data);
+                }
+                else if(subcat== null&& cat==null)
+                {
+                   users= new LearningHandler().SearchTeacher(Data);
+                }
+                if (subcat != null)
+                {
+                    return RedirectToAction("SearchedCategory", "Account","subcat");
+                }
+                if (cat != null)
+                {
+                    return RedirectToAction("SearchedSubCategory", "Account","cat");
+                }
+                if (cat != null)
+                {
+                    return RedirectToAction("SearchedUser", "Account","users");
+                }
+            }
+            else
+            {
+                return RedirectToAction("SearchedGigs","Student");
+            }
+                return RedirectToAction("SearchedGigs","Student");
+        }
+        public ActionResult SearchedCategory(Subcategory subcategory)
+        {
+
+            return View();
         }
     }
 }
