@@ -133,11 +133,11 @@ namespace E_LPATR.Controllers
             return View(v);
         }
         [HttpPost]
-        public ActionResult AddStudent(User user, FormCollection collection)
+        public ActionResult AddStudent(ViewSignUp Student, FormCollection collection)
         {
+            User user =Student.User;
             user.Country = lh.GetCountry(Convert.ToInt32(collection["Country"]));
             user.AccountStatus = lh.GetAccountStatus(1);
-            user.DateOfBirth = DateTime.Now;
             user.JoinedOn = DateTime.Now;
             user.Role = lh.GetRole(3);
             lh.AddUser(user);
@@ -161,6 +161,7 @@ namespace E_LPATR.Controllers
             teacher.Country = lh.GetCountry(Convert.ToInt32(collection["Country"]));
             teacher.JoinedOn = DateTime.Now;
             teacher.Role = lh.GetRole(2);
+            teacher.Degree.Name= model.User.Degree.Name;
             teacher.AccountStatus = lh.GetAccountStatus(3);
             lh.AddUser(teacher);
             HttpCookie cookie = new HttpCookie("user");

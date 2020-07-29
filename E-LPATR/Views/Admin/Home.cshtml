@@ -23,19 +23,13 @@
                 Country
             </th>
             <th>
-                Role
+                Education
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                Date of Birth
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.JoinedOn)
-            </th>
-            <th>
-                Account Status
             </th>
             <th>
                 Actions
@@ -61,19 +55,13 @@
                         @Html.DisplayFor(modelItem => item.Country.Name)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Role.Name)
+                        @Html.DisplayFor(modelItem => item.Degree.Name)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DateOfBirth)
                     </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.CV)
-                        </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.JoinedOn)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AccountStatus.Name)
                     </td>
                     <td>
                         @Html.ActionLink("Add", "AddTeacherConfirmation", new { id = item.Id }) |

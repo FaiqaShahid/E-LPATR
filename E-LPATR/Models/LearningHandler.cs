@@ -89,6 +89,7 @@ namespace E_LPATR.Models
                         .Include(m=>m.AccountStatus)
                         .Include(m=>m.Country)
                         .Include(m=>m.Role)
+                        .Include(m=>m.Degree)
                         where (u.Id == Id)
                         select u).FirstOrDefault();
             }
@@ -174,6 +175,7 @@ namespace E_LPATR.Models
                         .Include(m=>m.AccountStatus)
                         .Include(m=>m.Country)
                         .Include(m=>m.Role)
+                        .Include(m=>m.Degree)
                         where u.AccountStatus.Name=="Pending"
                         select u).ToList();
             }

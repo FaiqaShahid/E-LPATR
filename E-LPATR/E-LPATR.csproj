@@ -195,41 +195,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003261203572_AddDB.cs" />
-    <Compile Include="Migrations\202003261203572_AddDB.designer.cs">
-      <DependentUpon>202003261203572_AddDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003271526032_changeDataType.cs" />
-    <Compile Include="Migrations\202003271526032_changeDataType.designer.cs">
-      <DependentUpon>202003271526032_changeDataType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004040809191_Illistable.cs" />
-    <Compile Include="Migrations\202004040809191_Illistable.designer.cs">
-      <DependentUpon>202004040809191_Illistable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004160738446_ForeignKey.cs" />
-    <Compile Include="Migrations\202004160738446_ForeignKey.designer.cs">
-      <DependentUpon>202004160738446_ForeignKey.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004241200138_AddIlistable.cs" />
-    <Compile Include="Migrations\202004241200138_AddIlistable.designer.cs">
-      <DependentUpon>202004241200138_AddIlistable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004241209443_AddIlistable1.cs" />
-    <Compile Include="Migrations\202004241209443_AddIlistable1.designer.cs">
-      <DependentUpon>202004241209443_AddIlistable1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005031528507_AddViewModelsProfile.cs" />
-    <Compile Include="Migrations\202005031528507_AddViewModelsProfile.designer.cs">
-      <DependentUpon>202005031528507_AddViewModelsProfile.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005031715553_AddViewModelsProfile1.cs" />
-    <Compile Include="Migrations\202005031715553_AddViewModelsProfile1.designer.cs">
-      <DependentUpon>202005031715553_AddViewModelsProfile1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202005071516518_AddIlistableInProfileStatus.cs" />
-    <Compile Include="Migrations\202005071516518_AddIlistableInProfileStatus.designer.cs">
-      <DependentUpon>202005071516518_AddIlistableInProfileStatus.cs</DependentUpon>
+    <Compile Include="Migrations\202007291232374_AddDB.cs" />
+    <Compile Include="Migrations\202007291232374_AddDB.designer.cs">
+      <DependentUpon>202007291232374_AddDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountStatus.cs" />
@@ -338,32 +306,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003261203572_AddDB.resx">
-      <DependentUpon>202003261203572_AddDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003271526032_changeDataType.resx">
-      <DependentUpon>202003271526032_changeDataType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004040809191_Illistable.resx">
-      <DependentUpon>202004040809191_Illistable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004160738446_ForeignKey.resx">
-      <DependentUpon>202004160738446_ForeignKey.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004241200138_AddIlistable.resx">
-      <DependentUpon>202004241200138_AddIlistable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004241209443_AddIlistable1.resx">
-      <DependentUpon>202004241209443_AddIlistable1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005031528507_AddViewModelsProfile.resx">
-      <DependentUpon>202005031528507_AddViewModelsProfile.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005031715553_AddViewModelsProfile1.resx">
-      <DependentUpon>202005031715553_AddViewModelsProfile1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005071516518_AddIlistableInProfileStatus.resx">
-      <DependentUpon>202005071516518_AddIlistableInProfileStatus.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202007291232374_AddDB.resx">
+      <DependentUpon>202007291232374_AddDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

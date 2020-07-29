@@ -7,13 +7,13 @@ namespace E_LPATR.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class Illistable : IMigrationMetadata
+    public sealed partial class AddDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Illistable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "202004040809191_Illistable"; }
+            get { return "202007291232374_AddDB"; }
         }
         
         string IMigrationMetadata.Source

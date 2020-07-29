@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddIlistableInProfileStatus : DbMigration
+    public partial class AddDB : DbMigration
     {
         public override void Up()
         {

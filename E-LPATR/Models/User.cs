@@ -22,6 +22,7 @@ namespace E_LPATR.Models
         public virtual Role Role { get; set; }
         public virtual int AccountStatusID { get; set; }
         public virtual AccountStatus AccountStatus { get; set; }
+        public virtual Degree Degree { get; set; }
 
         public static implicit operator User(HttpCookie v)
         {
