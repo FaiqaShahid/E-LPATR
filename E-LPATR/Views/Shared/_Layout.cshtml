@@ -9,6 +9,7 @@
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <link href="~/StyleSheet1.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <style>
         body {
             font-family: 'Oxygen', serif;
@@ -28,29 +29,173 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="~/Account/Home">E-LPATR</a>
+                @if (Request.Cookies["user"] == null)
+                {
+                    <a class="navbar-brand" href="~/Account/Home">E-LPATR</a>
+                }
+                else if (Request.Cookies["user"]["Role"] == "Admin")
+                {
+                    <a class="navbar-brand" href="~/Admin/Home">E-LPATR</a>
+                }
+                else if (Request.Cookies["user"]["Role"] == "Teacher")
+                {
+                    <a class="navbar-brand" href="~/Teacher/Home">E-LPATR</a>
+                }
+                else if (Request.Cookies["user"]["Role"] == "Student")
+                {
+                    <a class="navbar-brand" href="~/Student/Home">E-LPATR</a>
+                }
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left" method="get" action="~/Account/Search">
-                    @*@using (Html.BeginForm("Search", "Account", FormMethod.Get))
-                    {
-                        <ul class="nav navbar-nav form-control">
-                            <li>@Html.TextBox("id", ViewBag.SearchedData as string)</li>
-                            <li><input type="submit" value="Search" /></li>
-                        </ul>
-                    }*@
                     <div class="form-group">
-                        <input type="text" id="SearchedData" class="form-control" placeholder="Search Here..." name="SearchedData" /> @*value="@(ViewBag.SearchedData)"/>*@
+                        <input type="text" id="SearchedData" class="form-control" placeholder="Search Here..." name="SearchedData" />
                         <input type="submit" value="submit" id="Search" class="btn btn-success" />
                     </div>
                 </form>
-                
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="~/Account/SignUp">Sign Up</a></li>
-                    <li><a href="~/Account/Login">Login</a></li>
-                </ul>
-                @*@Html.Partial("_LoginPartial")*@
+                @if (Request.Cookies["user"] == null)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="~/Account/SignUp">Sign Up</a></li>
+                        <li><a href="~/Account/Login">Login</a></li>
+                    </ul>
+                }
+                else if (Request.Cookies["user"]["Role"] == "Admin")
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="~/Admin/Categories">Categories</a></li>
+                        <li><a href="~/Admin/Issues">Issues</a></li>
+                        <li><a href="~/Admin/Requests">Requests</a></li>
+                        <li><a href="~/Admin/Students">Students</a></li>
+                        <li><a href="~/Admin/Teachers">Teachers</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Notifications<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                @if (Request.Cookies["user"] != null)
+                                {
+                                    <b>@Request.Cookies["user"]["FirstName"]</b>
+                                }
+                                else
+                                {
+                                    <b>User</b>
+                                }
+                            </a>
+                            <ul class="dropdown-menu">
+                                @*<li role="separator" class="divider"></li>*@
+                                <li><a href="~/Student/Settings">Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Account/Logout">Log out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+                else if (Request.Cookies["user"]["Role"] == "Teacher")
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="~/Teacher/Requests">Requests</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Notifications<span class="caret"><span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li style="padding-left:20px">
+                                    @if (Request.Cookies["user"] != null)
+                                    {
+                                        <b>@Request.Cookies["user"]["FirstName"]</b>
+                                    }
+                                    else
+                                    {
+                                        <b>User</b>
+                                    }
+                                </li>
+                                <li><a href="~/Student/Settings">Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Account/Logout">Log out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+                else if (Request.Cookies["user"]["Role"] == "Student")
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="~/Student/RecentOrders">Recent Requests</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Notifications<span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li style="padding-left:20px">
+                                    @if (Request.Cookies["user"] != null)
+                                    {
+                                        <b>@Request.Cookies["user"]["FirstName"]</b>
+                                    }
+                                    else
+                                    {
+                                        <b>User</b>
+                                    }
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Student/Settings">Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Account/Logout">Log out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
@@ -64,43 +209,43 @@
                     <ul>
                         <li><a href="~/Student/SearchedGigs">Music</a></li>
                         @*<ul>
-                            <li><a href="~/Student/SearchedGigs">Guitar</a></li>
-                            <li><a href="~/Student/SearchedGigs">Piano</a></li>
-                            <li><a href="~/Student/SearchedGigs">Singing</a></li>
-                            <li><a href="~/Student/SearchedGigs">Drums</a></li>
-                            <li><a href="~/Student/SearchedGigs">Xylophone</a></li>
-                            <li><a href="~/Student/SearchedGigs">Singing</a></li>
-                        </ul>*@
+                                <li><a href="~/Student/SearchedGigs">Guitar</a></li>
+                                <li><a href="~/Student/SearchedGigs">Piano</a></li>
+                                <li><a href="~/Student/SearchedGigs">Singing</a></li>
+                                <li><a href="~/Student/SearchedGigs">Drums</a></li>
+                                <li><a href="~/Student/SearchedGigs">Xylophone</a></li>
+                                <li><a href="~/Student/SearchedGigs">Singing</a></li>
+                            </ul>*@
                         <li><a href="~/Student/SearchedGigs">Programming</a></li>
                         @*<ul>
-                            <li><a href="~/Student/SearchedGigs">Web Development</a></li>
-                            <li><a href="~/Student/SearchedGigs">Android Application Development</a></  li>
-                            <li><a href="~/Student/SearchedGigs">Artifical Intelligence</a></li>
-                            <li><a href="~/Student/SearchedGigs">Android Games</a></li>
-                            <li><a href="~/Student/SearchedGigs">WordPress</a></li>
-                            <li><a href="~/Student/SearchedGigs">Desktop Applications</a></li>
-                            <li><a href="~/Student/SearchedGigs">E-Commerce Development</a></li>
-                            <li><a href="~/Student/SearchedGigs">Databases</a></li>
-                        </ul>*@
+                                <li><a href="~/Student/SearchedGigs">Web Development</a></li>
+                                <li><a href="~/Student/SearchedGigs">Android Application Development</a></  li>
+                                <li><a href="~/Student/SearchedGigs">Artifical Intelligence</a></li>
+                                <li><a href="~/Student/SearchedGigs">Android Games</a></li>
+                                <li><a href="~/Student/SearchedGigs">WordPress</a></li>
+                                <li><a href="~/Student/SearchedGigs">Desktop Applications</a></li>
+                                <li><a href="~/Student/SearchedGigs">E-Commerce Development</a></li>
+                                <li><a href="~/Student/SearchedGigs">Databases</a></li>
+                            </ul>*@
                         <li><a href="~/Student/SearchedGigs">Education</a></li>
                         @*<ul>
-                            <li><a href="~/Student/SearchedGigs">Biology</a></li>
-                            <li><a href="~/Student/SearchedGigs">Chemistry</a></  li>
-                            <li><a href="~/Student/SearchedGigs">Physics</a></li>
-                            <li><a href="~/Student/SearchedGigs">Data And Logical Designs</a></li>
-                            <li><a href="~/Student/SearchedGigs">ELectronics</a></li>
-                            <li><a href="~/Student/SearchedGigs">Mathematics</a></li>
-                        </ul>*@
+                                <li><a href="~/Student/SearchedGigs">Biology</a></li>
+                                <li><a href="~/Student/SearchedGigs">Chemistry</a></  li>
+                                <li><a href="~/Student/SearchedGigs">Physics</a></li>
+                                <li><a href="~/Student/SearchedGigs">Data And Logical Designs</a></li>
+                                <li><a href="~/Student/SearchedGigs">ELectronics</a></li>
+                                <li><a href="~/Student/SearchedGigs">Mathematics</a></li>
+                            </ul>*@
                         <li><a href="~/Student/SearchedGigs">Graphic Desigining</a></li>
                         @*<ul>
-                            <li><a href="~/Student/SearchedGigs">Logo Design</a></li>
-                            <li><a href="~/Student/SearchedGigs">Photoshop Editing</a></  li>
-                            <li><a href="~/Student/SearchedGigs">Cartoons And Graphics</a></li>
-                            <li><a href="~/Student/SearchedGigs">UI/UX Designs </a></li>
-                            <li><a href="~/Student/SearchedGigs">Flyer Designs</a></li>
-                            <li><a href="~/Student/SearchedGigs">Poster Design</a></li>
-                            <li><a href="~/Student/SearchedGigs">Menu Design</a></li>
-                        </ul>*@
+                                <li><a href="~/Student/SearchedGigs">Logo Design</a></li>
+                                <li><a href="~/Student/SearchedGigs">Photoshop Editing</a></  li>
+                                <li><a href="~/Student/SearchedGigs">Cartoons And Graphics</a></li>
+                                <li><a href="~/Student/SearchedGigs">UI/UX Designs </a></li>
+                                <li><a href="~/Student/SearchedGigs">Flyer Designs</a></li>
+                                <li><a href="~/Student/SearchedGigs">Poster Design</a></li>
+                                <li><a href="~/Student/SearchedGigs">Menu Design</a></li>
+                            </ul>*@
                         <li><a href="~/Student/SearchedGigs">Sales And Marketing</a></li>
                         <li><a href="~/Student/SearchedGigs">Writing and Translation</a></li>
                         <li><a href="~/Student/SearchedGigs">Data Science And Analysis</a></li>
@@ -134,14 +279,15 @@
             </div>
         </footer>
     </div>
-   
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    @*<script type="text/javascript">
-        $("#Search").click(function () {
-            @ViewBag.SearchedData=$('#SearchedData').val();
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
         });
-    </script>*@
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

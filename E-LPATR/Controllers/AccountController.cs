@@ -256,16 +256,22 @@ namespace E_LPATR.Controllers
                 if (profiles.Count!=0)
                 {
                     TempData["SearchedProfiles"] = profiles;
-                    return RedirectToAction("SearchedGigs", "Student");
+                    return RedirectToAction("SearchedGigs");
                 }
                 else
                 {
                     List<Profile> AllProfiles = lh.GetAllProfiles();
                     TempData["SearchedProfiles"] = AllProfiles;
-                    return RedirectToAction("SearchedGigs", "Student");
+                    return RedirectToAction("SearchedGigs");
                 }
             }
             return RedirectToAction("Home","Account");
+        }
+        [HttpGet]
+        public ActionResult SearchedGigs()
+        {
+            List<Profile> Profiles = TempData["SearchedProfiles"] as List<Profile>;
+            return View(Profiles);
         }
         public ActionResult SearchedCategory(Subcategory subcategory)
         {

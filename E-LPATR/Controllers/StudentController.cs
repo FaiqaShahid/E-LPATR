@@ -18,12 +18,7 @@ namespace E_LPATR.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public ActionResult SearchedGigs()
-        {
-            List<Profile> Profiles = TempData["SearchedProfiles"] as List<Profile>;
-            return View(Profiles);
-        }
+        
         public ActionResult OrderPage()
         {
             return View();
