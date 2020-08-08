@@ -11,11 +11,10 @@
     <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
     <style>
         body {
-             font-family: 'Oxygen', serif;
-             background-color:#F8F8F8;
-             padding-bottom:0px
+            font-family: 'Oxygen', serif;
+            background-color: #F8F8F8;
+            padding-bottom: 0px
         }
-        
     </style>
 </head>
 <body>
@@ -36,15 +35,15 @@
                 <form class="navbar-form navbar-left" method="get" action="~/Account/Search">
                     @*@using (Html.BeginForm("Search", "Account", FormMethod.Get))
                     {
-                        <ul class="nav navbar-nav">
-                            <li>@Html.TextBox("id", ViewBag.CurrentFilter as string)</li>
+                        <ul class="nav navbar-nav form-control">
+                            <li>@Html.TextBox("id", ViewBag.SearchedData as string)</li>
                             <li><input type="submit" value="Search" /></li>
                         </ul>
                     }*@
                     <div class="form-group">
-                        <input type="text" id="SearchData" class="form-control" placeholder="Search Here..." />
+                        <input type="text" id="SearchedData" class="form-control" placeholder="Search Here..." name="SearchedData" /> @*value="@(ViewBag.SearchedData)"/>*@
+                        <input type="submit" value="submit" id="Search" class="btn btn-success" />
                     </div>
-                    <input type="submit" value="Search" id="Search" class="btn btn-success" />
                 </form>
                 
                 <ul class="nav navbar-nav navbar-right">
@@ -138,13 +137,12 @@
    
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
- 
+    @*<script type="text/javascript">
+        $("#Search").click(function () {
+            @ViewBag.SearchedData=$('#SearchedData').val();
+        });
+    </script>*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
 
-<script type="text/javascript">
-    $("#Search").click(function () {
-        @ViewBag.SearchData=$('#SearchData').val();
-    });
-</script>

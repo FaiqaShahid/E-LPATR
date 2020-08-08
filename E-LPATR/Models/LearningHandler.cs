@@ -14,6 +14,89 @@ namespace E_LPATR.Models
 {
     public class LearningHandler 
     {
+        #region search
+        public List<Profile> SearchByFirstName(string Name)
+        {
+            using(LearnContext lc=new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Teacher.LastName.Contains(Name))
+                        .Include(m => m.PackagePlan)
+                        .Include(m => m.Teacher)
+                        .Include(m => m.Teacher.Country)
+                        .Include(m => m.Teacher.Role)
+                        .Include(m => m.Teacher.AccountStatus)
+                        .ToList();
+            }
+        }
+        public List<Profile> SearchByLastName(string Name)
+        {
+            using(LearnContext lc=new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Teacher.LastName.Contains(Name))
+                        .Include(m => m.PackagePlan)
+                        .Include(m => m.Teacher)
+                        .Include(m => m.Teacher.Country)
+                        .Include(m => m.Teacher.Role)
+                        .Include(m => m.Teacher.AccountStatus)
+                        .ToList();
+            }
+        }
+        public List<Profile> SearchByEmail(string Email)
+        {
+            using(LearnContext lc=new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Teacher.Email.Contains(Email))
+                        .Include(m => m.PackagePlan)
+                        .Include(m => m.Teacher)
+                        .Include(m => m.Teacher.Country)
+                        .Include(m => m.Teacher.Role)
+                        .Include(m => m.Teacher.AccountStatus)
+                        .ToList();
+            }
+        }
+        public List<Profile> SearchByCategory(string Category)
+        {
+            using(LearnContext lc=new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Subcategory.Category.Name.Contains(Category))
+                        .Include(m => m.PackagePlan)
+                        .Include(m => m.Teacher)
+                        .Include(m => m.Teacher.Country)
+                        .Include(m => m.Teacher.Role)
+                        .Include(m => m.Teacher.AccountStatus)
+                        .ToList();
+            }
+        }
+        public List<Profile> SearchBySubcategory(string Subcategory)
+        {
+            using(LearnContext lc=new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Subcategory.Name.Contains(Subcategory))
+                        .Include(m => m.PackagePlan)
+                        .Include(m => m.Teacher)
+                        .Include(m => m.Teacher.Country)
+                        .Include(m => m.Teacher.Role)
+                        .Include(m => m.Teacher.AccountStatus)
+                        .ToList();
+            }
+        }
+        public List<Profile> GetAllProfiles()
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return lc.Profiles
+                    .Include(m => m.PackagePlan)
+                    .Include(m => m.ProfileStatus)
+                    .Include(m => m.Subcategory)
+                    .Include(m => m.Subcategory.Category)
+                    .Include(m => m.Teacher)
+                    .Include(m => m.Teacher.Country)
+                    .Include(m => m.Teacher.Role)
+                    .Include(m => m.Teacher.AccountStatus)
+                    .ToList();
+            }
+        }
+        #endregion
         public Profile GetProfile(int id)
         {
             using (LearnContext lc = new LearnContext())
@@ -45,6 +128,7 @@ namespace E_LPATR.Models
 
             }
         }
+        
         #region User
         public void AddUser(User user)
         {

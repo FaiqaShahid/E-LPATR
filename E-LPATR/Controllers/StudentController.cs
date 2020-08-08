@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_LPATR.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,9 +18,11 @@ namespace E_LPATR.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult SearchedGigs()
         {
-            return View();
+            List<Profile> Profiles = TempData["SearchedProfiles"] as List<Profile>;
+            return View(Profiles);
         }
         public ActionResult OrderPage()
         {

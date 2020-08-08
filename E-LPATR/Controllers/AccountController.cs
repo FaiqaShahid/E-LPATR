@@ -177,38 +177,95 @@ namespace E_LPATR.Controllers
             cookie.Expires = DateTime.Now.AddYears(1);
             return RedirectToAction("Dashboard", "Teacher");
         }
-        public ActionResult Search(string Data)
+        [HttpGet]
+        public ActionResult Search(string SearchedData)
         {
-            if (Data != null) { 
-                Category cat=new LearningHandler().SearchCategory(Data);
-                Subcategory subcat = new Subcategory();
-                List<User> users;
-                if (cat == null)
-                {
-                    subcat = new LearningHandler().SearchSubCategory(Data);
-                }
-                else if(subcat== null&& cat==null)
-                {
-                   users= new LearningHandler().SearchTeacher(Data);
-                }
-                if (subcat != null)
-                {
-                    return RedirectToAction("SearchedCategory", "Account","subcat");
-                }
-                if (cat != null)
-                {
-                    return RedirectToAction("SearchedSubCategory", "Account","cat");
-                }
-                if (cat != null)
-                {
-                    return RedirectToAction("SearchedUser", "Account","users");
-                }
-            }
-            else
+            LearnContext learn = new LearnContext();
+            if (SearchedData != null)
             {
-                return RedirectToAction("SearchedGigs","Student");
+                List<Profile> ProfilesByFirstName = lh.SearchByFirstName(SearchedData);
+                List<Profile> ProfilesByLastName = lh.SearchByLastName(SearchedData);
+                List<Profile> ProfilesByEmail = lh.SearchByEmail(SearchedData);
+                List<Profile> ProfilesByCategory = lh.SearchByCategory(SearchedData);
+                List<Profile> ProfilesBySubcategory = lh.SearchBySubcategory(SearchedData);
+                List<Profile> profiles = new List<Profile>();
+                bool p = false;
+                foreach (var item in ProfilesByFirstName)
+                {
+                    profiles.Add(item);
+                }
+                foreach (var item in ProfilesByLastName)
+                {
+                    foreach (var profile in profiles)
+                    {
+                        if (profile.Description == item.Description)
+                        {
+                            p = true;
+                        }
+                    }
+                    if (p == false)
+                    {
+                        profiles.Add(item);
+                    }
+                }
+                p = false;
+                foreach (var item in ProfilesByEmail)
+                {
+                    foreach (var profile in profiles)
+                    {
+                        if (profile.Description == item.Description)
+                        {
+                            p = true;
+                        }
+                    }
+                    if (p == false)
+                    {
+                        profiles.Add(item);
+                    }
+                }
+                p = false;
+                foreach (var item in ProfilesByCategory)
+                {
+                    foreach (var profile in profiles)
+                    {
+                        if (profile.Description == item.Description)
+                        {
+                            p = true;
+                        }
+                    }
+                    if (p == false)
+                    {
+                        profiles.Add(item);
+                    }
+                }
+                p = false;
+                foreach (var item in ProfilesBySubcategory)
+                {
+                    foreach (var profile in profiles)
+                    {
+                        if (profile.Description == item.Description)
+                        {
+                            p = true;
+                        }
+                    }
+                    if (p == false)
+                    {
+                        profiles.Add(item);
+                    }
+                }
+                if (profiles.Count!=0)
+                {
+                    TempData["SearchedProfiles"] = profiles;
+                    return RedirectToAction("SearchedGigs", "Student");
+                }
+                else
+                {
+                    List<Profile> AllProfiles = lh.GetAllProfiles();
+                    TempData["SearchedProfiles"] = AllProfiles;
+                    return RedirectToAction("SearchedGigs", "Student");
+                }
             }
-                return RedirectToAction("SearchedGigs","Student");
+            return RedirectToAction("Home","Account");
         }
         public ActionResult SearchedCategory(Subcategory subcategory)
         {
