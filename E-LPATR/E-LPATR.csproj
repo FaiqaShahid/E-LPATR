@@ -199,6 +199,26 @@
     <Compile Include="Migrations\202007291232374_AddDB.designer.cs">
       <DependentUpon>202007291232374_AddDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008130934254_Changes.cs" />
+    <Compile Include="Migrations\202008130934254_Changes.designer.cs">
+      <DependentUpon>202008130934254_Changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008131420142_RemoveProfileFromRequestTbl.cs" />
+    <Compile Include="Migrations\202008131420142_RemoveProfileFromRequestTbl.designer.cs">
+      <DependentUpon>202008131420142_RemoveProfileFromRequestTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008140710333_mig.cs" />
+    <Compile Include="Migrations\202008140710333_mig.designer.cs">
+      <DependentUpon>202008140710333_mig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008141053596_DataTypeOfCost.cs" />
+    <Compile Include="Migrations\202008141053596_DataTypeOfCost.designer.cs">
+      <DependentUpon>202008141053596_DataTypeOfCost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008141946368_ids.cs" />
+    <Compile Include="Migrations\202008141946368_ids.designer.cs">
+      <DependentUpon>202008141946368_ids.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountStatus.cs" />
     <Compile Include="Models\Category.cs" />
@@ -295,6 +315,9 @@
     <Content Include="Views\Teacher\Display.cshtml" />
     <Content Include="Views\Teacher\EditProfile.cshtml" />
     <Content Include="Views\Teacher\Edit.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Account\AllProfiles.cshtml" />
+    <Content Include="Views\Student\AddRequirements.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,6 +331,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202007291232374_AddDB.resx">
       <DependentUpon>202007291232374_AddDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008130934254_Changes.resx">
+      <DependentUpon>202008130934254_Changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008131420142_RemoveProfileFromRequestTbl.resx">
+      <DependentUpon>202008131420142_RemoveProfileFromRequestTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008140710333_mig.resx">
+      <DependentUpon>202008140710333_mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008141053596_DataTypeOfCost.resx">
+      <DependentUpon>202008141053596_DataTypeOfCost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008141946368_ids.resx">
+      <DependentUpon>202008141946368_ids.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

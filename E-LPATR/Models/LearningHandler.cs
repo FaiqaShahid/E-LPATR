@@ -170,12 +170,23 @@ namespace E_LPATR.Models
             using (LearnContext lc = new LearnContext())
             {
                 return (from u in lc.Users
-                        .Include(m=>m.AccountStatus)
-                        .Include(m=>m.Country)
-                        .Include(m=>m.Role)
-                        .Include(m=>m.Degree)
+                        .Include(m => m.AccountStatus)
+                        .Include(m => m.Country)
+                        .Include(m => m.Role)
+                        .Include(m => m.Degree)
                         where (u.Id == Id)
-                        select u).FirstOrDefault();
+                        select u)
+                        .FirstOrDefault();
+            }
+        }
+        public User GetUserId(int Id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from u in lc.Users
+                        where (u.Id == Id)
+                        select u)
+                        .FirstOrDefault();
             }
         }
         public void BlockUser(User user)
@@ -333,6 +344,37 @@ namespace E_LPATR.Models
             using (LearnContext lc = new LearnContext())
             {
                 return (from c in lc.ProfileStatus
+                        where c.Id == id
+                        select c
+                        ).FirstOrDefault();
+            }
+        }
+        public void AddRequest(Request request)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                lc.Entry(request.RequestStatus).State = EntityState.Unchanged;
+                lc.Entry(request.Student).State = EntityState.Unchanged;
+                lc.Entry(request.Teacher).State = EntityState.Unchanged;
+                lc.Requests.Add(request);
+                lc.SaveChanges();
+            }
+        }
+        public RequestStatus GetRequestStatus(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.RequestStatuses
+                        where c.Id == id
+                        select c
+                        ).FirstOrDefault();
+            }
+        }
+        public PaymentStatus GetPaymentStatus(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.PaymentStatuses
                         where c.Id == id
                         select c
                         ).FirstOrDefault();

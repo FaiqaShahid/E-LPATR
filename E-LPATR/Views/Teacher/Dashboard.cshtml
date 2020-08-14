@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <div style="padding-left:40px">
                     <img class="img-responsive img-rounded" src="~/Images/User.png" />
-                    <h4 class="text-center"><b>@Model.User.FirstName</b></h4> 
+                    <h4 class="text-center"><b>@Model.User.FirstName @Model.Teacher.LastName</b></h4> 
                 </div>
                 <hr />
                 <p><b style="margin-right:50px">Date Of Birth: </b> @Html.FormatValue("yyy-MM-dd", Model.User.DateOfBirth.ToString("dd-MM-yyyy"))

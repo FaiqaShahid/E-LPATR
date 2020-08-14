@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Net;
+using E_LPATR.Models.View_Models;
 
 namespace E_LPATR.Controllers
 {
@@ -102,7 +103,14 @@ namespace E_LPATR.Controllers
                     }
                     else if (user.Role.Name == "Student")
                     {
-                        return RedirectToAction("Home", "Student");
+                        if (Session["UserId"] == null)
+                        {
+                            return RedirectToAction("Home", "Student","1");
+                        }
+                        else
+                        {
+                            return RedirectToAction("AllProfiles");
+                        }
                     }
                     else 
                     {
@@ -152,7 +160,14 @@ namespace E_LPATR.Controllers
             cookie.Values.Add("AccountStatus", user.AccountStatus.Name);
             Response.Cookies.Add(cookie);
             cookie.Expires = DateTime.Now.AddYears(1);
-            return RedirectToAction("Home","Student");
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Home","Student");
+            }
+            else
+            {
+                return RedirectToAction("AllProfiles");
+            }
         }
         [HttpPost]
         public ActionResult AddTeacher(ViewSignUp model, FormCollection collection)
@@ -178,7 +193,7 @@ namespace E_LPATR.Controllers
             return RedirectToAction("Dashboard", "Teacher");
         }
         [HttpGet]
-        public ActionResult Search(string SearchedData)
+        public ActionResult SearchedGigs(string SearchedData)
         {
             LearnContext learn = new LearnContext();
             if (SearchedData != null)
@@ -255,28 +270,37 @@ namespace E_LPATR.Controllers
                 }
                 if (profiles.Count!=0)
                 {
-                    TempData["SearchedProfiles"] = profiles;
-                    return RedirectToAction("SearchedGigs");
+                    return View(profiles);
                 }
                 else
                 {
-                    List<Profile> AllProfiles = lh.GetAllProfiles();
-                    TempData["SearchedProfiles"] = AllProfiles;
-                    return RedirectToAction("SearchedGigs");
+                    return View(lh.GetAllProfiles());
                 }
             }
             return RedirectToAction("Home","Account");
         }
-        [HttpGet]
-        public ActionResult SearchedGigs()
+        public ActionResult Profile(int Id)
         {
-            List<Profile> Profiles = TempData["SearchedProfiles"] as List<Profile>;
-            return View(Profiles);
+            Profile vp = lh.GetProfile(Id);
+            return View(vp);
         }
-        public ActionResult SearchedCategory(Subcategory subcategory)
+        public ActionResult AllProfiles(int Id)
         {
-
-            return View();
+            if (Session["UserId"]!=null)
+            {
+                ViewProfile vp = new ViewProfile();
+                vp.User = lh.GetUser(Id);
+                vp.Profiles = lh.GetProfiles(Id);
+                return View(vp);
+            }
+            else
+            {
+                User user = lh.GetUser(Convert.ToInt32(Session["UserId"]));
+                ViewProfile viewprofile = new ViewProfile();
+                viewprofile.User = user;
+                viewprofile.Profiles = lh.GetProfiles(user.Id);
+                return View(viewprofile);
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿
+﻿@using E_LPATR.Models
+@*@model ViewRequest*@
+@model Request
 @{
     ViewBag.Title = "SentRequestRequirements";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,30 +9,44 @@
 <div class="container" style="margin-left:100px;margin-right:100px;margin-top:50px;margin-bottom:20px">
     <div class="panel panel-default">
         <div class="panel-body">
-            <ol class="breadcrumb">
-                <li><a href="~/Account/Home">Home</a></li>
-                <li><a href="~/Student/SearchedGigs">Searched Category</a></li>
-                <li><a href="~/Teacher/Profile">Profile</a></li>
-                <li class="active">Send Request Requirnments</li>
-            </ol>
-            <h3 class="text-center"><b>Add Requirements</b></h3>
-            <form role="form">
+            <h3 class="text-center"><b>Add Requirements to @Model.Teacher.FirstName @Model.Teacher.LastName</b></h3>
+            @using (Html.BeginForm("AddRequirements", "Student", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.Teacher.Id, new { @value=Model.Teacher.Id})
+                @*@Html.Hidden(Model.Teacher.Id.ToString(),Model.Teacher.Id.ToString());*@
                 <div class="form-group form-inline">
-                    <label class="control-label" for="NoOfDays">Number of Days</label> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="number" class="form-control" id="NoOfDays" min="1" required placeholder="Number of Days">
+                    <label class="control-label" for="Summary">Summary</label>
+                    @Html.TextBoxFor(m => m.Title, new { @class="form-control required", @placeholder= "Enter Summary" })
                 </div>
+                <div class="form-group form-inline">
+                    <label class="control-label" for="PackagePlan">Price</label>
+                    @Html.TextBoxFor(m => m.Cost, new { @class="form-control required", @placeholder= "Enter Price" })
+                </div>
+                <div class="form-group form-inline">
+                    <label class="control-label" for="PackagePlan">Delivery Time</label>
+                    @Html.EditorFor(m => m.DeliveryTime, new { @class="form-control required", @placeholder= "Enter Price" })
+                </div>
+                <div class="form-group form-inline">
+                    <label class="control-label" for="Describtion">Describtion</label>
+                    @Html.TextBoxFor(m => m.Describtion, new { @class="form-control required", rows="5" ,@placeholder= "Enter Describtion" })
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg" type="submit">Submit</button>
+                </div>
+             }
+            @*<form role="form">
+
                 <div class="form-group">
                     <label class="control-label" for="Describtion">Enter Description</label>
                     <textarea class="form-control" rows="5" id="Description" required placeholder="Description" style="max-width:1000px"></textarea>
                 </div>
                 <div class="form-group form-inline">
                     <label class="control-label" for="Price">Price</label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="number" class="form-control" id="Price" required placeholder="Price">
 
                 </div>
                 <a href="~/Student/Home" class="btn btn-lg btn-success">Send</a>
-            </form>
+            </form>*@
         </div>
     </div>   
 </div>

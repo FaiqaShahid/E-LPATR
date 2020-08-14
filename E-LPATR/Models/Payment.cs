@@ -9,7 +9,7 @@ namespace E_LPATR.Models
     {
         public int Id { get; set; }
         public virtual PaymentStatus PaymentStatus { get; set; }
-        public string Cost { get; set; }
+        public int Cost { get; set; }
         public DateTime DateTime { get; set; }
         public string PaidVia { get; set; }
     }

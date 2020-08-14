@@ -1,0 +1,48 @@
+﻿@using E_LPATR.Models
+@model Profile
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="container" style="margin-top:50px">
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>
+                        @Model.Name
+                        <span class="col-lg-push-9 col-lg-1 col-md-1 col-md-push-9">
+                            <button class="btn btn-success btn-lg">@Html.ActionLink("Send Request", "SentRequestRequirements","Student", new { Id = Model.Teacher.Id },null)</button>
+                        </span>
+                    </h1>
+                    <img class="img-responsive" src="~/Images/math.jpg" />
+                    <br />
+                    <h3><b>Prices: </b></h3>
+                    <div style="margin-left:100px">
+                        <b>Per hour :</b> @Model.PackagePlan.CostPerHour
+                        <b style="margin-left:100px">Per Day :</b> @Model.PackagePlan.CostPerDay
+                        <b style="margin-left:100px">Per 3 Days :</b> @Model.PackagePlan.CostPer3Days
+                    </div>
+                    <h3 style="margin-left:50px"><b>Description</b></h3>
+                    <p style="text-align:center">
+                        @Model.Description
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div style="padding-left:40px;text-align:center">
+                        <img class="img-responsive img-rounded" src="~/Images/User.png" />
+                        <h4 class="text-center"><b>@Model.Teacher.FirstName @Model.Teacher.LastName</b></h4>
+                        @Html.ActionLink("See Profile", "AllProfiles", new { Id = Model.Teacher.Id })
+                    </div>
+                    <hr />
+                    <p><b>Education: </b> Graduation</p> <br />
+                    <p><b>Country: </b> @Model.Teacher.Country.Name</p><br />
+                    <p><b>Last Seen: </b> 2 hours ago</p><br />
+                    <p><b>Current Time: </b>@DateTime.Now</p><br />
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,58 @@
+﻿@using E_LPATR.Models.View_Models
+@model ViewProfile 
+@{
+    ViewBag.Title = "AllProfiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container" style="margin-top:50px">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div style="padding-left:40px">
+                        <img class="img-responsive img-rounded" src="~/Images/User.png" />
+                        <h4 class="text-center"><b>@Model.User.FirstName</b></h4>
+                    </div>
+                    <hr />
+                    <p>
+                        <b style="margin-right:50px">Date Of Birth: </b> @Html.FormatValue("yyy-MM-dd", Model.User.DateOfBirth.ToString("dd-MM-yyyy"))
+                    </p> <br />
+                    <p><b style="margin-right:65px">Education: </b> @Model.User.Degree.Name</p> <br />
+                    <p><b style="margin-right:80px">Country: </b>@Model.User.Country.Name</p><br />
+                    <p><b style="margin-right:70px">Last Seen: </b> 2 hours ago</p><br />
+                    <p><b style="margin-right:50px">Current Time: </b>@DateTime.Now</p><br />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Profiles</h3>
+                </div>
+                <div class="panel-body">
+                    @foreach (var item in (Model.Profiles))
+                    {
+                        <div class="col-lg-4 col-md-5">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <img class="img-responsive" src="~/Images/math.jpg" th="250"height="150" />
+                                    <h3><b>@item.Name</b></h3>
+                                    <div>
+                                        <b>Per hour :</b> @item.PackagePlan.CostPerHour
+                                        <b style="padding-left:40px">
+                                            Per Day :
+                                        </b>
+                                        @item.PackagePlan.CostPerDay
+                                        <b style="padding-left:40px">
+                                            Per 3 Days :
+                                        </b>@item.PackagePlan.CostPer3Days
+                                    </div>
+                                    @Html.ActionLink("Show More", "Display", new { id = item.Id })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
