@@ -7,13 +7,13 @@ namespace E_LPATR.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class ids : IMigrationMetadata
+    public sealed partial class AddRequestStatusId : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ids));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRequestStatusId));
         
         string IMigrationMetadata.Id
         {
-            get { return "202008141946368_ids"; }
+            get { return "202008181401071_AddRequestStatusId"; }
         }
         
         string IMigrationMetadata.Source

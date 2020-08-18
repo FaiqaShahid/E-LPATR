@@ -19,7 +19,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
-                return lc.Profiles.Where(m => m.Teacher.LastName.Contains(Name))
+                return lc.Profiles.Where(m => m.Teacher.LastName.Contains(Name)&& m.Teacher.AccountStatus.Name=="Active")
                         .Include(m => m.PackagePlan)
                         .Include(m => m.Teacher)
                         .Include(m => m.Teacher.Country)
@@ -32,7 +32,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
-                return lc.Profiles.Where(m => m.Teacher.LastName.Contains(Name))
+                return lc.Profiles.Where(m => m.Teacher.LastName.Contains(Name) && m.Teacher.AccountStatus.Name == "Active")
                         .Include(m => m.PackagePlan)
                         .Include(m => m.Teacher)
                         .Include(m => m.Teacher.Country)
@@ -45,7 +45,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
-                return lc.Profiles.Where(m => m.Teacher.Email.Contains(Email))
+                return lc.Profiles.Where(m => m.Teacher.Email.Contains(Email) && m.Teacher.AccountStatus.Name == "Active")
                         .Include(m => m.PackagePlan)
                         .Include(m => m.Teacher)
                         .Include(m => m.Teacher.Country)
@@ -58,7 +58,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
-                return lc.Profiles.Where(m => m.Subcategory.Category.Name.Contains(Category))
+                return lc.Profiles.Where(m => m.Subcategory.Category.Name.Contains(Category) && m.Teacher.AccountStatus.Name == "Active")
                         .Include(m => m.PackagePlan)
                         .Include(m => m.Teacher)
                         .Include(m => m.Teacher.Country)
@@ -71,7 +71,7 @@ namespace E_LPATR.Models
         {
             using(LearnContext lc=new LearnContext())
             {
-                return lc.Profiles.Where(m => m.Subcategory.Name.Contains(Subcategory))
+                return lc.Profiles.Where(m => m.Subcategory.Name.Contains(Subcategory) && m.Teacher.AccountStatus.Name == "Active")
                         .Include(m => m.PackagePlan)
                         .Include(m => m.Teacher)
                         .Include(m => m.Teacher.Country)
@@ -128,7 +128,18 @@ namespace E_LPATR.Models
 
             }
         }
-        
+        public List<RequestMessage> GetRequestMessage(int Id)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                return (from rm in lc.RequestMessages
+                        .Include(m => m.Reciever)
+                        .Include(m => m.Sender)
+                        where rm.Request.Id == Id
+                        select rm)
+                        .ToList();
+            }
+        }
         #region User
         public void AddUser(User user)
         {
@@ -151,6 +162,45 @@ namespace E_LPATR.Models
                         .Include(r => r.Role)
                         where u.Email == Email && u.Password == Password
                         select u).FirstOrDefault();
+            }
+        }
+        public Request GetRequest(int Id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from u in lc.Requests
+                        .Include(u => u.Payment)
+                        .Include(u => u.RequestStatus)
+                        .Include(u => u.Student)
+                        .Include(u => u.Teacher)
+                        where u.Id == Id
+                        select u).FirstOrDefault();
+            }
+        }
+        public List<Request> GetRequests(int Id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from u in lc.Requests
+                        .Include(u => u.Payment)
+                        .Include(u => u.RequestStatus)
+                        .Include(u => u.Student)
+                        .Include(u => u.Teacher)
+                        where u.Student.Id == Id
+                        select u).ToList();
+            }
+        }
+        public List<Request> GetRequestsForTeacher(int Id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from u in lc.Requests
+                        .Include(u => u.Payment)
+                        .Include(u => u.RequestStatus)
+                        .Include(u => u.Student)
+                        .Include(u => u.Teacher)
+                        where u.Teacher.Id == Id
+                        select u).ToList();
             }
         }
         public User GetUserByEmail(string Email)
@@ -232,7 +282,6 @@ namespace E_LPATR.Models
         }
         public void AddTeacher(User user)
         {
-            
             using (LearnContext lc = new LearnContext())
             {
                 try
@@ -242,6 +291,23 @@ namespace E_LPATR.Models
                     lc.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException ex) {
+                    ex.Entries.Single().Reload();
+                }
+            }
+        }
+        public void UpdateRequest(Request request)
+        {
+
+            using (LearnContext lc = new LearnContext())
+            {
+                try
+                {
+                    lc.Entry(request.RequestStatus).State = EntityState.Modified;
+                    lc.Entry(request).State = EntityState.Modified;
+                    lc.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
                     ex.Entries.Single().Reload();
                 }
             }
@@ -283,6 +349,17 @@ namespace E_LPATR.Models
                 lc.Entry(profile.Teacher).State = EntityState.Unchanged;
                 lc.Entry(profile.ProfileStatus).State = EntityState.Unchanged;
                 lc.Profiles.Add(profile);
+                lc.SaveChanges();
+            }
+        }
+        public void AddMessage(RequestMessage requestMessage)
+        {
+            using(LearnContext lc=new LearnContext())
+            {
+                lc.Entry(requestMessage.Reciever).State = EntityState.Unchanged;
+                lc.Entry(requestMessage.Sender).State = EntityState.Unchanged;
+                lc.Entry(requestMessage.Request).State = EntityState.Unchanged;
+                lc.RequestMessages.Add(requestMessage);
                 lc.SaveChanges();
             }
         }
@@ -349,6 +426,16 @@ namespace E_LPATR.Models
                         ).FirstOrDefault();
             }
         }
+        public RequestStatus GetRequestStatus(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.RequestStatuses
+                        where c.Id == id
+                        select c
+                        ).FirstOrDefault();
+            }
+        }
         public void AddRequest(Request request)
         {
             using (LearnContext lc=new LearnContext())
@@ -358,16 +445,6 @@ namespace E_LPATR.Models
                 lc.Entry(request.Teacher).State = EntityState.Unchanged;
                 lc.Requests.Add(request);
                 lc.SaveChanges();
-            }
-        }
-        public RequestStatus GetRequestStatus(int id)
-        {
-            using (LearnContext lc = new LearnContext())
-            {
-                return (from c in lc.RequestStatuses
-                        where c.Id == id
-                        select c
-                        ).FirstOrDefault();
             }
         }
         public PaymentStatus GetPaymentStatus(int id)

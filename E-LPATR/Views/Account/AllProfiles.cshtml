@@ -11,8 +11,9 @@
                 <div class="panel-body">
                     <div style="padding-left:40px">
                         <img class="img-responsive img-rounded" src="~/Images/User.png" />
-                        <h4 class="text-center"><b>@Model.User.FirstName</b></h4>
+                        <h4 class="text-center"><b>@Model.User.FirstName @Model.User.LastName</b></h4>
                     </div>
+                    <button class="btn btn-success btn-block">@Html.ActionLink("Send Request", "SentRequestRequirements", "Student", new { Id = Model.User.Id }, null)</button>
                     <hr />
                     <p>
                         <b style="margin-right:50px">Date Of Birth: </b> @Html.FormatValue("yyy-MM-dd", Model.User.DateOfBirth.ToString("dd-MM-yyyy"))

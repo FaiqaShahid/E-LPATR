@@ -1,6 +1,7 @@
-﻿
+﻿@using E_LPATR.Models
+@model ViewRequest
 @{
-    ViewBag.Title = "OrderPageTeacher";
+    ViewBag.Title = "Request Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="modal fade" id="DelieveryModal" tabindex="-1" role="dialog" aria-labelledby="DelieveryModal-label">
@@ -39,6 +40,62 @@
 <div class="container" style="padding-left:100px;padding-right:100px;margin-top:50px">
     <div class="panel panel-default">
         <div style="margin:20px">
+            <div class="row" style="margin:20px">
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">ss 2 1331
+                    <span style="color:coral;font-size:30px"><b>Request number</b></span>
+                    <span style="font-size:30px; padding-left:30px">@Model.Request.Id </span>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <span style="color:darkgreen;font-size:30px;text-align:right">Rs. @Model.Request.Cost</span>
+                </div>
+            </div>
+            <hr />
+            <h3><b>@Model.Request.Title</b></h3>
+            <hr />
+            <h2>@Model.Request.Describtion</h2>
+            <hr />
+            <h1>Remaining Time:</h1>
+            <hr />
+            @if (Model.RequestMessage.Any())
+            {
+                foreach (var item in Model.RequestMessage)
+                {
+                    if(item.Sender.Id==Convert.ToInt32(Request.Cookies["user"]["Id"]))
+                    {
+                        <div style="text-align:right">
+                            <p> <span style="background-color:gainsboro;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-left-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                            <p>@item.DateTime</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="text-align:left">
+                            <p> <span style="background-color:lightgreen;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-right-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                            @*<h5 style="background-color:lightgreen;border-top-left-radius:30px;border-top-right-radius:30px;border-bottom-right-radius:30px">@item.Message</h5>*@
+                            <p>@item.DateTime</p>
+                        </div>
+                    }
+                }
+            }
+            @using (Html.BeginForm("AddMessage", "Teacher", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.Request.Teacher.Id, new { @value = Model.Request.Teacher.Id })
+                @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
+                @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg" type="submit">Send</button>
+                </div>
+            }
+            <div class="text-center">
+                <a href="#DelieverNotes" id="DelieverNotes" class="btn btn-lg btn-success">Deliver Notes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="container" style="padding-left:100px;padding-right:100px;margin-top:50px">
+    <div class="panel panel-default">
+        <div style="margin:20px">
             <ol class="breadcrumb">
                 <li><a href="~/Teacher/Home">Home</a></li>
                 <li class="active">Request</li>
@@ -75,7 +132,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <script type="text/javascript">
     $('#DelieverNotes').click(

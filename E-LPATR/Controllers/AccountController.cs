@@ -105,11 +105,11 @@ namespace E_LPATR.Controllers
                     {
                         if (Session["UserId"] == null)
                         {
-                            return RedirectToAction("Home", "Student","1");
+                            return RedirectToAction("Home", "Student");
                         }
                         else
                         {
-                            return RedirectToAction("AllProfiles");
+                            return RedirectToAction("AllProfiles1");
                         }
                     }
                     else 
@@ -286,14 +286,14 @@ namespace E_LPATR.Controllers
         }
         public ActionResult AllProfiles(int Id)
         {
-            if (Session["UserId"]!=null)
-            {
-                ViewProfile vp = new ViewProfile();
-                vp.User = lh.GetUser(Id);
-                vp.Profiles = lh.GetProfiles(Id);
-                return View(vp);
-            }
-            else
+            ViewProfile vp = new ViewProfile();
+            vp.User = lh.GetUser(Id);
+            vp.Profiles = lh.GetProfiles(Id);
+            return View(vp);
+        }
+        public ActionResult AllProfiles1()
+        {
+            if (Session["userId"] != null)
             {
                 User user = lh.GetUser(Convert.ToInt32(Session["UserId"]));
                 ViewProfile viewprofile = new ViewProfile();
@@ -301,6 +301,11 @@ namespace E_LPATR.Controllers
                 viewprofile.Profiles = lh.GetProfiles(user.Id);
                 return View(viewprofile);
             }
+            else
+            {
+                return RedirectToAction("Home", "Student");
+            }
         }
+        
     }
 }

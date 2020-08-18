@@ -16,7 +16,9 @@ namespace E_LPATR.Models
         public DateTime DateTime { get; set; }
         public virtual User Student { get; set; }
         public virtual User Teacher { get; set; }
+        [DataType(DataType.Date)]
         public DateTime DeliveryTime { get; set; }
+        public virtual int RequestStatusId { get; set; }
         public virtual RequestStatus RequestStatus { get; set; }
         public virtual Payment Payment { get; set; }
     }

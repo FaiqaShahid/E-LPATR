@@ -1,5 +1,4 @@
 ﻿@using E_LPATR.Models
-@*@model ViewRequest*@
 @model Request
 @{
     ViewBag.Title = "SentRequestRequirements";
@@ -13,7 +12,6 @@
             @using (Html.BeginForm("AddRequirements", "Student", FormMethod.Post))
             {
                 @Html.HiddenFor(m => m.Teacher.Id, new { @value=Model.Teacher.Id})
-                @*@Html.Hidden(Model.Teacher.Id.ToString(),Model.Teacher.Id.ToString());*@
                 <div class="form-group form-inline">
                     <label class="control-label" for="Summary">Summary</label>
                     @Html.TextBoxFor(m => m.Title, new { @class="form-control required", @placeholder= "Enter Summary" })
@@ -24,29 +22,16 @@
                 </div>
                 <div class="form-group form-inline">
                     <label class="control-label" for="PackagePlan">Delivery Time</label>
-                    @Html.EditorFor(m => m.DeliveryTime, new { @class="form-control required", @placeholder= "Enter Price" })
+                    @Html.EditorFor(model => model.DeliveryTime, new { htmlAttributes = new { @class = "form-control required", id = "DeliveryTime" } })
                 </div>
                 <div class="form-group form-inline">
                     <label class="control-label" for="Describtion">Describtion</label>
-                    @Html.TextBoxFor(m => m.Describtion, new { @class="form-control required", rows="5" ,@placeholder= "Enter Describtion" })
+                    @Html.TextAreaFor(m => m.Describtion, new { @class="form-control required", rows="5" ,@placeholder= "Enter Describtion" })
                 </div>
                 <div class="text-center">
                     <button class="btn btn-success btn-lg" type="submit">Submit</button>
                 </div>
              }
-            @*<form role="form">
-
-                <div class="form-group">
-                    <label class="control-label" for="Describtion">Enter Description</label>
-                    <textarea class="form-control" rows="5" id="Description" required placeholder="Description" style="max-width:1000px"></textarea>
-                </div>
-                <div class="form-group form-inline">
-                    <label class="control-label" for="Price">Price</label>
-                    <input type="number" class="form-control" id="Price" required placeholder="Price">
-
-                </div>
-                <a href="~/Student/Home" class="btn btn-lg btn-success">Send</a>
-            </form>*@
         </div>
     </div>   
 </div>

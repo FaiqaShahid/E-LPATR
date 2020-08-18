@@ -1,0 +1,29 @@
+﻿@using E_LPATR.Models
+@model List<Request>
+@{
+    ViewBag.Title = "RecentOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="padding-left:100px;padding-right:100px;margin-top:50px">
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                        <span style="font-size:30px; padding-left:30px; color:coral">@item.Id </span>
+                        <h4><b>@item.Title</b></h4>
+                        <p>
+                            @item.Describtion
+                        </p>
+                        <button class="btn btn-success">@Html.ActionLink("View Requests", "RequestPage", new { Id = item.Id })</button>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <span style="color:darkgreen;font-size:30px;text-align:right">Rs. @item.Cost</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

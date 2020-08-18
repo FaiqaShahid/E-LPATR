@@ -1,9 +1,9 @@
-﻿
+﻿@using E_LPATR.Models
+@model List<Request>
 @{
     ViewBag.Title = "Requests";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="container" style="margin-top:80px">
     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-3">
         <ul class="nav nav-tabs nav-stacked">
@@ -17,166 +17,192 @@
     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-9">
         <div class="tab-content">
             <div class="tab-pane fade in active" id="Current">
-                <ol class="breadcrumb">
-                    <li><a href="~/Teacher/Home">Home</a></li>
-                    <li class="active">Current Requests</li>
-                </ol>
-                @for (int i = 0; i < 30; i++)
+                @if (Model != null)
                 {
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="~/Images/Guitar.jpg" style="width:280px;height:200px">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><b>Lorem ipsum dolor sit amet</b></h4>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam. Quisque pellentesque dapibus enim. Suspendisse at felis aliquet, dapibus sapien vel, sollicitudin turpis. Vestibulum a leo sed tortor posuere viverra. Duis id semper sem, sed tempus libero. Praesent quis nibh quis velit commodo laoreet. Maecenas molestie eleifend malesuada. Nulla dignissim gravida massa, ac blandit risus elementum ac.
-                                    <br />
-                                    <br />
+                    int count=0;
+                    foreach (var item in Model)
+                    {
+                        if (item.RequestStatus.Name == "Pending")
+                        {
+                            count++;
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Pending")
+                            {
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h2>@item.Title</h2>
+                                    <p>@item.Describtion</p>
                                     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-                                        <h4><b>$50 per hour</b></h4>
+                                        <h4><b>Rs. @item.Cost</b></h4>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                        <a href="~/Student/OrderPage" class="btn btn-success">Accept</a>
-                                        <a href="~/Student/OrderPage" class="btn btn-danger">Reject</a>
+                                        <button class="btn btn-info">@Html.ActionLink("View", "ViewRequest", new { Id =item.Id})</button>
+                                        <button class="btn btn-success">@Html.ActionLink("Accept", "AcceptRequest", new { Id =item.Id})</button>
+                                        <button class="btn btn-danger">@Html.ActionLink("Reject", "RejectRequest", new { Id =item.Id})</button>
+                                        @*<a href="~/Student/OrderPage" class="btn btn-danger">Reject</a>*@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <p>No Current Requests</p>
+                    }
                 }
-
             </div>
             <div class="tab-pane fade" id="Accepted">
-                <ol class="breadcrumb">
-                    <li><a href="~/Teacher/Home">Home</a></li>
-                    <li class="active">Accepted Requests</li>
-                </ol>
-                @for (int i = 0; i < 30; i++)
-                {
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="~/Images/Education.jpg" style="width:280px;height:200px">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><b>Lorem ipsum dolor sit amet</b></h4>
-                                    orem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam. Quisque pellentesque dapibus enim. Suspendisse at felis aliquet, dapibus sapien vel, sollicitudin turpis. Vestibulum a leo sed tortor posuere viverra. Duis id semper sem, sed tempus libero. Praesent quis nibh quis velit commodo laoreet. Maecenas molestie eleifend malesuada. Nulla dignissim gravida massa, ac blandit risus elementum ac.
-                                    <br />
-                                    <br />
-                                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-                                        <h4><b>$50 per hour</b></h4>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                        <a href="~/Student/OrderPage" class="btn btn-primary">View</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
 
+                @if (Model != null)
+                {
+                    int count = 0;
+                    foreach (var item in Model)
+                    {
+                        if (item.RequestStatus.Name == "Active")
+                        {
+                            count++;
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Active")
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h2>@item.Title</h2>
+                                        <p>@item.Describtion</p>
+                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                            <h4><b>Rs. @item.Cost</b></h4>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                            <button class="btn btn-info">@Html.ActionLink("View", "ViewRequest", new { Id = item.Id })</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <p>No Current Requests</p>
+                    }
+                }
             </div>
             <div class="tab-pane fade" id="Rejected">
-                <ol class="breadcrumb">
-                    <li><a href="~/Teacher/Home">Home</a></li>
-                    <li class="active">Rejected Requests</li>
-                </ol>
-                @for (int i = 0; i < 30; i++)
+                @if (Model != null)
                 {
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="~/Images/Data Science and analysis.jpg" style="width:280px;height:200px">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><b>Lorem ipsum dolor sit amet</b></h4>
-                                    orem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam. Quisque pellentesque dapibus enim. Suspendisse at felis aliquet, dapibus sapien vel, sollicitudin turpis. Vestibulum a leo sed tortor posuere viverra. Duis id semper sem, sed tempus libero. Praesent quis nibh quis velit commodo laoreet. Maecenas molestie eleifend malesuada. Nulla dignissim gravida massa, ac blandit risus elementum ac.
-                                    <br />
-                                    <br />
-                                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-                                        <h4><b>$50 per hour</b></h4>
+                    int count = 0;
+                    foreach (var item in Model)
+                    {
+                        if (item.RequestStatus.Name == "Reject")
+                        {
+                            count++;
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+
+                            if (item.RequestStatus.Name == "Reject")
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h2>@item.Title</h2>
+                                        <p>@item.Describtion</p>
+                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                            <h4><b>Rs. @item.Cost</b></h4>
+                                        </div>
                                     </div>
-                                    @*<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <a href="~/Student/OrderPage" class="btn btn-primary"></a>
-                            </div>*@
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <p>No Current Requests</p>
+                    }
                 }
             </div>
             <div class="tab-pane fade" id="Cancelled">
-                <ol class="breadcrumb">
-                    <li><a href="~/Teacher/Home">Home</a></li>
-                    <li class="active">Cancelled Requests</li>
-                </ol>
-                @for (int i = 0; i < 30; i++)
+                @if (Model != null)
                 {
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="~/Images/essay.jpg" style="width:280px;height:200px">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><b>Lorem ipsum dolor sit amet</b></h4>
-                                    orem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam. Quisque pellentesque dapibus enim. Suspendisse at felis aliquet, dapibus sapien vel, sollicitudin turpis. Vestibulum a leo sed tortor posuere viverra. Duis id semper sem, sed tempus libero. Praesent quis nibh quis velit commodo laoreet. Maecenas molestie eleifend malesuada. Nulla dignissim gravida massa, ac blandit risus elementum ac.
-                                    <br />
-                                    <br />
-                                    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-                                        <h4><b>$50 per hour</b></h4>
+                    int count = 0;
+                    foreach (var item in Model)
+                    {
+                        if (item.RequestStatus.Name == "Cancelled")
+                        {
+                            count++;
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Cancelled")
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h2>@item.Title</h2>
+                                        <p>@item.Describtion</p>
+                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                            <h4><b>Rs. @item.Cost</b></h4>
+                                        </div>
                                     </div>
-                                    @*<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                                <a href="~/Student/OrderPage" class="btn btn-primary"></a>
-                            </div>*@
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <p>No Current Requests</p>
+                    }
                 }
             </div>
             <div class="tab-pane fade" id="Completed">
-                <ol class="breadcrumb">
-                    <li><a href="~/Teacher/Home">Home</a></li>
-                    <li class="active">Completed Requests</li>
-                </ol>
-                @for (int i = 0; i < 30; i++)
+                @if (Model != null)
                 {
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <img class="media-object" src="~/Images/graphic.png" style="width:280px;height:200px">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4 class="media-heading"><b>Lorem ipsum dolor sit amet</b></h4>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra tristique aliquam. Quisque pellentesque dapibus enim. Suspendisse at felis aliquet, dapibus sapien vel, sollicitudin turpis. Vestibulum a leo sed tortor posuere viverra. Duis id semper sem, sed tempus libero. Praesent quis nibh quis velit commodo laoreet. Maecenas molestie eleifend malesuada. Nulla dignissim gravida massa, ac blandit risus elementum ac.
-                                    <br />
-                                    <br />
-                                    <div class="col-lg-10 col-md-8 col-sm-8 col-xs-8">
-                                        <h4><b>$50 per hour</b></h4>
+                    int count = 0;
+                    foreach (var item in Model)
+                    {
+                        if (item.RequestStatus.Name == "Completed")
+                        {
+                            count++;
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Completed")
+                            {
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h2>@item.Title</h2>
+                                        <p>@item.Describtion</p>
+                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                            <h4><b>Rs. @item.Cost</b></h4>
+                                        </div>
+                                        <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+                                            <button class="btn btn-info">@Html.ActionLink("View", "ViewRequest", new { Id = item.Id })</button>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                                        <a href="~/Student/OrderPage" class="btn btn-primary">View</a>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <p>No Current Requests</p>
+                    }
                 }
             </div>
         </div>

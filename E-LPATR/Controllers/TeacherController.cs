@@ -185,28 +185,91 @@ namespace E_LPATR.Controllers
             new LearningHandler().AddProfile(profile);
             return RedirectToAction("Dashboard");
         }
-        public ActionResult OrderPageTeacher()
+        public ActionResult RequestPage()
         {
-            if (Session["User"] != null)
+            if (Request.Cookies["user"] != null && Session["UpdateRequestId"] !=null)
             {
-                return View();
+                ViewRequest viewRequest = new ViewRequest();
+                Request request = new Request();
+                request = new LearningHandler().GetRequest(Convert.ToInt32(Session["UpdateRequestId"]));
+                viewRequest.Request = request;
+                ViewBag.TimeString = request.DeliveryTime.ToString();
+                viewRequest.RequestMessage = new LearningHandler().GetRequestMessage(Convert.ToInt32(Session["UpdateRequestId"]));
+                if (viewRequest.Request.RequestStatus.Name == "Active")
+                {
+                    return View(viewRequest);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
+        }
+        public ActionResult AddMessage(ViewRequest viewRequest)
+        {
+            RequestMessage requestMessage = new RequestMessage();
+            requestMessage = viewRequest.AddMessage;
+            requestMessage.DateTime = DateTime.Now;
+            requestMessage.Request = new Request { Id = viewRequest.Request.Id };
+            requestMessage.Reciever = new User { Id = viewRequest.Request.Teacher.Id };
+            requestMessage.Sender = new User { Id = Convert.ToInt32(Request.Cookies["user"]["Id"]) };
+            new LearningHandler().AddMessage(requestMessage);
+            Session["UpdateRequestId"] = viewRequest.Request.Id;
+            return RedirectToAction("RequestPage");
         }
         public ActionResult Requests()
         {
-            if (Session["User"] != null)
+            if (Request.Cookies["user"] != null)
             {
-                return View();
+                List<Request> requests = new LearningHandler().GetRequestsForTeacher(Convert.ToInt32(Request.Cookies["user"]["Id"]));
+                return View(requests);
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
         }
-        
+        public ActionResult ViewRequest(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                Session["UpdateRequestId"] = Id;
+                return RedirectToAction("RequestPage");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+        public ActionResult AcceptRequest(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                Request request = new LearningHandler().GetRequest(Id);
+                request.RequestStatusId = 2;
+                request.RequestStatus = new LearningHandler().GetRequestStatus(2);
+                new LearningHandler().UpdateRequest(request);
+                Session["UpdateRequestId"] = request.Id;
+                return RedirectToAction("RequestPage");
+            }
+            return RedirectToAction("Requests");
+        }
+        public ActionResult RejectRequest(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                Request request = new LearningHandler().GetRequest(Id);
+                request.RequestStatusId = 3;
+                request.RequestStatus = new LearningHandler().GetRequestStatus(3);
+                new LearningHandler().UpdateRequest(request);
+                Session["UpdateRequestId"] = request.Id;
+                return RedirectToAction("Requests");
+            }
+            return RedirectToAction("Requests");
+        }
     }
 }

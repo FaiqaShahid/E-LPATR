@@ -10,6 +10,13 @@
     <link href="~/StyleSheet1.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" />
+    <link rel="stylesheet" href="~/Scripts/assets/css/styles.css" />
+    <link rel="stylesheet" href="~/Scripts/countdown/jquery.countdown.css" />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <style>
         body {
             font-family: 'Oxygen', serif;
@@ -39,7 +46,7 @@
                 }
                 else if (Request.Cookies["user"]["Role"] == "Teacher")
                 {
-                    <a class="navbar-brand" href="~/Teacher/Home">E-LPATR</a>
+                    <a class="navbar-brand" href="~/Teacher/Dashboard">E-LPATR</a>
                 }
                 else if (Request.Cookies["user"]["Role"] == "Student")
                 {
@@ -109,52 +116,52 @@
                 }
                 else if (Request.Cookies["user"]["Role"] == "Teacher")
                 {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="~/Teacher/Requests">Requests</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Notifications<span class="caret"><span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li style="padding-left:20px">
-                                    @if (Request.Cookies["user"] != null)
-                                    {
-                                        <b>@Request.Cookies["user"]["FirstName"]</b>
-                                    }
-                                    else
-                                    {
-                                        <b>User</b>
-                                    }
-                                </li>
-                                <li><a href="~/Student/Settings">Settings</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Account/Logout">Log out</a></li>
-                            </ul>
-                        </li>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="~/Teacher/Requests">Requests</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Notifications<span class="caret"><span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
                     </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li style="padding-left:20px">
+                            @if (Request.Cookies["user"] != null)
+                            {
+                                <b>@Request.Cookies["user"]["FirstName"]</b>
+                            }
+                            else
+                            {
+                                <b>User</b>
+                            }
+                        </li>
+                        <li><a href="~/Student/Settings">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="~/Account/Logout">Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
                 }
                 else if (Request.Cookies["user"]["Role"] == "Student")
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="~/Student/RecentOrders">Recent Requests</a></li>
+                        <li><a href="~/Student/RecentRequests">Recent Requests</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 Notifications<span class="caret"></span>
@@ -283,6 +290,10 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="~/Scripts/countdown/jquery.countdown.js"></script>
+    <script src="~/Scripts/countdown/script.js"></script>
+    <script src="~/Scripts/script-custom-countdown.js"></script>
     <script>
         $(document).ready(function () {
             $('#table_id').DataTable();

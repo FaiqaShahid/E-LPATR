@@ -215,9 +215,21 @@
     <Compile Include="Migrations\202008141053596_DataTypeOfCost.designer.cs">
       <DependentUpon>202008141053596_DataTypeOfCost.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202008141946368_ids.cs" />
-    <Compile Include="Migrations\202008141946368_ids.designer.cs">
-      <DependentUpon>202008141946368_ids.cs</DependentUpon>
+    <Compile Include="Migrations\202008151653554_ChangeInRequestMessage.cs" />
+    <Compile Include="Migrations\202008151653554_ChangeInRequestMessage.designer.cs">
+      <DependentUpon>202008151653554_ChangeInRequestMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008151827095_Changes1.cs" />
+    <Compile Include="Migrations\202008151827095_Changes1.designer.cs">
+      <DependentUpon>202008151827095_Changes1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008181401071_AddRequestStatusId.cs" />
+    <Compile Include="Migrations\202008181401071_AddRequestStatusId.designer.cs">
+      <DependentUpon>202008181401071_AddRequestStatusId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008181447134_AddIds.cs" />
+    <Compile Include="Migrations\202008181447134_AddIds.designer.cs">
+      <DependentUpon>202008181447134_AddIds.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountStatus.cs" />
@@ -269,12 +281,12 @@
     <Content Include="Views\Account\SearchedGigs.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Student\OrderPage.cshtml" />
-    <Content Include="Views\Student\RecentOrders.cshtml" />
+    <Content Include="Views\Student\RequestPage.cshtml" />
+    <Content Include="Views\Student\RecentRequests.cshtml" />
     <Content Include="Views\Student\SentRequestRequirements.cshtml" />
     <Content Include="Views\Student\Settings.cshtml" />
     <Content Include="Views\Student\GiveReview.cshtml" />
-    <Content Include="Views\Teacher\OrderPageTeacher.cshtml" />
+    <Content Include="Views\Teacher\RequestPage.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\Home.cshtml" />
@@ -317,7 +329,8 @@
     <Content Include="Views\Teacher\Edit.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\AllProfiles.cshtml" />
-    <Content Include="Views\Student\AddRequirements.cshtml" />
+    <Content Include="Views\Student\Confirmation.cshtml" />
+    <Content Include="Views\Account\AllProfiles1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -344,8 +357,17 @@
     <EmbeddedResource Include="Migrations\202008141053596_DataTypeOfCost.resx">
       <DependentUpon>202008141053596_DataTypeOfCost.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202008141946368_ids.resx">
-      <DependentUpon>202008141946368_ids.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202008151653554_ChangeInRequestMessage.resx">
+      <DependentUpon>202008151653554_ChangeInRequestMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008151827095_Changes1.resx">
+      <DependentUpon>202008151827095_Changes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008181401071_AddRequestStatusId.resx">
+      <DependentUpon>202008181401071_AddRequestStatusId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008181447134_AddIds.resx">
+      <DependentUpon>202008181447134_AddIds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
