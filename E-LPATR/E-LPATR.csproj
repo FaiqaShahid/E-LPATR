@@ -131,7 +131,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Images\facebook.png" />
+    <Content Include="Images\gmail.png" />
+    <Content Include="Images\instagram.png" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\linkedin.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\1.png" />
@@ -167,6 +171,7 @@
     <Content Include="Images\Sales and marketing.jpg" />
     <Content Include="Images\t.png" />
     <Content Include="Images\trusted.png" />
+    <Content Include="Images\twitter.png" />
     <Content Include="Images\User.png" />
     <Content Include="Images\web.jpeg" />
     <Content Include="Images\Writing.jpg" />
@@ -231,18 +236,35 @@
     <Compile Include="Migrations\202008181447134_AddIds.designer.cs">
       <DependentUpon>202008181447134_AddIds.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008191425104_RemoveDeliveryTime.cs" />
+    <Compile Include="Migrations\202008191425104_RemoveDeliveryTime.designer.cs">
+      <DependentUpon>202008191425104_RemoveDeliveryTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008200724171_ChangeInReview.cs" />
+    <Compile Include="Migrations\202008200724171_ChangeInReview.designer.cs">
+      <DependentUpon>202008200724171_ChangeInReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008211816496_AddActiveField.cs" />
+    <Compile Include="Migrations\202008211816496_AddActiveField.designer.cs">
+      <DependentUpon>202008211816496_AddActiveField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008221339419_ChangesInIssuesTBL.cs" />
+    <Compile Include="Migrations\202008221339419_ChangesInIssuesTBL.designer.cs">
+      <DependentUpon>202008221339419_ChangesInIssuesTBL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008230918264_RemoveSomeTables.cs" />
+    <Compile Include="Migrations\202008230918264_RemoveSomeTables.designer.cs">
+      <DependentUpon>202008230918264_RemoveSomeTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountStatus.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Country.cs" />
-    <Compile Include="Models\DelieveredRequest.cs" />
     <Compile Include="Models\Earning.cs" />
-    <Compile Include="Models\EarningStatus.cs" />
     <Compile Include="Models\IListable.cs" />
     <Compile Include="Models\Issues.cs" />
     <Compile Include="Models\LearningHandler.cs" />
     <Compile Include="Models\LearnContext.cs" />
-    <Compile Include="Models\Messages.cs" />
     <Compile Include="Models\ModelHelper.cs" />
     <Compile Include="Models\PackagePlan.cs" />
     <Compile Include="Models\Payment.cs" />
@@ -252,13 +274,12 @@
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\RequestMessage.cs" />
     <Compile Include="Models\RequestStatus.cs" />
-    <Compile Include="Models\Resume.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\Degree.cs" />
-    <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\View Models\ViewCatRequest.cs" />
     <Compile Include="Models\View Models\ViewCreateProfile.cs" />
     <Compile Include="Models\View Models\ViewProfile.cs" />
     <Compile Include="Models\View Models\ViewRequest.cs" />
@@ -284,7 +305,7 @@
     <Content Include="Views\Student\RequestPage.cshtml" />
     <Content Include="Views\Student\RecentRequests.cshtml" />
     <Content Include="Views\Student\SentRequestRequirements.cshtml" />
-    <Content Include="Views\Student\Settings.cshtml" />
+    <Content Include="Views\Account\Settings.cshtml" />
     <Content Include="Views\Student\GiveReview.cshtml" />
     <Content Include="Views\Teacher\RequestPage.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -295,9 +316,6 @@
     <Content Include="Views\Admin\Home.cshtml" />
     <Content Include="Views\Teacher\Dashboard.cshtml" />
     <Content Include="Views\Teacher\SignUp.cshtml" />
-    <Content Include="Views\Shared\_LayoutPage1.cshtml" />
-    <Content Include="Views\Shared\_LayoutTeacher.cshtml" />
-    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Categories.cshtml" />
     <Content Include="Views\Admin\Issues.cshtml" />
     <Content Include="Views\Admin\Students.cshtml" />
@@ -326,11 +344,11 @@
     <Content Include="Views\Admin\DeleteTeacherConfirmation.cshtml" />
     <Content Include="Views\Teacher\Display.cshtml" />
     <Content Include="Views\Teacher\EditProfile.cshtml" />
-    <Content Include="Views\Teacher\Edit.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Account\AllProfiles.cshtml" />
     <Content Include="Views\Student\Confirmation.cshtml" />
     <Content Include="Views\Account\AllProfiles1.cshtml" />
+    <Content Include="Views\Teacher\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -368,6 +386,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008181447134_AddIds.resx">
       <DependentUpon>202008181447134_AddIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008191425104_RemoveDeliveryTime.resx">
+      <DependentUpon>202008191425104_RemoveDeliveryTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008200724171_ChangeInReview.resx">
+      <DependentUpon>202008200724171_ChangeInReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008211816496_AddActiveField.resx">
+      <DependentUpon>202008211816496_AddActiveField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008221339419_ChangesInIssuesTBL.resx">
+      <DependentUpon>202008221339419_ChangesInIssuesTBL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008230918264_RemoveSomeTables.resx">
+      <DependentUpon>202008230918264_RemoveSomeTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

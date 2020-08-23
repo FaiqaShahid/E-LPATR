@@ -67,11 +67,24 @@ namespace E_LPATR.Models
                         .ToList();
             }
         }
+        public List<Profile> SearchByName(string Name)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return lc.Profiles.Where(m => m.Name.Contains(Name) && m.Teacher.AccountStatus.Name == "Active")
+                        .Include(m => m.PackagePlan)
+                        .Include(m => m.Teacher)
+                        .Include(m => m.Teacher.Country)
+                        .Include(m => m.Teacher.Role)
+                        .Include(m => m.Teacher.AccountStatus)
+                        .ToList();
+            }
+        }
         public List<Profile> SearchBySubcategory(string Subcategory)
         {
             using(LearnContext lc=new LearnContext())
             {
-                return lc.Profiles.Where(m => m.Subcategory.Name.Contains(Subcategory) && m.Teacher.AccountStatus.Name == "Active")
+                return lc.Profiles.Where(m => m.Name.Contains(Subcategory) && m.Teacher.AccountStatus.Name == "Active")
                         .Include(m => m.PackagePlan)
                         .Include(m => m.Teacher)
                         .Include(m => m.Teacher.Country)
@@ -87,8 +100,8 @@ namespace E_LPATR.Models
                 return lc.Profiles
                     .Include(m => m.PackagePlan)
                     .Include(m => m.ProfileStatus)
-                    .Include(m => m.Subcategory)
-                    .Include(m => m.Subcategory.Category)
+                    //.Include(m => m.Category)
+                    //.Include(m => m.Category.Subcategory)
                     .Include(m => m.Teacher)
                     .Include(m => m.Teacher.Country)
                     .Include(m => m.Teacher.Role)
@@ -118,8 +131,8 @@ namespace E_LPATR.Models
                 return lc.Profiles.Where(m => m.Teacher.Id == id)
                     .Include(m=>m.PackagePlan)
                     .Include(m=>m.ProfileStatus)
-                    .Include(m=>m.Subcategory)
-                    .Include(m=>m.Subcategory.Category)
+                    //.Include(m=>m.Category.Subcategory)
+                   // .Include(m=>m.Category)
                     .Include(m => m.Teacher)
                     .Include(m => m.Teacher.Country)
                     .Include(m=>m.Teacher.Role)
@@ -255,29 +268,29 @@ namespace E_LPATR.Models
                 }
             }
         }
-        public void EditProfile(ViewCreateProfile profile)
+        public void EditProfile(Profile profile)
         {
             using (LearnContext lc = new LearnContext())
             {
-                lc.Entry(profile.Profile.PackagePlan).State = EntityState.Modified;
-                lc.Entry(profile.Profile).State = EntityState.Modified;
-                bool saveFailed;
-                do
+                try
                 {
-                    saveFailed = false;
-
-                    try
-                    {
-                        
-                        lc.SaveChanges();
-                    }
-                    catch (DbUpdateConcurrencyException ex)
-                    {
-                        saveFailed = true;
-                        ex.Entries.Single().Reload();
-                    }
-
-                } while (saveFailed);
+                    Profile profile1 = lc.Profiles.Find(profile.Id);
+                    profile1.Description = profile.Description;
+                    profile1.Image = profile.Image;
+                    profile1.PackagePlan.CostPer3Days = profile.PackagePlan.CostPer3Days;
+                    profile1.PackagePlan.CostPerDay = profile.PackagePlan.CostPerDay;
+                    profile1.PackagePlan.CostPerHour = profile.PackagePlan.CostPerHour;
+                    profile1.Name = profile.Name;
+                    lc.Entry(profile1.PackagePlan).State = EntityState.Modified;
+                    //lc.Entry(profile.Subcategory).State = EntityState.Modified;
+                    lc.Entry(profile1).State = EntityState.Modified;
+                    lc.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+               
             }
         }
         public void AddTeacher(User user)
@@ -293,6 +306,14 @@ namespace E_LPATR.Models
                 catch (DbUpdateConcurrencyException ex) {
                     ex.Entries.Single().Reload();
                 }
+            }
+        }
+        public void AddEarnings(Earning earning)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                lc.Earnings.Add(earning);
+                lc.SaveChanges();
             }
         }
         public void UpdateRequest(Request request)
@@ -352,12 +373,21 @@ namespace E_LPATR.Models
                 lc.SaveChanges();
             }
         }
+        public List<Earning> GetAllEarnings(int Id)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                return (from e in lc.Earnings
+                        where e.TeacherId == Id
+                        select e).ToList();
+            }
+        }
         public void AddMessage(RequestMessage requestMessage)
         {
             using(LearnContext lc=new LearnContext())
             {
-                lc.Entry(requestMessage.Reciever).State = EntityState.Unchanged;
                 lc.Entry(requestMessage.Sender).State = EntityState.Unchanged;
+                lc.Entry(requestMessage.Reciever).State = EntityState.Unchanged;
                 lc.Entry(requestMessage.Request).State = EntityState.Unchanged;
                 lc.RequestMessages.Add(requestMessage);
                 lc.SaveChanges();
@@ -392,6 +422,15 @@ namespace E_LPATR.Models
             using (LearnContext lc = new LearnContext())
             {
                 return (from c in lc.Countries
+                        select c
+                        ).ToList();
+            }
+        }
+        public List<Category> GetCategories()
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.Categories
                         select c
                         ).ToList();
             }
@@ -503,9 +542,9 @@ namespace E_LPATR.Models
                         select s).FirstOrDefault();
             }
         }
-        public Category EditCategory(int Id,string Name)
+        public Category EditCategory(Category category)
         {
-            Category category = GetCategory(Id);
+            //Category category = GetCategory(Id);
             using (LearnContext lc = new LearnContext())
             {
                 Category c = (from s in lc.Categories
@@ -569,6 +608,35 @@ namespace E_LPATR.Models
                 return (from t in lc.Users
                         where Data == t.FirstName ||Data==t.LastName||Data==t.Email
                         select t).ToList();
+            }
+        }
+        public void AddReview(Review review)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                lc.Entry(review.Request).State = EntityState.Unchanged;
+                lc.Reviews.Add(review);
+                lc.SaveChanges();
+            }
+        }
+        public void ModifyUser(User user)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                User u = lc.Users.Find(user.Id);
+                u.FirstName = user.FirstName;
+                u.LastName = user.LastName;
+                u.Password = user.Password;
+                u.AccountStatusID = user.AccountStatusID;
+                lc.SaveChanges();
+            }
+        }
+        public void AddIssue(Issues issue)
+        {
+            using (LearnContext lc = new LearnContext())
+            {   
+                lc.Issues.Add(issue);
+                lc.SaveChanges();
             }
         }
     }

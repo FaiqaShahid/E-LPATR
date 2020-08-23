@@ -42,9 +42,8 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                                         <button class="btn btn-info">@Html.ActionLink("View", "ViewRequest", new { Id =item.Id})</button>
-                                        <button class="btn btn-success">@Html.ActionLink("Accept", "AcceptRequest", new { Id =item.Id})</button>
-                                        <button class="btn btn-danger">@Html.ActionLink("Reject", "RejectRequest", new { Id =item.Id})</button>
-                                        @*<a href="~/Student/OrderPage" class="btn btn-danger">Reject</a>*@
+                                        <button class="btn btn-success">@Html.ActionLink("Accept", "ActiveRequest", new { Id =item.Id})</button>
+                                        <button class="btn btn-danger">@Html.ActionLink("Reject", "RemoveRequest", new { Id =item.Id})</button>
                                     </div>
                                 </div>
                             </div>
@@ -190,9 +189,6 @@
                                         <p>@item.Describtion</p>
                                         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
                                             <h4><b>Rs. @item.Cost</b></h4>
-                                        </div>
-                                        <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
-                                            <button class="btn btn-info">@Html.ActionLink("View", "ViewRequest", new { Id = item.Id })</button>
                                         </div>
                                     </div>
                                 </div>

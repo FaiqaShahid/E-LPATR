@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +16,7 @@ namespace E_LPATR.Controllers
         // GET: Teacher
         public ActionResult Index(User user)
         {
-            if (Request.Cookies["user"] != null) { 
+            if (Request.Cookies["user"] != null && Request.Cookies["user"]["Role"] == "Teacher") { 
                 return View(user);
             }
             else
@@ -33,7 +34,7 @@ namespace E_LPATR.Controllers
         [HttpGet]
         public ActionResult Dashboard()
         {
-            if (Request.Cookies["user"]!=null)
+            if (Request.Cookies["user"]!=null && Request.Cookies["user"]["Role"] == "Teacher")
             {
                 if ((new LearningHandler().GetNumberOfProfiles(Request.Cookies["user"]["Email"])) < 5)
                 {
@@ -54,6 +55,44 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+        public ActionResult AcceptRequest(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                Request request = new LearningHandler().GetRequest(Id);
+                request.RequestStatusId = 4;
+                request.RequestStatus = new LearningHandler().GetRequestStatus(4);
+                new LearningHandler().UpdateRequest(request);
+                Earning earning = new Earning();
+                earning.RequestId =Id;
+                earning.TeacherId =request.Teacher.Id;
+                earning.Cost =request.Cost;
+                new LearningHandler().AddEarnings(earning);
+                List<Earning> earnings = new LearningHandler().GetAllEarnings(Convert.ToInt32(Request.Cookies["user"]["Id"]));
+                int cost = 0;
+                foreach (var item in earnings)
+                {
+                    cost += item.Cost;
+                }
+                Session["TotalEarnings"] = cost;
+                Session["UpdateRequestId"] = request.Id;
+                return RedirectToAction("GiveReview");
+            }
+            return RedirectToAction("Login", "Account");
+        }
+        public ActionResult RejectRequest(int Id)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                Request request = new LearningHandler().GetRequest(Id);
+                request.RequestStatusId = 5;
+                request.RequestStatus = new LearningHandler().GetRequestStatus(5);
+                new LearningHandler().UpdateRequest(request);
+                Session["UpdateRequestId"] = request.Id;
+                return RedirectToAction("Issue");
+            }
+            return RedirectToAction("Login", "Account");
+        }
         [HttpGet]
         public ActionResult Display(int Id)
         {
@@ -66,6 +105,7 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+        
         [HttpGet]
         public ActionResult EditProfile(int Id)
         {
@@ -73,8 +113,6 @@ namespace E_LPATR.Controllers
             {
                 ViewCreateProfile vcp = new ViewCreateProfile();
                 vcp.Profile = new LearningHandler().GetProfile(Id);
-          //      vcp.ProfileStatus = new LearningHandler().GetProfileStatuses().ToSelectListItems();
-                
                 return View(vcp);
             }
             else
@@ -89,6 +127,7 @@ namespace E_LPATR.Controllers
             {
                 ViewCreateProfile vcp = new ViewCreateProfile();
                 vcp.Profile = new LearnContext().Profiles.Find(Id);
+                vcp.Profile.Teacher = new LearningHandler().GetUser(Convert.ToInt32(Request.Cookies["user"]["Id"]));
                 return View(vcp);
             }
             else
@@ -98,20 +137,26 @@ namespace E_LPATR.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Profile,ProfileStatus,SubCategory")] ViewCreateProfile viewCreate)
+        public ActionResult Edit( ViewCreateProfile viewCreate, HttpPostedFileBase file)
         {
             if (Request.Cookies["user"] != null)
             {
-                if (ModelState.IsValid && Request.Cookies["user"] != null)
+                if (ModelState.IsValid)
                 {
-                    string Email = Request.Cookies["user"]["Email"];
-                    viewCreate.Profile.Teacher= new LearningHandler().GetUserByEmail(Email);
-                   
-                    //vcp.Profile.Teacher = new LearningHandler().GetUserByEmail(Request.Cookies["user"]["Email"]);
-                    //vcp.ProfileStatus=new LearningHandler().GetProfileStatus(1);
-                    //profile.ProfileStatus = new LearningHandler().GetProfileStatus(1);
-                    //profile.Teacher = new LearningHandler().GetUserByEmail(Request.Cookies["user"]["Email"]);
-                    new LearningHandler().EditProfile(viewCreate);
+                    Profile profile = viewCreate.Profile;
+                    profile.ProfileStatusId = 1;
+                    profile.Teacher = new LearningHandler().GetUser(Convert.ToInt32(Request.Cookies["user"]["Id"])) ;
+                    profile.PackagePlan = viewCreate.Profile.PackagePlan;
+                    if (file != null)
+                    {
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            file.InputStream.CopyTo(ms);
+                            byte[] array = ms.GetBuffer();
+                            profile.Image = array;
+                        }
+                    }
+                    new LearningHandler().EditProfile(profile);
                     return RedirectToAction("Dashboard");
                 }
             }
@@ -126,14 +171,9 @@ namespace E_LPATR.Controllers
         public ActionResult EditProfile(Profile profile)
         {
             if(Request.Cookies["user"]!= null) { 
-                 if (ModelState.IsValid && Request.Cookies["user"] != null)
+                 if (ModelState.IsValid)
                  {
-                     //vcp.Profile = profile;
-                     //vcp.Profile.Teacher = new LearningHandler().GetUserByEmail(Request.Cookies["user"]["Email"]);
-                     //vcp.ProfileStatus=new LearningHandler().GetProfileStatus(1);
-                     //profile.ProfileStatus = new LearningHandler().GetProfileStatus(1);
-                     //profile.Teacher = new LearningHandler().GetUserByEmail(Request.Cookies["user"]["Email"]);
-                 //    new LearningHandler().EditProfile(profile);
+
                      return RedirectToAction("Dashboard");
                  }
             }
@@ -164,11 +204,9 @@ namespace E_LPATR.Controllers
         {
             if (Request.Cookies["user"] != null)
             {
-                
-                    ViewCreateProfile V = new ViewCreateProfile();
-                    V.Subcategory = new LearningHandler().GetSubcategories().ToSelectListItems();
-                    return View(V);
-                
+               ViewCreateProfile V = new ViewCreateProfile();
+               V.Subcategory = new LearningHandler().GetSubcategories().ToSelectListItems();
+               return View(V);
             }
             else
             {
@@ -176,12 +214,22 @@ namespace E_LPATR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult AddProfile(Profile profile,FormCollection collection)
+        public ActionResult AddProfile(Profile profile, HttpPostedFileBase file)
         {
             int Id=Int32.Parse(Request.Cookies["user"]["Id"]);
             User teacher =new LearningHandler().GetUser(Id);
             profile.Teacher = teacher;
             profile.ProfileStatus = new LearningHandler().GetProfileStatus(1);
+            profile.SubcategoryId = 1;
+            if (file != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+                    profile.Image = array;
+                }
+            }
             new LearningHandler().AddProfile(profile);
             return RedirectToAction("Dashboard");
         }
@@ -193,7 +241,6 @@ namespace E_LPATR.Controllers
                 Request request = new Request();
                 request = new LearningHandler().GetRequest(Convert.ToInt32(Session["UpdateRequestId"]));
                 viewRequest.Request = request;
-                ViewBag.TimeString = request.DeliveryTime.ToString();
                 viewRequest.RequestMessage = new LearningHandler().GetRequestMessage(Convert.ToInt32(Session["UpdateRequestId"]));
                 if (viewRequest.Request.RequestStatus.Name == "Active")
                 {
@@ -215,7 +262,7 @@ namespace E_LPATR.Controllers
             requestMessage = viewRequest.AddMessage;
             requestMessage.DateTime = DateTime.Now;
             requestMessage.Request = new Request { Id = viewRequest.Request.Id };
-            requestMessage.Reciever = new User { Id = viewRequest.Request.Teacher.Id };
+            requestMessage.Reciever = new User { Id = viewRequest.Request.Student.Id };
             requestMessage.Sender = new User { Id = Convert.ToInt32(Request.Cookies["user"]["Id"]) };
             new LearningHandler().AddMessage(requestMessage);
             Session["UpdateRequestId"] = viewRequest.Request.Id;
@@ -245,7 +292,7 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        public ActionResult AcceptRequest(int Id)
+        public ActionResult ActiveRequest(int Id)
         {
             if (Request.Cookies["user"] != null)
             {
@@ -258,7 +305,7 @@ namespace E_LPATR.Controllers
             }
             return RedirectToAction("Requests");
         }
-        public ActionResult RejectRequest(int Id)
+        public ActionResult RemoveRequest(int Id)
         {
             if (Request.Cookies["user"] != null)
             {

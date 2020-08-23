@@ -99,6 +99,13 @@ namespace E_LPATR.Controllers
                            // return RedirectToAction("Index", "Teacher");
                         }
                         ViewBag.profile = prof;
+                        List<Earning> earnings = new LearningHandler().GetAllEarnings(Convert.ToInt32(Request.Cookies["user"]["Id"]));
+                        int cost = 0;
+                        foreach (var item in earnings)
+                        {
+                            cost += item.Cost;
+                        }
+                        Session["TotalEarnings"] = cost;
                         return RedirectToAction("Dashboard", "Teacher");
                     }
                     else if (user.Role.Name == "Student")
@@ -148,6 +155,7 @@ namespace E_LPATR.Controllers
             user.AccountStatus = lh.GetAccountStatus(1);
             user.JoinedOn = DateTime.Now;
             user.Role = lh.GetRole(3);
+            user.Active = true;
             lh.AddUser(user);
             HttpCookie cookie = new HttpCookie("user");
             string id = user.Id.ToString();
@@ -178,6 +186,7 @@ namespace E_LPATR.Controllers
             teacher.Role = lh.GetRole(2);
             teacher.Degree.Name= model.User.Degree.Name;
             teacher.AccountStatus = lh.GetAccountStatus(3);
+            teacher.Active = true;
             lh.AddUser(teacher);
             HttpCookie cookie = new HttpCookie("user");
             string id = teacher.Id.ToString();
@@ -195,13 +204,13 @@ namespace E_LPATR.Controllers
         [HttpGet]
         public ActionResult SearchedGigs(string SearchedData)
         {
-            LearnContext learn = new LearnContext();
             if (SearchedData != null)
             {
                 List<Profile> ProfilesByFirstName = lh.SearchByFirstName(SearchedData);
                 List<Profile> ProfilesByLastName = lh.SearchByLastName(SearchedData);
                 List<Profile> ProfilesByEmail = lh.SearchByEmail(SearchedData);
                 List<Profile> ProfilesByCategory = lh.SearchByCategory(SearchedData);
+                List<Profile> ProfilesByName = lh.SearchByName(SearchedData);
                 List<Profile> ProfilesBySubcategory = lh.SearchBySubcategory(SearchedData);
                 List<Profile> profiles = new List<Profile>();
                 bool p = false;
@@ -240,6 +249,20 @@ namespace E_LPATR.Controllers
                 }
                 p = false;
                 foreach (var item in ProfilesByCategory)
+                {
+                    foreach (var profile in profiles)
+                    {
+                        if (profile.Description == item.Description)
+                        {
+                            p = true;
+                        }
+                    }
+                    if (p == false)
+                    {
+                        profiles.Add(item);
+                    }
+                }
+                foreach (var item in ProfilesByName)
                 {
                     foreach (var profile in profiles)
                     {
@@ -306,6 +329,53 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Home", "Student");
             }
         }
-        
+        public ActionResult Settings()
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                User user = new LearningHandler().GetUser(Convert.ToInt32(Request.Cookies["user"]["Id"]));
+                return View(user);
+            }
+            return RedirectToAction("Login", "Account");
+        }
+        [HttpPost]
+        public ActionResult EditAccount(User user)
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                if (user.Active == true)
+                {
+                    user.AccountStatusID = 2;
+                }
+                else
+                {
+                    user.AccountStatusID = 1;
+                }
+                new LearningHandler().ModifyUser(user);
+                HttpCookie cookie = Request.Cookies["user"];
+                cookie.Values.Remove("FirstName");
+                cookie.Values.Add("FirstName", user.FirstName);
+                Response.AppendCookie(cookie);
+                return RedirectToAction("Home");
+            }
+            return RedirectToAction("Login", "Account");
+        }
+        public ActionResult AddIssue(FormCollection form)
+        {
+            if (form != null)
+            {
+                string Name = form[0].ToString();
+                string Email = form[1].ToString();
+                string Message = form[2].ToString();
+                Issues issue = new Issues();
+                issue.DateTime = DateTime.Now;
+                issue.Name = Name;
+                issue.Email = Email;
+                issue.IssueMessage = Message;
+                new LearningHandler().AddIssue(issue);
+
+            }
+            return RedirectToAction("Home");
+        }
     }
 }

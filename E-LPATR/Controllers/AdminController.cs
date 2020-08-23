@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -111,8 +112,17 @@ namespace E_LPATR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult AddCat(Category category)
+        public ActionResult AddCat(Category category, HttpPostedFileBase file)
         {
+            if (file != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+                    category.Image = array;
+                }
+            }
             learn.Categories.Add(category);
             learn.SaveChanges();
             return RedirectToAction("Categories");
@@ -130,8 +140,7 @@ namespace E_LPATR.Controllers
         {
             if (ModelState.IsValid && Request.Cookies["user"] != null)
             {
-                learn.Entry(category).State = EntityState.Modified;
-                learn.SaveChanges();
+                lh.EditCategory(category);
                 return RedirectToAction("Categories");
             }
             return View("Categories");

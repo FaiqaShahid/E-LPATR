@@ -41,9 +41,11 @@
     <div class="panel panel-default">
         <div style="margin:20px">
             <div class="row" style="margin:20px">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">ss 2 1331
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                     <span style="color:coral;font-size:30px"><b>Request number</b></span>
                     <span style="font-size:30px; padding-left:30px">@Model.Request.Id </span>
+                    <button class="btn btn-success">@Html.ActionLink("Accept", "AcceptRequest", new { Id = Model.Request.Id })</button>
+                    <button class="btn btn-success">@Html.ActionLink("Reject", "RejectRequest", new { Id = Model.Request.Id })</button>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <span style="color:darkgreen;font-size:30px;text-align:right">Rs. @Model.Request.Cost</span>
@@ -54,13 +56,11 @@
             <hr />
             <h2>@Model.Request.Describtion</h2>
             <hr />
-            <h1>Remaining Time:</h1>
-            <hr />
             @if (Model.RequestMessage.Any())
             {
                 foreach (var item in Model.RequestMessage)
                 {
-                    if(item.Sender.Id==Convert.ToInt32(Request.Cookies["user"]["Id"]))
+                    if (item.Sender.Id == Convert.ToInt32(Request.Cookies["user"]["Id"]))
                     {
                         <div style="text-align:right">
                             <p> <span style="background-color:gainsboro;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-left-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
@@ -79,13 +79,22 @@
             }
             @using (Html.BeginForm("AddMessage", "Teacher", FormMethod.Post))
             {
-                @Html.HiddenFor(m => m.Request.Teacher.Id, new { @value = Model.Request.Teacher.Id })
+                @Html.HiddenFor(m => m.Request.Student.Id, new { @value = Model.Request.Teacher.Id })
                 @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
                 @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
                 <div class="text-center">
                     <button class="btn btn-success btn-lg" type="submit">Send</button>
                 </div>
             }
+            @*@using (Html.BeginForm("AddMessage", "Teacher", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.Request.Teacher.Id, new { @value = Model.Request.Teacher.Id })
+                @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
+                @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg" type="submit">Send</button>
+                </div>
+            }*@
             <div class="text-center">
                 <a href="#DelieverNotes" id="DelieverNotes" class="btn btn-lg btn-success">Deliver Notes</a>
             </div>

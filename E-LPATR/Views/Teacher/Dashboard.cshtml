@@ -18,38 +18,37 @@
                 </p> <br />
                 <p><b style="margin-right:65px">Education: </b> @Model.User.Degree.Name</p> <br />
                 <p><b style="margin-right:80px">Country: </b>@Model.User.Country.Name</p><br /> 
-                <p><b style="margin-right:70px">Last Seen: </b> 2 hours ago</p><br />
-                <p><b style="margin-right:50px">Current Time: </b>@DateTime.Now</p><br />
             </div>
         </div>
     </div>
     <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3>Profiles</h3>
-            </div>
             <div class="panel-body">
                 @if (Request.Cookies["user"]["AccountStatus"] == "Active")
                 {
                     
                     foreach (var item in (Model.Profiles))
                     {
-                        <div class="col-lg-4 col-md-5">
+                        <div class="col-lg-6 col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <img class="img-responsive" src="~/Images/math.jpg" th="250" height="150" />
+                                    @if (item.Image==null) {
+                                    <img  style="max-width:300px" src="~/Images/math.jpg" height="200" />
+                                    }
+                                    else { 
+                                    <img  src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(item.Image))" style="max-width:300px" height="200" />}
+
                                     <h3><b>@item.Name</b></h3>
                                     <div>
                                         <b>Per hour :</b> @item.PackagePlan.CostPerHour
-                                        <b style="padding-left:40px">
+                                        <b style="padding-left:50px">
                                             Per Day :
                                         </b>
                                         @item.PackagePlan.CostPerDay
-                                        <b style="padding-left:40px">
+                                        <b style="padding-left:50px">
                                             Per 3 Days :
                                         </b>@item.PackagePlan.CostPer3Days
                                     </div>
-                                    <h4 class="alert-success">@item.ProfileStatus.Name</h4>
                                     @Html.ActionLink("Show More", "Display", new { id = item.Id })
                                 </div>
                             </div>
@@ -57,12 +56,15 @@
                     }
                     if (ViewBag.TotalProfiles)
                     {
-                        <div class="panel panel-default col-lg-4 col-md-5">
-                            <a href="~/Teacher/CreateProfile" class="panel-body">
-                                <img src="~/Images/Plus.png" width="200" height="200" />
-                                Add profile for teaching.
-                            </a>
-                        </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="~/Teacher/CreateProfile"  >
+                            <img src="~/Images/Plus.png" style="max-width:300px" height="250" class="center-block" />
+                        </a>
+                    </div>
+                </div>
+            </div>
                     }
                 }
                 else

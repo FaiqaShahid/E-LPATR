@@ -11,7 +11,7 @@
             <div class="row" style="margin:20px">
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                     <span style="color:coral;font-size:30px"><b>Request number:</b></span>
-                    <span style="font-size:30px; padding-left:30px">@Model.Request.Id </span>
+                    
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <span style="color:darkgreen;font-size:30px;text-align:right">Rs. @Model.Request.Cost</span>
@@ -22,40 +22,39 @@
             <hr />
             <h2>@Model.Request.Describtion</h2>
             <hr />
-            <h1>Remaining Time:</h1>
-            <hr />
-            <div id="countdown"></div>
-            <p id="note"></p>
             @if (Model.RequestMessage.Any())
             {
                 foreach (var item in Model.RequestMessage)
                 {
-                    if (item.Sender != null)
+                    if (item.Sender.Id == Convert.ToInt32(Request.Cookies["user"]["Id"]))
                     {
                         <div style="text-align:right">
                             <p> <span style="background-color:gainsboro;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-left-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
                             <p>@item.DateTime</p>
                         </div>
                     }
-                    else if (item.Reciever != null)
+                    else
                     {
                         <div style="text-align:left">
                             <p> <span style="background-color:lightgreen;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-right-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                            @*<h5 style="background-color:lightgreen;border-top-left-radius:30px;border-top-right-radius:30px;border-bottom-right-radius:30px">@item.Message</h5>*@
                             <p>@item.DateTime</p>
                         </div>
                     }
                 }
             }
-            @using (Html.BeginForm("AddMessage", "Student", FormMethod.Post))
+            @if (Model.Request.RequestStatus.Name == "Active")
             {
-                @Html.HiddenFor(m => m.Request.Teacher.Id, new { @value = Model.Request.Teacher.Id })
-                @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
-                @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
-                <div class="text-center">
-                    <button class="btn btn-success btn-lg" type="submit">Send</button>
-                </div>
+                using (Html.BeginForm("AddMessage", "Student", FormMethod.Post))
+                {
+                    @Html.HiddenFor(m => m.Request.Teacher.Id, new { @value = Model.Request.Teacher.Id })
+                    @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
+                    @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
+                    <div class="text-center">
+                        <button class="btn btn-success btn-lg" type="submit">Send</button>
+                    </div>
+                }
             }
+
         </div>
     </div>
 </div>

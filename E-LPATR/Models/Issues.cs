@@ -8,8 +8,9 @@ namespace E_LPATR.Models
     public class Issues
     {
         public int Id { get; set; }
-        public virtual User User { get; set; }
-        public string Issue { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string IssueMessage { get; set; }
         public byte[] Attachment { get; set; }
         public DateTime DateTime { get; set; }
     }

@@ -10,6 +10,8 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <h1><b>Sign Up for Teacher</b></h1>
+                or <br />
+                <a href="~/Account/SignUp">Sign Up for Student</a>
                 <hr />
                 <div>
                     @using (Html.BeginForm("AddTeacher", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -93,7 +95,7 @@
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-book"></span>
                                     </span>
-                                    @Html.TextBoxFor(m =>m.User.Degree.Name, new { @class = "form-control required", placeholder = "Enter Education" })
+                                    @Html.TextBoxFor(m => m.User.Degree.Name, new { @class = "form-control required", placeholder = "Enter Education" })
                                 </div>
                             </div>
                         </div>

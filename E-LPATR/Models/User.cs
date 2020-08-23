@@ -13,20 +13,17 @@ namespace E_LPATR.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public byte[] Image { get; set; }
+        public bool Active { get; set; }
         public string Password { get; set; }
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
         public DateTime JoinedOn { get; set; }
         public virtual Country Country { get; set; }
-        public virtual int RoleID { get; set; }
+        public int RoleID { get; set; }
         public virtual Role Role { get; set; }
-        public virtual int AccountStatusID { get; set; }
+        public int AccountStatusID { get; set; }
         public virtual AccountStatus AccountStatus { get; set; }
         public virtual Degree Degree { get; set; }
 
-        public static implicit operator User(HttpCookie v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
