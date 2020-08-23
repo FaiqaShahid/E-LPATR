@@ -117,6 +117,7 @@ namespace E_LPATR.Models
                 return lc.Profiles.Where(m => m.Id== id)
                     .Include(m=>m.PackagePlan)
                     .Include(m => m.Teacher)
+                    .Include(m=>m.Teacher.Degree)
                     .Include(m => m.Teacher.Country)
                     .Include(m=>m.Teacher.Role)
                     .Include(m=>m.Teacher.AccountStatus)
@@ -544,12 +545,9 @@ namespace E_LPATR.Models
         }
         public Category EditCategory(Category category)
         {
-            //Category category = GetCategory(Id);
             using (LearnContext lc = new LearnContext())
             {
-                Category c = (from s in lc.Categories
-                             where s.Id == category.Id
-                             select s).FirstOrDefault();
+                Category c = lc.Categories.Find(category.Id);
                 c.Name = category.Name;
                 c.Image = category.Image;
                 lc.SaveChanges();
@@ -636,6 +634,16 @@ namespace E_LPATR.Models
             using (LearnContext lc = new LearnContext())
             {   
                 lc.Issues.Add(issue);
+                lc.SaveChanges();
+            }
+        }
+        public void AddProfilePicture(User user)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                User u = lc.Users.Find(user.Id);
+                u.Image = user.Image;
+                lc.Entry(u).State = EntityState.Modified;
                 lc.SaveChanges();
             }
         }

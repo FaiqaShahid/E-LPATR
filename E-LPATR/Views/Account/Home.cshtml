@@ -13,7 +13,21 @@
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-body text-center" style="font-size:18px">
-                        <a href="~/Student/SearchedGigs"><img src=@item.Image alt=@item.Name class="img-responsive" style="width:300px;height:200px" />@item.Name</a>
+                        @if (item.Image == null)
+                        {
+                            <a href="~/Account/SearchedGigs?SearchedData=@item.Name">
+                                <img style="max-width:200px" src="~/Images/math.jpg" height="200" alt=@item.Name />
+                                <h5>@item.Name</h5>
+                            </a>
+
+                        }
+                        else
+                        {
+                            <a href="~/Account/SearchedGigs?SearchedData=@item.Name">
+                                <img src="@String.Format("data:image/png;base64,{0}",   Convert.ToBase64String(item.Image))" alt=@item.Name style="max-width:200px" height="200" />
+                            <h5>@item.Name</h5>
+                            </a>
+                        }
                     </div>
                 </div>
             </div>

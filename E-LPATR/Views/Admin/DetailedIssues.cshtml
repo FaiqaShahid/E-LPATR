@@ -11,19 +11,19 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Issue)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Issue)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <br />
         <dt>
-            @Html.DisplayNameFor(model => model.Attachment)
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Attachment)
+            @Html.DisplayFor(model => model.Email)
         </dd>
         <br />
         <dt>
@@ -33,6 +33,15 @@
         <dd>
             @Html.DisplayFor(model => model.DateTime)
         </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.IssueMessage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueMessage)
+        </dd>
+
 
     </dl>
 </div>

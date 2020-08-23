@@ -10,7 +10,18 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <a href="~/Teacher/Home"><img src="~/Images/chemistry.jpg" alt="Alternate Text" class="img-responsive" /></a>
+                        @if (item.Image == null)
+                        {
+                                <img style="max-width:300px" src="~/Images/math.jpg" height="200" alt=@item.Name />
+                                <h5>@item.Name</h5>
+
+                        }
+                        else
+                        {
+                                <img src="@String.Format("data:image/png;base64,{0}",   Convert.ToBase64String(item.Image))" alt=@item.Name style="max-width:300px" height="200" />
+                                <h5>@item.Name</h5>
+                        }
+                        @*<a href="~/Teacher/Home"><img src="~/Images/chemistry.jpg" alt="Alternate Text" class="img-responsive" /></a>*@
                         <h3>@item.Name</h3>
                         Per Hour: @item.PackagePlan.CostPerHour
                         Per Day: @item.PackagePlan.CostPerDay

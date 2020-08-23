@@ -136,10 +136,19 @@ namespace E_LPATR.Controllers
         //Backend
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditCategory([Bind(Include = "Id,Name,Image")] Category category)
+        public ActionResult EditCategory([Bind(Include = "Id,Name,Image")] Category category, HttpPostedFileBase file)
         {
             if (ModelState.IsValid && Request.Cookies["user"] != null)
             {
+                if (file != null)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                        category.Image = array;
+                    }
+                }
                 lh.EditCategory(category);
                 return RedirectToAction("Categories");
             }
@@ -245,11 +254,24 @@ namespace E_LPATR.Controllers
         //Backend
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditRequest([Bind(Include = "Id,Title,Description,Cost,DateTime,DeliveryTme")] Request request)
+        public ActionResult EditRequest(Request request)
         {
             if (ModelState.IsValid && Request.Cookies["user"] != null)
             {
-                learn.Entry(request).State = EntityState.Modified;
+                Request r=learn.Requests.Find(request.Id);
+                if (request.Title != null)
+                {
+                    r.Title = request.Title;
+                }
+                if (request.Describtion != null)
+                {
+                    r.Describtion = request.Describtion;
+                }
+                if (request.Cost != 0)
+                {
+                    r.Cost = request.Cost;
+                }
+                learn.Entry(r).State = EntityState.Modified;
                 learn.SaveChanges();
                 return RedirectToAction("Requests");
             }

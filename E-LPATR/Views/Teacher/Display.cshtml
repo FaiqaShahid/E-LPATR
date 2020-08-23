@@ -4,6 +4,29 @@
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <div class="modal fade" id="AddPictureModal" tabindex="-1" role="dialog" aria-labelledby="AddPictureModal-label">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="AddPictureModal-label">Add Profile Picture</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" method="post" action="~/Teacher/AddProfilePicture" ,new { enctype="multipart/form-data" }>
+                        <input type="hidden" name="UserId" id="UserId" value=@Convert.ToInt32(Request.Cookies["user"]["Id"]) />
+                        <div class="form-group">
+                            <label class="control-label" for="AddProfilePicture"> Add Profile Picture</label>
+                            <input type="file" name="file" id="file" required />
+                        </div>
+                        <div class="col-lg-push-8 col-md-push-8">
+                            <button type="submit" class="btn btn-success">Upload</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <div class="container" style="margin-top:50px">
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -49,12 +72,23 @@
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
         <div class="panel panel-default">
             <div class="panel-body">
-                <div style="padding-left:40px">
-                    <img class="img-responsive img-rounded" src="~/Images/User.png" />
-                    <h4 class="text-center"><b>@Model.Teacher.FirstName</b></h4>
+                <div class="text-center">
+                    @if (Model.Teacher.Image == null)
+                    {
+                        <img class="img-responsive img-circle" src="~/Images/User.png" />
+                    }
+                    else
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Teacher.Image))" class="img-circle profilePicture" style="max-width:300px" height="200" />
+                    }
+                    <br />
+                    <br />
+                    <a href="#AddPicture" id="AddPicture">Add/Change Profile Picture</a>
+                    @*<img class="img-responsive img-rounded" src="~/Images/User.png" />*@
+                    <h4 class="text-center"><b>@Model.Teacher.FirstName @Model.Teacher.LastName</b></h4>
                 </div>
                 <hr />
-                <p><b>Education: </b> Graduation</p> <br />
+                <p><b>Education: </b> @Model.Teacher.Degree.Name</p> <br />
                 <p><b>Country: </b> @Model.Teacher.Country.Name</p><br />
             </div>
         </div>

@@ -17,6 +17,10 @@
             background-color: #F8F8F8;
             padding-bottom: 0px
         }
+        profilePicture:hover {
+            opacity: 50;
+            background-image: url('../../Images/Camera.png');
+        }
     </style>
 </head>
 <body>
@@ -71,23 +75,23 @@
                         <li><a href="~/Admin/Students">Students</a></li>
                         <li><a href="~/Admin/Teachers">Teachers</a></li>
                         @*<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Notifications<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                            </ul>
-                        </li>*@
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Notifications<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                </ul>
+                            </li>*@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 @if (Request.Cookies["user"] != null)
@@ -110,77 +114,77 @@
                 }
                 else if (Request.Cookies["user"]["Role"] == "Teacher")
                 {
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="~/Teacher/Requests">Requests</a></li>
-                <li style="margin-top:15px">
-                    @if (Session["TotalEarnings"] != null)
-                    {
-                        <span style="color:white;font-size:14px"><b> Rs. @Session["TotalEarnings"]</b></span>
-                    }
-                </li>
-                @*<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Notifications<span class="caret"><span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                    </ul>
-                </li>*@
-                
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li style="padding-left:20px">
-                            @if (Request.Cookies["user"] != null)
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="~/Teacher/Requests">Requests</a></li>
+                        <li style="margin-top:15px">
+                            @if (Session["TotalEarnings"] != null)
                             {
-                                <b>@Request.Cookies["user"]["FirstName"]</b>
-                            }
-                            else
-                            {
-                                <b>User</b>
+                                <span style="color:white;font-size:14px"><b> Rs. @Session["TotalEarnings"]</b></span>
                             }
                         </li>
-                        <li><a href="~/Account/Settings">Settings</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="~/Account/Logout">Log out</a></li>
+                        @*<li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Notifications<span class="caret"><span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                </ul>
+                            </li>*@
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li style="padding-left:20px">
+                                    @if (Request.Cookies["user"] != null)
+                                    {
+                                        <b>@Request.Cookies["user"]["FirstName"]</b>
+                                    }
+                                    else
+                                    {
+                                        <b>User</b>
+                                    }
+                                </li>
+                                <li><a href="~/Account/Settings">Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="~/Account/Logout">Log out</a></li>
+                            </ul>
+                        </li>
                     </ul>
-                </li>
-            </ul>
                 }
                 else if (Request.Cookies["user"]["Role"] == "Student")
                 {
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="~/Student/RecentRequests">Recent Requests</a></li>
                         @*<li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Notifications<span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
-                            </ul>
-                        </li>*@
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Notifications<span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="~/Student/OrderPage">Lorem ipsum dolor sit amet</a></li>
+                                </ul>
+                            </li>*@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img src="~/Images/User.png" class="img-circle img-responsive" alt="User Name" width="30" height="30" />
@@ -232,16 +236,16 @@
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center">
                     <h2><b>About Us</b></h2>
                     <p style="margin-top:20px">
-                            This website contains the mechanism of hiring of teachers. Here, students will hire teachers for different subjects and their profile will be updated. Students can choose a teacher after checking their profile. They will send a request to a teacher and after accepting a request they’ll start their studying. A teacher can choose limited students of their choice.
+                        This website contains the mechanism of hiring of teachers. Here, students will hire teachers for different subjects and their profile will be updated. Students can choose a teacher after checking their profile. They will send a request to a teacher and after accepting a request they’ll start their studying. A teacher can choose limited students of their choice.
                     </p>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 text-center">
                     <h2><b>Social Networks</b></h2>
-                    <img src="~/Images/facebook.png" width="50" height="50" class="img-circle" style=""/>&nbsp;
-                    <img src="~/Images/gmail.png" width="50" height="50" class="img-circle" style=""/>&nbsp;
-                    <img src="~/Images/instagram.png" width="50" height="50" class="img-circle" style=""/>&nbsp;
-                    <img src="~/Images/twitter.png" width="50" height="50" class="img-circle" style=""/>&nbsp;
-                    <img src="~/Images/linkedin.png" width="50" height="50" class="img-circle" style=""/>&nbsp;
+                    <img src="~/Images/facebook.png" width="50" height="50" class="img-circle" style="" />&nbsp;
+                    <img src="~/Images/gmail.png" width="50" height="50" class="img-circle" style="" />&nbsp;
+                    <img src="~/Images/instagram.png" width="50" height="50" class="img-circle" style="" />&nbsp;
+                    <img src="~/Images/twitter.png" width="50" height="50" class="img-circle" style="" />&nbsp;
+                    <img src="~/Images/linkedin.png" width="50" height="50" class="img-circle" style="" />&nbsp;
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                     <h2><b>Contact Us</b></h2>
@@ -259,8 +263,8 @@
                             <button type="submit" class="btn btn-success"> Send</button>
                         </div>
                     </form>
-                    
-                    
+
+
                 </div>
                 <p>Copyright &copy; @DateTime.Now.Year - E-LPATR</p>
             </div>
@@ -275,6 +279,16 @@
         $(document).ready(function () {
             $('#table_id').DataTable();
         });
+
+
+    </script>
+    <script type="text/javascript">
+        $('#AddPicture').click(
+            function (e) {
+                e.preventDefault();
+                $('#AddPictureModal').modal('show');
+            }
+        );
     </script>
     @RenderSection("scripts", required: false)
 </body>

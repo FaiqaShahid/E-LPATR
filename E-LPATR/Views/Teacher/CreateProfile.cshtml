@@ -26,7 +26,19 @@
                                 @Html.ValidationMessageFor(model => model.Profile.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                        <div class="form-group">
+                            @*<label class="control-label col-md-4">Subcategory </label>*@
+                            <div class="col-md-5">
+                                @Html.DropDownList("Category", Model.Category, "-Select Category-", new { @class = "form-control", id = "Category", })
+                            </div>
+                            <div class="col-md-5">
+                                @Html.DropDownList("Subcategory", Model.Subcategory, "-Select Subcategory-", new { @class = "form-control", id = "Subcategory", })
+                            </div>
 
+
+                            @Html.ValidationMessageFor(model => model.Subcategory, "", new { @class = "text-danger" })
+                        </div>
+                         
                         <div class="form-group">
                             @Html.LabelFor(model => model.Profile.Image, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">

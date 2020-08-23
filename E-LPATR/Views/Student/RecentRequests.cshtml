@@ -5,14 +5,211 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container" style="padding-left:100px;padding-right:100px;margin-top:50px">
+    <div class="container" style="margin-top:80px">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-3">
+            <ul class="nav nav-tabs nav-stacked">
+                <li role="presentation" class="active"><a data-toggle="tab" href="#Current">Current</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#Accepted">Accepted</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#Rejected">Rejected</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#Cancelled">Cancelled</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#Completed">Completed</a></li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-9">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="Current">
+                    @if (Model != null)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Pending")
+                            {
+                                count++;
+                            }
+                        }
+                        if (count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.RequestStatus.Name == "Pending")
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <h2>@item.Title</h2>
+                                            <p>@item.Describtion</p>
+                                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                                <h4><b>Rs. @item.Cost</b></h4>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <button class="btn btn-info">@Html.ActionLink("View", "ViewRequest", new { Id = item.Id })</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>No Current Requests</p>
+                        }
+                    }
+                </div>
+                <div class="tab-pane fade" id="Accepted">
+
+                    @if (Model != null)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Active")
+                            {
+                                count++;
+                            }
+                        }
+                        if (count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.RequestStatus.Name == "Active")
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <h2>@item.Title</h2>
+                                            <p>@item.Describtion</p>
+                                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                                <h4><b>Rs. @item.Cost</b></h4>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                                                <button class="btn btn-info">@Html.ActionLink("View", "ViewRequest", new { Id = item.Id })</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>No Current Requests</p>
+                        }
+                    }
+                </div>
+                <div class="tab-pane fade" id="Rejected">
+                    @if (Model != null)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Reject")
+                            {
+                                count++;
+                            }
+                        }
+                        if (count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+
+                                if (item.RequestStatus.Name == "Reject")
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <h2>@item.Title</h2>
+                                            <p>@item.Describtion</p>
+                                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                                <h4><b>Rs. @item.Cost</b></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>No Current Requests</p>
+                        }
+                    }
+                </div>
+                <div class="tab-pane fade" id="Cancelled">
+                    @if (Model != null)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Cancelled")
+                            {
+                                count++;
+                            }
+                        }
+                        if (count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.RequestStatus.Name == "Cancelled")
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <h2>@item.Title</h2>
+                                            <p>@item.Describtion</p>
+                                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                                <h4><b>Rs. @item.Cost</b></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>No Current Requests</p>
+                        }
+                    }
+                </div>
+                <div class="tab-pane fade" id="Completed">
+                    @if (Model != null)
+                    {
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            if (item.RequestStatus.Name == "Completed")
+                            {
+                                count++;
+                            }
+                        }
+                        if (count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                if (item.RequestStatus.Name == "Completed")
+                                {
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <h2>@item.Title</h2>
+                                            <p>@item.Describtion</p>
+                                            <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+                                                <h4><b>Rs. @item.Cost</b></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <p>No Current Requests</p>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+@*<div class="container" style="padding-left:100px;padding-right:100px;margin-top:50px">
     @foreach (var item in Model)
     {
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="container-fluid">
                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                        <span style="font-size:30px; padding-left:30px; color:coral">@item.Id </span>
                         <h4><b>@item.Title</b></h4>
                         <p>
                             @item.Describtion
@@ -26,4 +223,4 @@
             </div>
         </div>
     }
-</div>
+</div>*@

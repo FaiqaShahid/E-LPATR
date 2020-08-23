@@ -24,6 +24,29 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+        public ActionResult AddProfilePicture(int UserId, HttpPostedFileBase file)
+        {
+            if (Request.Cookies["user"] != null && Request.Cookies["user"]["Role"] == "Teacher") 
+            {
+                User u = new User();
+                u.Id = UserId;
+                if (file != null)
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        byte[] array = ms.GetBuffer();
+                        u.Image = array;
+                    }
+                }
+                new LearningHandler().AddProfilePicture(u);
+                return RedirectToAction("Dashboard");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
         [HttpGet]
         public ActionResult SignUp()
         {
@@ -166,39 +189,6 @@ namespace E_LPATR.Controllers
             }
             return RedirectToAction("Dashboard");
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditProfile(Profile profile)
-        {
-            if(Request.Cookies["user"]!= null) { 
-                 if (ModelState.IsValid)
-                 {
-
-                     return RedirectToAction("Dashboard");
-                 }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            return RedirectToAction("Dashboard");
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult ProfileEdit( Profile profile)
-        {
-            if (ModelState.IsValid && Request.Cookies["user"] != null)
-            {
-                //vcp.Profile = profile;
-                //vcp.Profile.Teacher = new LearningHandler().GetUserByEmail(Request.Cookies["user"]["Email"]);
-                //vcp.ProfileStatus=new LearningHandler().GetProfileStatus(1);
-                //profile.ProfileStatus = new LearningHandler().GetProfileStatus(1);
-                //profile.Teacher = new LearningHandler().GetUserByEmail(Request.Cookies["user"]["Email"]);
-           //     new LearningHandler().EditProfile(profile);
-                return RedirectToAction("Dashboard");
-            }
-            return RedirectToAction("Dashboard");
-        }
         [HttpGet]
         public ActionResult CreateProfile()
         {
@@ -206,6 +196,7 @@ namespace E_LPATR.Controllers
             {
                ViewCreateProfile V = new ViewCreateProfile();
                V.Subcategory = new LearningHandler().GetSubcategories().ToSelectListItems();
+               V.Category = new LearningHandler().GetCategories().ToSelectListItems();
                return View(V);
             }
             else
