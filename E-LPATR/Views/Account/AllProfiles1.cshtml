@@ -10,7 +10,14 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div style="padding-left:40px">
-                    <img class="img-responsive img-rounded" src="~/Images/User.png" />
+                    @if (Model.User.Image == null)
+                    {
+                        <img style="max-width:700px" src="~/Images/math.jpg" height="370" />
+                    }
+                    else
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.User.Image))" style="max-width:600px" height="200" />
+                    }
                     <h4 class="text-center"><b>@Model.User.FirstName @Model.User.LastName</b></h4>
                 </div>
                 <button class="btn btn-success btn-block">@Html.ActionLink("Send Request", "SentRequestRequirements", "Student", new { Id = Model.User.Id }, null)</button>

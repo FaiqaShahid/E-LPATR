@@ -17,9 +17,18 @@
             background-color: #F8F8F8;
             padding-bottom: 0px
         }
+        .panel{
+            border-bottom-left-radius:30px;
+            border-bottom-right-radius:30px;
+            border-top-left-radius:30px;
+            border-top-right-radius:30px;
+        }
         profilePicture:hover {
             opacity: 50;
             background-image: url('../../Images/Camera.png');
+        }
+        .textArea{
+            max-width:1000px;
         }
     </style>
 </head>
@@ -55,7 +64,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left" method="get" action="~/Account/SearchedGigs">
                     <div class="form-group">
-                        <input type="text" id="SearchedData" class="form-control" placeholder="Search Here..." name="SearchedData" />
+                        <input type="text" id="SearchedData" class="form-control" size="40" placeholder="Search Here..." name="SearchedData" />
                         <input type="submit" value="submit" id="Search" class="btn btn-success" />
                     </div>
                 </form>
@@ -274,7 +283,8 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
-    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    @*<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>*@
+   
     <script>
         $(document).ready(function () {
             $('#table_id').DataTable();

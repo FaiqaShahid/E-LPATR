@@ -102,8 +102,8 @@ namespace E_LPATR.Controllers
                 request.Student = new User { Id = Convert.ToInt32(Request.Cookies["user"]["Id"]) };
                 request.RequestStatus = new LearningHandler().GetRequestStatus(1); //Pending
                 new LearningHandler().AddRequest(request);
-                Session["RequestId"] = request.Id;
-                return RedirectToAction("Confirmation");
+                Session["UpdateRequestId"] = request.Id;
+                return RedirectToAction("RequestPage");
             }
             else
             {
@@ -122,24 +122,32 @@ namespace E_LPATR.Controllers
             }
             return RedirectToAction("Login", "Account");
         }
-        public ActionResult GiveReview()
+        public ActionResult GiveReview(int Id)
         {
             if (Request.Cookies["user"] != null)
             {
                 Review review = new Review();
-                review.Request =new LearningHandler().GetRequest(Convert.ToInt32(Session["UpdateRequestId"]));
+                review.Request =new LearningHandler().GetRequest(Id);
                 return View(review);
             }
             return RedirectToAction("Login", "Account");
         }
-        public ActionResult AddReview(Review review)
+        public ActionResult AddReview(FormCollection form)
         {
             if (Request.Cookies["user"] != null)
             {
-                review.Request = new Request { Id = review.RequestId };
+                Review review = new Review();
+                review.RequestId =Convert.ToInt32(form[0]);
+                review.Stars = form[1].ToString();
+                review.Description = form[2].ToString();
+                //review.Request = new Request { Id = review.RequestId };
                 review.DateTime = DateTime.Now;
                 new LearningHandler().AddReview(review);
-                return View(review);
+                Request request= new LearningHandler().GetRequest(review.RequestId);
+                request.RequestStatusId = 4;
+                request.RequestStatus = new LearningHandler().GetRequestStatus(4);
+                new LearningHandler().UpdateRequest(request);
+                return RedirectToAction("Home");
             }
             return RedirectToAction("Login", "Account");
         }

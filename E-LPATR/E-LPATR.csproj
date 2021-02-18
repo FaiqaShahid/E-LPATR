@@ -257,6 +257,14 @@
     <Compile Include="Migrations\202008230918264_RemoveSomeTables.designer.cs">
       <DependentUpon>202008230918264_RemoveSomeTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008231723067_ChangeStarsDataTypeInReviewTBL.cs" />
+    <Compile Include="Migrations\202008231723067_ChangeStarsDataTypeInReviewTBL.designer.cs">
+      <DependentUpon>202008231723067_ChangeStarsDataTypeInReviewTBL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008241158522_AddCategoryInProfile.cs" />
+    <Compile Include="Migrations\202008241158522_AddCategoryInProfile.designer.cs">
+      <DependentUpon>202008241158522_AddCategoryInProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountStatus.cs" />
     <Compile Include="Models\Category.cs" />
@@ -280,6 +288,8 @@
     <Compile Include="Models\Subcategory.cs" />
     <Compile Include="Models\Degree.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\View Models\RequestMessageInfo.cs" />
+    <Compile Include="Models\View Models\SubCategoryInfo.cs" />
     <Compile Include="Models\View Models\ViewCatRequest.cs" />
     <Compile Include="Models\View Models\ViewCreateProfile.cs" />
     <Compile Include="Models\View Models\ViewProfile.cs" />
@@ -350,6 +360,7 @@
     <Content Include="Views\Student\Confirmation.cshtml" />
     <Content Include="Views\Account\AllProfiles1.cshtml" />
     <Content Include="Views\Teacher\Edit.cshtml" />
+    <Content Include="Views\Teacher\Issue.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -402,6 +413,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202008230918264_RemoveSomeTables.resx">
       <DependentUpon>202008230918264_RemoveSomeTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008231723067_ChangeStarsDataTypeInReviewTBL.resx">
+      <DependentUpon>202008231723067_ChangeStarsDataTypeInReviewTBL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008241158522_AddCategoryInProfile.resx">
+      <DependentUpon>202008241158522_AddCategoryInProfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

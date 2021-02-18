@@ -4,114 +4,143 @@
     ViewBag.Title = "SignUp";
 }
 
-    <div class="container-fluid text-center" style="margin-top:50px;">
-        <div class="col-lg-6 col-lg-push-3 col-md-6 col-md-push-3 col-sm-12 col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h1><b>Sign Up for Student</b></h1>
-                    or <br />
-                    <a href="~/Teacher/SignUp">Sign Up for Teacher</a>
-                    <hr />
-                    <div>
-                        @using (Html.BeginForm("AddStudent", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id="SignUpForm" }))
-                        {
-                            @*@Html.AntiForgeryToken()*@
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
-                            <div class="col-lg-5 col-md-5" style="margin-left:25px">
-                                <div class="form-group">
-                                    <div class="input-group form-inline">
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-user"></span>
-                                        </span>
-                                        @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control required", placeholder = "Enter First Name" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5" style="margin-left:25px">
-                                <div class="form-group">
-                                    <div class="input-group form-inline">
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-user"></span>
-                                        </span>
-                                        @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control required", placeholder = "Enter Last Name" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5" style="margin-left:25px">
-                                <div class="form-group">
-                                    <div class="input-group form-inline">
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-envelope"></span>
-                                        </span>
-                                        @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control required", placeholder = "Enter Email" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="ShowError">
-                                <div class="col-lg-5 col-md-5" style="margin-left:25px">
-                                    <div class="form-group">
-                                        <div class="input-group form-inline">
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-lock"></span>
-                                            </span>
-                                            @Html.PasswordFor(m => m.User.Password, new { @class = "form-control required", placeholder = "Enter Password" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-5" style="margin-left:25px">
-                                    <div class="form-group">
-                                        <div class="input-group form-inline">
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-lock"></span>
-                                            </span>
-                                            <input type="password" required class="form-control" id="ConfirmPassword" placeholder="Confirm Password">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5" style="margin-left:25px">
-                                <div class="form-group">
-                                    <div class="input-group form-inline">
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                        @Html.EditorFor(model => model.User.DateOfBirth, new { htmlAttributes = new { @class = "form-control required",id="DOB" } })
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-5 col-md-5" style="margin-left:25px">
-                                <div class="form-group">
-                                    <div class="input-group form-inline">
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-flag"></span>
-                                        </span>
-                                        @Html.DropDownList("Country", Model.Countries, "-Select Country-", new { @class = "form-control", id = "Country", })
-                                    </div>
-                                </div>
-                            </div>
+<div class="container-fluid text-center" style="margin-top:50px;">
+    <div class="col-lg-6 col-lg-push-3 col-md-6 col-md-push-3 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h1><b>Sign Up for Student</b></h1>
+                or <br />
+                <a href="~/Teacher/SignUp">Sign Up for Teacher</a>
+                <hr />
+                <div>
+                    @using (Html.BeginForm("AddStudent", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "SignUpForm" }))
+                    {
+                        @*@Html.AntiForgeryToken()*@
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="col-lg-5 col-md-5" style="margin-left:25px">
                             <div class="form-group">
-                                <div class="col-md-4 col-lg-push-1 col-md-push-1">
-                                    <input type="submit" id="Submit" class="btn btn-success" value="Sign Up" />
+                                <div class="input-group form-inline">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    @Html.TextBoxFor(m => m.User.FirstName, new { @class = "form-control required", placeholder = "Enter First Name" })
                                 </div>
                             </div>
-                        }
-                    </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5" style="margin-left:25px">
+                            <div class="form-group">
+                                <div class="input-group form-inline">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    @Html.TextBoxFor(m => m.User.LastName, new { @class = "form-control required", placeholder = "Enter Last Name" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5" style="margin-left:25px">
+                            <div class="form-group">
+                                <div class="input-group form-inline">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </span>
+                                    @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control required", placeholder = "Enter Email" })
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ShowError">
+                            <div class="col-lg-5 col-md-5" style="margin-left:25px">
+                                <div class="form-group">
+                                    <div class="input-group form-inline">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                        </span>
+                                        @Html.PasswordFor(m => m.User.Password, new { @class = "form-control required", placeholder = "Enter Password", id = "Password" })
+                                        @Html.ValidationMessageFor(model => model.User.Password, "", new { @class = "text-danger", id = "PasswordValidate" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5" style="margin-left:25px">
+                                <div class="form-group">
+                                    <div class="input-group form-inline">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                        </span>
+                                        <input type="password" required class="form-control" id="ConfirmPassword" placeholder="Confirm Password">
+                                        @Html.ValidationMessageFor(model => model.User.Password, "", new { @class = "text-danger", id = "ConfirmPasswordValidate", })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-5" style="margin-left:25px">
+                            <div class="form-group">
+                                <div class="input-group form-inline">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    @Html.EditorFor(model => model.User.DateOfBirth, new { htmlAttributes = new { @class = "form-control required", id = "DOB" } })
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-md-5" style="margin-left:25px">
+                            <div class="form-group">
+                                <div class="input-group form-inline">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-flag"></span>
+                                    </span>
+                                    @Html.DropDownList("Country", Model.Countries, "-Select Country-", new { @class = "form-control", id = "Country", })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 col-lg-push-1 col-md-push-1">
+                                <input type="submit" id="Submit" class="btn btn-success" value="Sign Up" />
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#Submit').click(function () {
-            var pass = $('Password').val;
-            var cnfrmPass = $('ConfirmPassword').val;
-            if (pass != cnfrmPass) {
-                $('#ShowError').css("border","1px","Red");
-                $('#HideError').hide();
-                return false
+        $('#SignUpForm').validate({
+            errorClass: 'help-block animation-slideDown', // You can change the animation class for a different entrance animation - check animations page  
+        errorElement: 'div',  
+        errorPlacement: function (error, e) {  
+            e.parents('.form-group > div').append(error);  
+        },  
+        highlight: function (e) {  
+    
+            $(e).closest('.form-group').removeClass('has-success has-error').addClass('has-error');  
+            $(e).closest('.help-block').remove();  
+        },  
+        success: function (e) {  
+            e.closest('.form-group').removeClass('has-success has-error');  
+            e.closest('.help-block').remove();  
+        },  
+            rules:
+            {
+                //Password: { required: true },
+                //ConfirmPassword: { required: true }
+                'Password': {
+                    required: true,
+                },
+
+                'ConfirmPassword': {
+                    required: true,
+                    equalTo: '#Password'
+                }
+            },
+            messages:
+            {
+                'ConfirmPassword': {
+                    equalTo: 'Please enter the same password as above'
+                }
             }
         });
-    });
+    }
 </script>

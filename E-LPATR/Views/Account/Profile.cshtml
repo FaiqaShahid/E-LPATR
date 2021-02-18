@@ -11,10 +11,16 @@
                     <h1>
                         @Model.Name
                         <span class="col-lg-push-9 col-lg-1 col-md-1 col-md-push-9">
-                            <button class="btn btn-success btn-lg">@Html.ActionLink("Send Request", "SentRequestRequirements","Student", new { Id = Model.Teacher.Id },null)</button>
+                            <button class="btn btn-success btn-lg">@Html.ActionLink("Send Request", "SentRequestRequirements", "Student", new { Id = Model.Teacher.Id }, null)</button>
                         </span>
                     </h1>
-                    <img class="img-responsive" src="~/Images/math.jpg" />
+                    @if (Model.Image == null)
+                    {
+                        <img style="max-width:700px" src="~/Images/math.jpg" height="370" />
+                    }
+                    else
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Image))" style="max-width:600px" height="200" />}
                     <br />
                     <h3><b>Prices: </b></h3>
                     <div style="margin-left:100px">

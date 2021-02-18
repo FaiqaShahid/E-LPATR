@@ -16,6 +16,7 @@ namespace E_LPATR.Models
         public int ProfileStatusId { get; set; }
         public virtual ProfileStatus ProfileStatus { get; set; }
         public int SubcategoryId { get; set; }
+        public int CategoryId { get; set; }
         public virtual Subcategory Subcategory { get; set; }
         public int PackagePlanId { get; set; }
         public virtual PackagePlan PackagePlan { get; set; }

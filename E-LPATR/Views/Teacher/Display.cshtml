@@ -48,7 +48,6 @@
                 else
                 {
                     <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.Image))" style="max-width:600px" height="200" />}
-                @*<img class="img-responsive" src="~/Images/math.jpg" />*@
                 <br />
                 @if (Request.Cookies["user"]["role"] != "Teacher")
                 {

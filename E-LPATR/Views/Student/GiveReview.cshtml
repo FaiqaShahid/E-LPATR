@@ -12,30 +12,12 @@
             <h4>Teacher Communication and Would Recommend</h4>
             <br />
             <br />
-            @using (Html.BeginForm("AddReview", "Student", FormMethod.Post))
-            {
-                @Html.HiddenFor(m => m.RequestId, new { @value=Model.Request.Id})
-                <div class="form-group">
-                    <fieldset class="rating" style="padding-left:100px">
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star5", name = "rating", value = "5" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star4half", name = "rating", value = "4.5" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star4", name = "rating", value = "4" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star3half", name = "rating", value = "3.5" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star3", name = "rating", value = "3" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star2half", name = "rating", value = "2.5" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star2", name = "rating", value = "2" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star1half", name = "rating", value = "1.5" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "star1", name = "rating", value = "1" })
-                        @Html.RadioButtonFor(m=>m.Stars,new { id = "starhalf", name = "rating", value = "0.5" })
-                    </fieldset>
-                    <label class="control-label" for="Describtion">Tell us about teacher</label>
-                    <br/><br/>
-                    @Html.TextAreaFor(m => m.Description, new { @class="form-comtrol required", rows=5,placeholder="Tell Us About Teacher"})
-                </div>
-            }
-            @*<form role="form" method="post" action="~/Student/AddReview">
+            <form role="form" method="post" action="~/Student/AddReview">
                 <div class="form-group">
                     <label class="control-label" for="Describtion">Tell us about teacher</label>
+                    <br/>
+                    <br/>
+                    <input type="hidden" name="Id" id="Id" value=@Model.Request.Id />
                     <fieldset class="rating" style="padding-left:100px">
                         <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5" title="Awesome - 5 stars"></label>
                         <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
@@ -50,10 +32,11 @@
                     </fieldset>
                     <br />
                     <br />
-                    <textarea class="form-control" rows="5" id="Describtion" required placeholder="Describtion" style="max-width:1200px"></textarea>
+                    <textarea class="form-control" rows="5" id="cccc" required placeholder="Describtion" name="Describtion" style="max-width:1200px"></textarea>
                 </div>
-                <a href="~/Student/Home" class="btn btn-success">Submit</a>
-            </form>*@
+                <button class="btn btn-success">Send</button>
+                @*<a href="~/Student/Home" class="btn btn-success">Submit</a>*@
+            </form>
         </div>
     </div>
 </div>

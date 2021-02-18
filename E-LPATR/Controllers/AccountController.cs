@@ -144,7 +144,7 @@ namespace E_LPATR.Controllers
         public ActionResult SignUp()
         {
             ViewSignUp v = new ViewSignUp();
-            v.Countries = new LearningHandler().GetCountries().ToSelectListItems();
+           // v.Countries = new LearningHandler().GetCountries().ToSelectListItems();
             return View(v);
         }
         [HttpPost]
@@ -356,6 +356,11 @@ namespace E_LPATR.Controllers
                 cookie.Values.Remove("FirstName");
                 cookie.Values.Add("FirstName", user.FirstName);
                 Response.AppendCookie(cookie);
+                if(user.Active == true)
+                {
+                    Response.Cookies["user"].Expires = DateTime.Now;
+                    return RedirectToAction("Home", "Account");
+                }
                 return RedirectToAction("Home");
             }
             return RedirectToAction("Login", "Account");

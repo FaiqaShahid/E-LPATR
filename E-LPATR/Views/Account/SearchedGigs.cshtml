@@ -13,20 +13,19 @@
                         @if (item.Image == null)
                         {
                                 <img style="max-width:300px" src="~/Images/math.jpg" height="200" alt=@item.Name />
-                                <h5>@item.Name</h5>
+                                <h4><b>@item.Name</b></h4>
 
                         }
                         else
                         {
                                 <img src="@String.Format("data:image/png;base64,{0}",   Convert.ToBase64String(item.Image))" alt=@item.Name style="max-width:300px" height="200" />
-                                <h5>@item.Name</h5>
+                                <h5><b>@item.Name</b></h5>
                         }
-                        @*<a href="~/Teacher/Home"><img src="~/Images/chemistry.jpg" alt="Alternate Text" class="img-responsive" /></a>*@
-                        <h3>@item.Name</h3>
-                        Per Hour: @item.PackagePlan.CostPerHour
-                        Per Day: @item.PackagePlan.CostPerDay
-                        Per 3 Days: @item.PackagePlan.CostPerHour
-                        <div class="col-lg-push-8 col-lg-8">
+                        <b>Per Hour:</b> @item.PackagePlan.CostPerHour
+                        <b> Per Day:</b> @item.PackagePlan.CostPerDay
+                        <b> Per 3 Days:</b> @item.PackagePlan.CostPerHour
+                        <br />
+                        <div class="col-lg-push-4 col-lg-8">
                             <button class="btn btn-success">
                                 @Html.ActionLink("View", "Profile", new { id = item.Id })
                             </button>

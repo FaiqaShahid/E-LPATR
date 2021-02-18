@@ -4,38 +4,6 @@
     ViewBag.Title = "Request Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="modal fade" id="DelieveryModal" tabindex="-1" role="dialog" aria-labelledby="DelieveryModal-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="DelieveryModal-label">Add Delievery</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form">
-                    <div class="form-group">
-                        <label class="control-label" for="file">Add File</label>
-                        <input type="file" class="form-control" id="file" placeholder="Add File">
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="file">Add File</label>
-                        <textarea rows="10" style="max-width:1000px"></textarea>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" required> File have no copyright issue
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-default">Deliever</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container" style="padding-left:100px;padding-right:100px;margin-top:50px">
     <div class="panel panel-default">
@@ -44,8 +12,11 @@
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                     <span style="color:coral;font-size:30px"><b>Request number</b></span>
                     <span style="font-size:30px; padding-left:30px">@Model.Request.Id </span>
-                    <button class="btn btn-success">@Html.ActionLink("Accept", "AcceptRequest", new { Id = Model.Request.Id })</button>
-                    <button class="btn btn-success">@Html.ActionLink("Reject", "RejectRequest", new { Id = Model.Request.Id })</button>
+                    @if (Model.Request.RequestStatus.Name != "Pending")
+                    {
+                        <button class="btn btn-success">@Html.ActionLink("Accept", "AcceptRequest", new { Id = Model.Request.Id })</button>
+                        <button class="btn btn-success">@Html.ActionLink("Reject", "RejectRequest", new { Id = Model.Request.Id })</button>
+                    }
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <span style="color:darkgreen;font-size:30px;text-align:right">Rs. @Model.Request.Cost</span>
@@ -56,100 +27,99 @@
             <hr />
             <h2>@Model.Request.Describtion</h2>
             <hr />
-            @if (Model.RequestMessage.Any())
-            {
-                foreach (var item in Model.RequestMessage)
+            <div id="RequestMessage">
+                @if (Model.RequestMessage.Any())
                 {
-                    if (item.Sender.Id == Convert.ToInt32(Request.Cookies["user"]["Id"]))
+                    foreach (var item in Model.RequestMessage)
                     {
-                        <div style="text-align:right">
-                            <p> <span style="background-color:gainsboro;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-left-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                            <p>@item.DateTime</p>
-                        </div>
-                    }
-                    else
-                    {
-                        <div style="text-align:left">
-                            <p> <span style="background-color:lightgreen;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-right-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
-                            @*<h5 style="background-color:lightgreen;border-top-left-radius:30px;border-top-right-radius:30px;border-bottom-right-radius:30px">@item.Message</h5>*@
-                            <p>@item.DateTime</p>
-                        </div>
+                        if (item.Sender.Id == Convert.ToInt32(Request.Cookies["user"]["Id"]))
+                        {
+                            <div style="text-align:right">
+                                <p> <span style="background-color:gainsboro;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-left-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message @item.Attachment &nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                                <p>@item.DateTime</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="text-align:left">
+                                <p> <span style="background-color:lightgreen;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-right-radius:10px;font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;@item.Message @item.Attachment&nbsp;&nbsp;&nbsp;&nbsp;</span></p>
+                                <p>@item.DateTime</p>
+                            </div>
+                        }
                     }
                 }
-            }
-            @using (Html.BeginForm("AddMessage", "Teacher", FormMethod.Post))
-            {
-                @Html.HiddenFor(m => m.Request.Student.Id, new { @value = Model.Request.Teacher.Id })
-                @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
-                @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
-                <div class="text-center">
-                    <button class="btn btn-success btn-lg" type="submit">Send</button>
-                </div>
-            }
-            @*@using (Html.BeginForm("AddMessage", "Teacher", FormMethod.Post))
-            {
-                @Html.HiddenFor(m => m.Request.Teacher.Id, new { @value = Model.Request.Teacher.Id })
-                @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
-                @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
-                <div class="text-center">
-                    <button class="btn btn-success btn-lg" type="submit">Send</button>
-                </div>
-            }*@
-            <div class="text-center">
-                <a href="#DelieverNotes" id="DelieverNotes" class="btn btn-lg btn-success">Deliver Notes</a>
             </div>
+            @if (Model.Request.RequestStatus.Name != "Pending")
+            {
+                using (Html.BeginForm("AddMessage", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.HiddenFor(m => m.Request.Student.Id, new { @value = Model.Request.Teacher.Id })
+                    @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
+                    @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control textArea required", rows = "5", cols = "60", @placeholder = "Enter Message" })
+                    <br />
+                    <div class="form-group form-inline">
+                        <label class="control-label" for="file"> Add Attachment</label>
+                        <input type="file" name="file" id="file" class="form-control" />
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-success btn-lg" type="submit">Send</button>
+                    </div>
+                }
+            }
+            else
+            {
+                <button class="btn btn-success">@Html.ActionLink("Accept", "ActiveRequest", new { Id = Model.Request.Id })</button>
+                <button class="btn btn-danger">@Html.ActionLink("Reject", "RemoveRequest", new { Id = Model.Request.Id })</button>
+            }
         </div>
     </div>
 </div>
 
-@*<div class="container" style="padding-left:100px;padding-right:100px;margin-top:50px">
-    <div class="panel panel-default">
-        <div style="margin:20px">
-            <ol class="breadcrumb">
-                <li><a href="~/Teacher/Home">Home</a></li>
-                <li class="active">Request</li>
-            </ol>
-            <div class="row" style="margin:20px">
-                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                    <span style="color:coral;font-size:30px"><b>Order number:</b></span>
-                    <span style="font-size:30px; padding-left:30px">F38765 </span>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                    <span style="color:darkgreen;font-size:30px;text-align:right">$200</span>
-                </div>
-            </div>
-            <hr />
-            <h3><b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b></h3>
-            <hr />
-            <h2>Description</h2>
-            <ul>
-                <li>Lorem ipsum</li>
-                <li>Lorem ipsum</li>
-                <li>Lorem ipsum</li>
-                <li>Lorem ipsum</li>
-                <li>Lorem ipsum</li>
-                <li>Lorem ipsum</li>
-                <li>Lorem ipsum</li>
-                <li>Lorem ipsum</li>
-            </ul>
-            <hr />
-            <h1>Remaining Time:</h1>
-            <h1 style="color:red; text-align:center"><b>02:06:37:25</b></h1>
-            <hr />
-            <div class="text-center">
-                <a href="#DelieverNotes" id="DelieverNotes" class="btn btn-lg btn-success">Deliver Notes</a>
-            </div>
-        </div>
-    </div>
-</div>*@
+@section scripts{
 
-<script type="text/javascript">
-    $('#DelieverNotes').click(
-        function (e) {
-            e.preventDefault();
-            $('#DelieveryModal').modal('show');
+    <script>
+        $(document).ready(function () {
+            new get_requestMessage();
+        });
+
+        function get_requestMessage() {
+            var requestMessage = $.ajax({//Ajax
+                type: "POST",
+                url: "@Url.Content("~/Teacher/GetRequestMessages/")" + RequestId,
+                async: false
+            }).success(function () {
+                setTimeout(function () { get_requestMessage(); }, 5000);
+            }).responseText;//end of ajax
+
+            $('div.RequestMessage').html(requestMessage).delay(5000).queue(function () {
+                $.each(res, function (key, value) {
+                    alert(value.Id + ": " + value.Message);
+                });
+                //alert('requestMessage');
+                new get_requestMessage();
+            });
         }
-    );
-</script>
+        //$("#CategoryId").change(function () {
+        //    var categoryId = $(this).val();
+        //    debugger;
 
+         @*var RequestId = @Model.Request.Id;
+            $.ajax({
+                url: "@Url.Content("~/Teacher/GetRequestMessages/")" + RequestId,
+                type: 'GET',// added data type
+                success: function (res) {
+                    debugger;
+                    $("#SubCategoryId").html("");
+                    $.each(res, function (key, value) {
+                        $("#SubCategoryId").append("<option value='" + value.Id + "'>" + value.Name + "</option>")
+                    });
+                },
+                error: function (e) {
+                    debugger;
+                    alert(e.responseJSON);
+                }
+            });*@
+        //});
+    </script>
 
+}

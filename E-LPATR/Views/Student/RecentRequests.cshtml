@@ -171,7 +171,7 @@
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            if (item.RequestStatus.Name == "Completed")
+                            if ((item.RequestStatus.Name == "Completed") || (item.RequestStatus.Id == 6))
                             {
                                 count++;
                             }
@@ -180,7 +180,7 @@
                         {
                             foreach (var item in Model)
                             {
-                                if (item.RequestStatus.Name == "Completed")
+                                if ((item.RequestStatus.Name == "Completed")||(item.RequestStatus.Id== 6))
                                 {
                                     <div class="panel panel-default">
                                         <div class="panel-body">
@@ -189,6 +189,10 @@
                                             <div class="col-lg-8 col-md-8 col-sm-6 col-xs-6">
                                                 <h4><b>Rs. @item.Cost</b></h4>
                                             </div>
+                                            @if (item.RequestStatus.Id == 6)
+                                            {
+                                                <button class="btn btn-info">@Html.ActionLink("Give Review", "GiveReview", new { Id = item.Id })</button>
+                                            }
                                         </div>
                                     </div>
                                 }

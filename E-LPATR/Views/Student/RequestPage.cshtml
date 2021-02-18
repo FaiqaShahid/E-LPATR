@@ -11,7 +11,7 @@
             <div class="row" style="margin:20px">
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                     <span style="color:coral;font-size:30px"><b>Request number:</b></span>
-                    
+
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <span style="color:darkgreen;font-size:30px;text-align:right">Rs. @Model.Request.Cost</span>
@@ -48,7 +48,11 @@
                 {
                     @Html.HiddenFor(m => m.Request.Teacher.Id, new { @value = Model.Request.Teacher.Id })
                     @Html.HiddenFor(m => m.Request.Id, new { @value = Model.Request.Id })
-                    @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control", @placeholder = "Enter Message" })
+                    @Html.TextAreaFor(m => m.AddMessage.Message, new { @class = "form-control textArea required", placeholder = "Enter Message", cols = 50, rows = 5 })
+                    <div class="form-group">
+                        <label class="control-label" for="file"> Add Attachment</label>
+                        <input type="file" name="file" id="file" class="form-control" />
+                    </div>
                     <div class="text-center">
                         <button class="btn btn-success btn-lg" type="submit">Send</button>
                     </div>

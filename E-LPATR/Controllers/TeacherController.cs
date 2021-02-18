@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using E_LPATR.Models;
@@ -83,8 +84,8 @@ namespace E_LPATR.Controllers
             if (Request.Cookies["user"] != null)
             {
                 Request request = new LearningHandler().GetRequest(Id);
-                request.RequestStatusId = 4;
-                request.RequestStatus = new LearningHandler().GetRequestStatus(4);
+                request.RequestStatusId = 6;
+                request.RequestStatus = new LearningHandler().GetRequestStatus(6);
                 new LearningHandler().UpdateRequest(request);
                 Earning earning = new Earning();
                 earning.RequestId =Id;
@@ -99,7 +100,7 @@ namespace E_LPATR.Controllers
                 }
                 Session["TotalEarnings"] = cost;
                 Session["UpdateRequestId"] = request.Id;
-                return RedirectToAction("GiveReview");
+                return RedirectToAction("Dashboard");
             }
             return RedirectToAction("Login", "Account");
         }
@@ -113,6 +114,14 @@ namespace E_LPATR.Controllers
                 new LearningHandler().UpdateRequest(request);
                 Session["UpdateRequestId"] = request.Id;
                 return RedirectToAction("Issue");
+            }
+            return RedirectToAction("Login", "Account");
+        }
+        public ActionResult Issue()
+        {
+            if (Request.Cookies["user"] != null)
+            {
+                return View();
             }
             return RedirectToAction("Login", "Account");
         }
@@ -151,6 +160,8 @@ namespace E_LPATR.Controllers
                 ViewCreateProfile vcp = new ViewCreateProfile();
                 vcp.Profile = new LearnContext().Profiles.Find(Id);
                 vcp.Profile.Teacher = new LearningHandler().GetUser(Convert.ToInt32(Request.Cookies["user"]["Id"]));
+                vcp.Subcategory = new LearningHandler().GetSubcategories().ToSelectListItems();
+                vcp.Category = new LearningHandler().GetCategories().ToSelectListItems();
                 return View(vcp);
             }
             else
@@ -160,7 +171,7 @@ namespace E_LPATR.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( ViewCreateProfile viewCreate, HttpPostedFileBase file)
+        public ActionResult Edit( ViewCreateProfile viewCreate,FormCollection collection, HttpPostedFileBase file)
         {
             if (Request.Cookies["user"] != null)
             {
@@ -170,6 +181,8 @@ namespace E_LPATR.Controllers
                     profile.ProfileStatusId = 1;
                     profile.Teacher = new LearningHandler().GetUser(Convert.ToInt32(Request.Cookies["user"]["Id"])) ;
                     profile.PackagePlan = viewCreate.Profile.PackagePlan;
+                    profile.CategoryId = Convert.ToInt32(collection["CategoryId"]);
+                    profile.SubcategoryId = Convert.ToInt32(collection["SubCategoryId"]);
                     if (file != null)
                     {
                         using (MemoryStream ms = new MemoryStream())
@@ -205,13 +218,16 @@ namespace E_LPATR.Controllers
             }
         }
         [HttpPost]
-        public ActionResult AddProfile(Profile profile, HttpPostedFileBase file)
+        public ActionResult AddProfile(ViewCreateProfile viewCreateProfile, FormCollection collection, HttpPostedFileBase file)
         {
             int Id=Int32.Parse(Request.Cookies["user"]["Id"]);
+            Profile profile = new Profile();
             User teacher =new LearningHandler().GetUser(Id);
+            profile = viewCreateProfile.Profile;
             profile.Teacher = teacher;
             profile.ProfileStatus = new LearningHandler().GetProfileStatus(1);
-            profile.SubcategoryId = 1;
+            profile.CategoryId = Convert.ToInt32(collection["CategoryId"]);
+            profile.SubcategoryId = Convert.ToInt32(collection["SubCategoryId"]);
             if (file != null)
             {
                 using (MemoryStream ms = new MemoryStream())
@@ -233,7 +249,7 @@ namespace E_LPATR.Controllers
                 request = new LearningHandler().GetRequest(Convert.ToInt32(Session["UpdateRequestId"]));
                 viewRequest.Request = request;
                 viewRequest.RequestMessage = new LearningHandler().GetRequestMessage(Convert.ToInt32(Session["UpdateRequestId"]));
-                if (viewRequest.Request.RequestStatus.Name == "Active")
+                if (viewRequest.Request.RequestStatus.Name == "Active" || viewRequest.Request.RequestStatus.Name == "Pending")
                 {
                     return View(viewRequest);
                 }
@@ -247,7 +263,7 @@ namespace E_LPATR.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
-        public ActionResult AddMessage(ViewRequest viewRequest)
+        public ActionResult AddMessage(ViewRequest viewRequest, HttpPostedFileBase file)
         {
             RequestMessage requestMessage = new RequestMessage();
             requestMessage = viewRequest.AddMessage;
@@ -255,9 +271,38 @@ namespace E_LPATR.Controllers
             requestMessage.Request = new Request { Id = viewRequest.Request.Id };
             requestMessage.Reciever = new User { Id = viewRequest.Request.Student.Id };
             requestMessage.Sender = new User { Id = Convert.ToInt32(Request.Cookies["user"]["Id"]) };
+            if (file != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    file.InputStream.CopyTo(ms);
+                    byte[] array = ms.GetBuffer();
+                    requestMessage.Attachment = array;
+                }
+            }
             new LearningHandler().AddMessage(requestMessage);
             Session["UpdateRequestId"] = viewRequest.Request.Id;
             return RedirectToAction("RequestPage");
+        }
+        public JsonResult GetSubCategoriesByCategoryId(int Id)
+        {
+            var list = new LearningHandler().GetSubCategories(Id);
+            List<SubCategoryInfo> jsonlist = new List<SubCategoryInfo>();
+            foreach (var item in list)
+            {
+                jsonlist.Add(new SubCategoryInfo { Id = item.Id, Name = item.Name });
+            }
+            return Json(jsonlist,JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetRequestMessages(int Id)
+        {
+            var list = new LearningHandler().GetRequestMessageList(Id);
+            List<RequestMessageInfo> jsonlist = new List<RequestMessageInfo>();
+            foreach (var item in list)
+            {
+                jsonlist.Add(new RequestMessageInfo { Id = item.Id, Message = item.Message,Attachment=item.Attachment,DateTime=item.DateTime });
+            }
+            return Json(jsonlist,JsonRequestBehavior.AllowGet);
         }
         public ActionResult Requests()
         {

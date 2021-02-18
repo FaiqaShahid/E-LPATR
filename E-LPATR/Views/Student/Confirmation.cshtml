@@ -4,10 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="panel panel-success col-lg-6 col-md-6 col-sm-8 col-xs-12 col-lg-push-4 col-md-push-4">
+<div class="panel panel-success col-lg-6 col-md-6 col-sm-8 col-xs-12 col-lg-push-4 col-md-push-4" >
     <div class="panel-heading text-center">
         Your Request has been send. Your Request Id is #Request @Session["RequestId"] . Please wait for your Teacher's Response.
         <span class="glyphicon glyphicon-arrow-left"></span>
-        @Html.ActionLink("Go to the Request Page.", "RequestPage", new {Id=Model.Id})
+        @Html.ActionLink("Go to the Request Page.", "RequestPage", new {Id= Session["RequestId"] })
     </div>
 </div>

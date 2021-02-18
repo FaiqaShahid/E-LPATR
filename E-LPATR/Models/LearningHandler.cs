@@ -100,8 +100,8 @@ namespace E_LPATR.Models
                 return lc.Profiles
                     .Include(m => m.PackagePlan)
                     .Include(m => m.ProfileStatus)
-                    //.Include(m => m.Category)
-                    //.Include(m => m.Category.Subcategory)
+                    .Include(m => m.Subcategory)
+                    .Include(m => m.Subcategory.Category)
                     .Include(m => m.Teacher)
                     .Include(m => m.Teacher.Country)
                     .Include(m => m.Teacher.Role)
@@ -132,8 +132,8 @@ namespace E_LPATR.Models
                 return lc.Profiles.Where(m => m.Teacher.Id == id)
                     .Include(m=>m.PackagePlan)
                     .Include(m=>m.ProfileStatus)
-                    //.Include(m=>m.Category.Subcategory)
-                   // .Include(m=>m.Category)
+                    .Include(m=>m.Subcategory)
+                    .Include(m=>m.Subcategory.Category)
                     .Include(m => m.Teacher)
                     .Include(m => m.Teacher.Country)
                     .Include(m=>m.Teacher.Role)
@@ -149,6 +149,16 @@ namespace E_LPATR.Models
                 return (from rm in lc.RequestMessages
                         .Include(m => m.Reciever)
                         .Include(m => m.Sender)
+                        where rm.Request.Id == Id
+                        select rm)
+                        .ToList();
+            }
+        }
+        public List<RequestMessage> GetRequestMessageList(int Id)
+        {
+            using (LearnContext lc=new LearnContext())
+            {
+                return (from rm in lc.RequestMessages
                         where rm.Request.Id == Id
                         select rm)
                         .ToList();
@@ -282,8 +292,9 @@ namespace E_LPATR.Models
                     profile1.PackagePlan.CostPerDay = profile.PackagePlan.CostPerDay;
                     profile1.PackagePlan.CostPerHour = profile.PackagePlan.CostPerHour;
                     profile1.Name = profile.Name;
+                    profile1.CategoryId = profile.CategoryId;
+                    profile1.SubcategoryId = profile.SubcategoryId;
                     lc.Entry(profile1.PackagePlan).State = EntityState.Modified;
-                    //lc.Entry(profile.Subcategory).State = EntityState.Modified;
                     lc.Entry(profile1).State = EntityState.Modified;
                     lc.SaveChanges();
                 }
@@ -436,6 +447,16 @@ namespace E_LPATR.Models
                         ).ToList();
             }
         }
+        public List<Subcategory> GetSubCategories(int id)
+        {
+            using (LearnContext lc = new LearnContext())
+            {
+                return (from c in lc.Subcategories
+                        where c.Category.Id==id
+                        select c
+                        ).ToList();
+            }
+        }
         public List<ProfileStatus> GetProfileStatuses()
         {
             using (LearnContext lc = new LearnContext())
@@ -534,11 +555,11 @@ namespace E_LPATR.Models
                         ).ToList();
             }
         }
-        public AccountStatus GetSubcategory(int Id)
+        public Subcategory GetSubcategory(int Id)
         {
             using (LearnContext lc = new LearnContext())
             {
-                return (from s in lc.AccountStatuses
+                return (from s in lc.Subcategories
                         where s.Id == Id
                         select s).FirstOrDefault();
             }
@@ -612,7 +633,7 @@ namespace E_LPATR.Models
         {
             using (LearnContext lc=new LearnContext())
             {
-                lc.Entry(review.Request).State = EntityState.Unchanged;
+                //lc.Entry(review.Request).State = EntityState.Unchanged;
                 lc.Reviews.Add(review);
                 lc.SaveChanges();
             }
@@ -622,9 +643,18 @@ namespace E_LPATR.Models
             using (LearnContext lc=new LearnContext())
             {
                 User u = lc.Users.Find(user.Id);
-                u.FirstName = user.FirstName;
-                u.LastName = user.LastName;
-                u.Password = user.Password;
+                if (user.Password != null)
+                {
+                    u.Password = user.Password;
+                }
+                if (user.FirstName != null)
+                {
+                    u.FirstName = user.FirstName;
+                }
+                if (user.FirstName != null)
+                {
+                    u.LastName = user.LastName;
+                }
                 u.AccountStatusID = user.AccountStatusID;
                 lc.SaveChanges();
             }
